@@ -21,16 +21,26 @@ Available functions:
 -------------------
 |Function | Package | Description |
 |:--------|:------------|:-----------|
-||||
-||||
-||||
+|chebi.candidates|||
+|chebi.formula|||
+|chebi.id|||
+|compartments|||
+|is.chebi|||
+|is.validsyntax|||
+|metabolites|||
+|orphan.products|||
+|orphan.reactant|||
+|products|||
+|reactants|||
+|toChEBI|||
+|unbalances|||
 
 Available datasets
 -------------------
 | Code        | Description |
 |:----------- |:------------|
-|||
-|||
+|chebi||
+|glugln||
 
 Citation
 --------
