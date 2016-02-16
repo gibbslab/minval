@@ -21,26 +21,26 @@ Available functions:
 -------------------
 |Function | Description |
 |:--------|:------------|
-|chebi.candidates||
-|chebi.formula||
-|chebi.id||
-|compartments||
-|is.chebi||
-|is.validsyntax||
-|metabolites||
-|orphan.products||
-|orphan.reactant||
-|products||
-|reactants||
-|toChEBI||
-|unbalances||
+|chebi.candidates|Returns the possible ChEBI names based on compound synonyms|
+|chebi.formula|Returns the molecular formula associated to a ChEBI compound name|
+|chebi.id|Returns the ChEBI id asociated to a compound name|
+|compartments|Identifies the compartments for a set of metabolites|
+|is.chebi|Evaluates if a compound name is a ChEBI name|
+|is.validsyntax|Evaluates if a stoichiometric reaction has a valid syntax|
+|metabolites|dentifies the list of unique metabolites for a set of stoichiometric reactions|
+|orphan.products|Identifies the orphan products for a set of stoichometric reactions|
+|orphan.reactant|Identifies the orphan reactants for a set of stoichometric reactions|
+|products|Identifies the products for a stoichometric reaction|
+|reactants|Identifies the reactants for a stoichometric reaction|
+|toChEBI|Translates compounds names to ChEBI ids or molecular formulas in a stoichiometric reaction|
+|unbalances|Evaluates if a stoichiometric reaction is mass-balanced|
 
 Available datasets
 -------------------
 | Code        | Description |
 |:----------- |:------------|
-|chebi||
-|glugln||
+|chebi|Public data from ChEBI database release 136|
+|glugln|Stoichiometric reactions from the reconstructon of the glutamate/glutamine cycle|
 
 Citation
 --------
