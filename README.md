@@ -27,7 +27,7 @@ Available functions:
 |compartments|Identifies the compartments for a set of metabolites|
 |is.chebi|Evaluates if a compound name is a ChEBI name|
 |is.validsyntax|Evaluates if a stoichiometric reaction has a valid syntax|
-|metabolites|dentifies the list of unique metabolites for a set of stoichiometric reactions|
+|metabolites|Identifies the list of unique metabolites for a set of stoichiometric reactions|
 |orphan.products|Identifies the orphan products for a set of stoichometric reactions|
 |orphan.reactant|Identifies the orphan reactants for a set of stoichometric reactions|
 |products|Identifies the products for a stoichometric reaction|
