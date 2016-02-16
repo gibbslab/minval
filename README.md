@@ -1,6 +1,6 @@
 minval
 ======
-A package to evaluate the mass balance and extract all reactants, products, orphan metabolites, metabolite names and compartments. Also are included some options to check the compound names associated to ChEBI database.
+A package to evaluate the mass balance and extract all reactants, products, orphan metabolites, metabolite names and compartments of stoichiometric reactions. Also are included some options to check the compound names associated to ChEBI database.
 
 Install:
 --------
