@@ -6,7 +6,7 @@ Install:
 --------
 This package required R version 2.10 or higher. If you are using an older version of R you will be prompted to upgrade when you try to install the package.
 
-The official release of Peptides is available on CRAN. To install from CRAN, use the following command:
+The official release of minval is available on CRAN. To install from CRAN, use the following command:
 ```
 install.packages("minval", dependencies=TRUE)
 ```
@@ -44,5 +44,5 @@ Available datasets
 
 Citation
 --------
-
+Daniel Osorio, Janneth Gonzalez and Andres Pinzon-Velasco (2016). **minval: MINimal VALidation for Stoichiometric Reactions**. R package version 0.1. https://CRAN.R-project.org/package=minval
 
