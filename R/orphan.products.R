@@ -13,10 +13,12 @@ orphan.products <- function(reactionList, byCompartment=FALSE){
     # Identifies orphan products
     orphan <- product[!product%in%reactant]
     # Return orphans by compartment
-    sapply(compartments(orphan), function(comp){orphan[grep(comp,orphan)]}, simplify = FALSE)
+    sapply(compartments(orphan), function(comp){orphan[grep(paste("[[:punct:]]",comp,"[[:punct:]]",sep = ""),orphan)]}, simplify = FALSE)
   } else {
     # Return all products that are not consumed in any reaction. Possible dead ends.
     product[!product%in%reactant]
   }
 }
+
+
 

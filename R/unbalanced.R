@@ -6,7 +6,7 @@
 # Returns the unbalanced reactions from a set of stoichiometric reactions
 unbalanced <- function(reaction, show.formulas = FALSE) {
   is.balanced <- function(reaction) {
-    if (length(grep("=", sub("(.*) <=> (.*)", "\\2", reaction))) > 0) {
+    if (grepl("=", sub("(.*) <=> (.*)", "\\2", reaction))) {
       reactant <-
         strsplit(sub("(.*) => (.*)", "\\1", reaction), " + ", fixed = TRUE)[[1]]
       product <-
