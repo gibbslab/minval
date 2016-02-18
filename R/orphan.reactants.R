@@ -13,7 +13,7 @@ orphan.reactants <- function(reactionList, byCompartment=FALSE){
     # Identifies all reactants never produced in any reaction.
     orphan <- reactant[!reactant%in%product]
     # Return orphans by compartment
-    sapply(compartments(orphan), function(comp){orphan[grep(comp,orphan)]}, simplify = FALSE)
+    sapply(compartments(orphan), function(comp){orphan[grep(paste("[[:punct:]]",comp,"[[:punct:]]",sep = ""),orphan)]}, simplify = FALSE)
   } else {
     # Return all reactants never produced in any reaction.
     # Possible candidates to be introduced into the system by exchange reactions or by adding more internal reactions.
