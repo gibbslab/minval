@@ -7,8 +7,8 @@ is.validsyntax <- function(reaction){
   if (grepl("([[:digit:]][[:blank:]][[:digit:]][[:blank:]])+",reaction) ||
       grepl("[[:blank:]](<?)-(>?)[[:blank:]]",reaction) ||
       grepl("[[:alnum:]]\\+[[:alnum:]]", reaction) ||
-      (!grepl("[[:blank:]]",reaction) ||
-      grepl("[[:blank:]]\\-[[:alnum:]]",reaction))){
+      (!grepl("[[:blank:]]",reaction)) ||
+      grepl("[[:blank:]]\\-[[:alnum:]]",reaction)){
     return(FALSE)
   } else{
     return(TRUE)
