@@ -8,8 +8,8 @@ is.chebi <- function(metabolite){
   # Load ChEBI data
   data("chebi", envir = environment())
   chebi <- chebi
-  chebi.match<-chebi[match(tolower(metabolite),tolower(chebi$name)),]
-  if (is.na(chebi.match[1])){
+  # Return
+  if (is.na(table(chebi$name %in% tolower(metabolite))[2])){
     return(FALSE)
   } else{
     return(TRUE)
