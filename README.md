@@ -14,7 +14,7 @@ If you have devtools installed, install the latest stable version this package d
 
 ```
 library(devtools)
-install_github("minval", "dosorio")
+install_github("dosorio/minval")
 library(minval)
 ```
 Available functions:
