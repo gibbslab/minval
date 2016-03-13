@@ -19,7 +19,7 @@ metabolites <- function(reactionList , woCompartment = FALSE){
   }
   metabolites <- as.vector(unique(unlist(sapply(reactionList, mets))))
   if (woCompartment == TRUE){
-    return(.metname(metabolites))
+    return(unique(.metname(metabolites)))
   } else{
     return(metabolites)
   }

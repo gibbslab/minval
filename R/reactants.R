@@ -6,7 +6,7 @@
 reactants <- function(reaction){
   # Identifies if stoichiometric reaction is not reversible. In this case:
   if (grepl("<=>",reaction)){
-    reactants <- unlist(strsplit(reaction,"<=>"))[1]
+    reactants <- unlist(strsplit(reaction,"<=>"))
   }
   # In contrary case:
   else {

@@ -8,18 +8,18 @@ unbalanced <- function(reaction, show.formulas = FALSE) {
   is.unbalanced <- function(mfreaction){
     if (grepl("<=>",mfreaction)){
       rxn <- unlist(strsplit(mfreaction,"<=>"))
+      rxn <- gsub("^[[:blank:]]","",rxn)
+      rxn <- gsub("[[:blank:]]$","",rxn)
     } else {
       rxn <- unlist(strsplit(mfreaction,"=>"))
+      rxn <- gsub("^[[:blank:]]","",rxn)
+      rxn <- gsub("[[:blank:]]$","",rxn)
     }
     reactant <- rxn[1]
     product <- rxn[2]
     reactant <- unlist(strsplit(reactant,"[[:blank:]]\\+[[:blank:]]"))
-    reactant <- gsub("^[[:blank:]]","",reactant)
-    reactant <- gsub("[[:blank:]]$","",reactant)
     reactant <- .atoms(reactant)
     product <- unlist(strsplit(product,"[[:blank:]]\\+[[:blank:]]"))
-    product <- gsub("^[[:blank:]]","",product)
-    product <- gsub("[[:blank:]]$","",product)
     product <- .atoms(product)
     return(!identical(.formula2matrix(reactant), .formula2matrix(product)))
   }
