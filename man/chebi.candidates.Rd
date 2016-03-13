@@ -25,7 +25,7 @@ chebi.candidates("veg")
 data("glugln")
 
 # Extracting metabolites names
-mets<-metabolites(glugln[1:3],woCompartment = TRUE)
+mets<-metabolites(glugln[1:2],woCompartment = TRUE)
 
 # Searching for candidates
 sapply(mets,chebi.candidates)
@@ -47,14 +47,6 @@ sapply(mets,chebi.candidates)
 #  [5] ...
 #[165] "spectinomycin hydrochloride hydrate"
 
-# $ATP
-# [1] "ATP"
-# [2] "dATP"
-# [3] "5-phosphoribosyl-ATP"
-# [4] "ATP synthase inhibitor"
-# [5] "ATP-sugar"
-#[65] "EC 4.6.1.1 (adenylate cyclase) inhibitor"
-
 #$`alpha-D-Glucose`
 # [1] "dTDP-3-amino-3,4,6-trideoxy-alpha-D-glucose"
 # [2] "dTDP-alpha-D-glucose"
@@ -62,14 +54,6 @@ sapply(mets,chebi.candidates)
 # [4] "dTDP-4-dehydro-6-deoxy-alpha-D-glucose"
 # [5] "alpha-D-glucose 6-phosphate"
 #[79] "lipid A-F"
-
-#$ADP
-#  [1] "ADP alpha-D-glucoside"
-#  [2] "N(omega)-(ADP-D-ribosyl)-L-arginine"
-#  [3] "ADP-L-glycero-D-manno-heptose"
-#  [4] "dADP"
-#  [5] ...
-#[123] "EC 6.4.1.1 (pyruvate carboxylase) inhibitor"
 
 #$`phosphate(3-)`
 #character(0)

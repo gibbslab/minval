@@ -19,26 +19,26 @@ data(glugln)
 # Extracting the metabolites from a set of reactions
 metabolites(glugln)
 # ...
-# [272] "Quinone[x]"
-# [273] "Quinone[c_n]"
-# [274] "Quinone[b]"
-# [275] "Succinate[x]"
-# [276] "Succinate[b]"
+# [201] "oxygen atom[m_a]"                                                                    
+# [202] "Ferrocytochrome c2[m_a]"                                                             
+# [203] "Ferricytochrome c2[m_a]"                                                             
+# [204] "diphosphate(4-)[m_a]"                                                                
+# [205] "(R)-Lactate[m_a]"  
 
 # Extracting metabolites from a unique reaction
 reaction <- glugln[2]
 metabolites(reaction)
-# [1] "alpha-D-Glucose 6-phosphate[r_n]" "H2O[r_n]" "alpha-D-Glucose[r_n]" "Orthophosphate[r_n]"
+# [1] "alpha-D-Glucose 6-phosphate[r_n]" "H2O[r_n]" "alpha-D-Glucose[r_n]" "phosphate(3-)[r_n]"
 
 # Extracting the metabolites from a set of reactions without compartments
 metabolites(glugln, woCompartment = TRUE)
 # ...
-# [64] "hydrogencarbonate"                                                              
-# [65] "(S)-Lactate"                                                                    
-# [66] "D-glutamic acid"                                                                
-# [67] "FAD"                                                                            
-# [68] "Ferricytochrome c2"                                                             
-# [69] "Hydroquinone" 
+# [64] "oxygen atom"                                                                    
+# [65] "Ferrocytochrome c2"                                                             
+# [66] "Ferricytochrome c2"                                                             
+# [67] "diphosphate(4-)"                                                                
+# [68] "(R)-Lactate"                                                                    
+# [69] "hydrogencarbonate"    
 }
 \keyword{ metabolites }
 \keyword{ stoichiometric }

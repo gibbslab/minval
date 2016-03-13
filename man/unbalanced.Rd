@@ -14,34 +14,14 @@ unbalanced(reaction,show.formulas)
 }
 \examples{
 ## For a specific reaction
-unbalanced("ADP[c_n] + Phosphoenolpyruvate[c_n] => ATP[c_n] + Pyruvate[c_n] + Water[c_n]")
+unbalanced("Phosphoenolpyruvate[c_n] => ATP[c_n] + Pyruvate[c_n] + Water[c_n]")
 # [1] TRUE
 
-unbalanced("Phosphoenolpyruvate[c_n] => ATP[c_n] + Pyruvate[c_n]",show.formulas = TRUE)
+unbalanced("Phosphoenolpyruvate[c_n] => ATP[c_n] + Pyruvate[c_n]", show.formulas = TRUE)
 #      [,1]                                                                          
-# [1,] "ADP[c_n] + Phosphoenolpyruvate[c_n] => ATP[c_n] + Pyruvate[c_n] + Water[c_n]"
+# [1,] "Phosphoenolpyruvate[c_n] => ATP[c_n] + Pyruvate[c_n]"
 #      [,2]                                                               
-# [1,] "1 C10H15N5O10P2 + 1 C3H4O6P => 1 C10H16N5O13P3 + 1 C3H3O3 + 1 H2O"
-
-## For a set of reactions
-# Loading the stoichiometric reactions from the glutamine/glutamate cycle
-data(glugln)
-
-sapply(glugln[1:5],unbalanced,simplify = FALSE)
-# $`alpha-D-glucose 1-phosphate[c_n] <=> alpha-D-Glucose 6-phosphate[c_n]`
-# [1] FALSE
-
-# $`alpha-D-Glucose 6-phosphate[r_n] + water[r_n] => alpha-D-Glucose[r_n] + phosphate(3-)[r_n]`
-# [1] TRUE
-
-# $`ATP[m_n] + alpha-D-Glucose[m_n] <=> ADP[m_n] + alpha-D-Glucose 6-phosphate[m_n]`
-# [1] FALSE
-
-# $`ATP[m_n] + beta-D-Glucose[m_n] => ADP[m_n] + beta-D-Glucose 6-phosphate[m_n]`
-# [1] FALSE
-
-# $`alpha-D-Glucose[m_n] + ADP[m_n] <=> alpha-D-Glucose 6-phosphate[m_n] + AMP[m_n]`
-# [1] FALSE
+# [1,] "1 C3H4O6P => 1 C10H16N5O13P3 + 1 C3H3O3"
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

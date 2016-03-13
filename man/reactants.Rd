@@ -6,10 +6,10 @@
 This function identifies the reactants for a stoichometric reaction. This function assumes that all your reactions have the following format L-Glutamate[c] <=> CO2[c] + 4-Aminobutanoate[c]
 }
 \usage{
-reactants(rxn)
+reactants(reaction)
 }
 \arguments{
-  \item{rxn}{A stoichiometric reaction with the following format L-Glutamate[c] <=> CO2[c] + 4-Aminobutanoate[c]
+  \item{reaction}{A stoichiometric reaction with the following format L-Glutamate[c] <=> CO2[c] + 4-Aminobutanoate[c]
 }
 }
 \examples{

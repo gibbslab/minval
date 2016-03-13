@@ -17,14 +17,14 @@ orphan.reactants(reactionList,byCompartment)
 data("glugln")
 
 # Identifying orphan reactants from a sample of 100 stoichiometric reactions (*)
-orphan.reactants(sample(glugln,100))
-# [1] "cis-Aconitate[c_n]"
-# [2] "(R)-Lactate[m_n]"
-# [3] "Ferricytochrome c[m_n]"
-# [4] "Acetyl-CoA[m_n]"
-# [5] "Oxaloacetate[m_n]"
+orphan.reactants(glugln)
+# [1] "alpha-D-Glucose 6-phosphate[r_n]"    
+# [2] "water[r_n]"                          
+# [3] "2,3-bisphospho-D-glyceric acid[r_n]"
+# [4] "GTP[c_n]"                            
+# [5] "oxaloacetic acid[m_n]"
 # ...
-# [23] "[Dihydrolipoyllysine-residue succinyltransferase] S-succinyldihydrolipoyllysine[m_a]"
+# [28] "diphosphate(4-)[m_a]"
 }
 \keyword{ orphan }
 \keyword{ reactants }

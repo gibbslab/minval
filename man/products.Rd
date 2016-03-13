@@ -7,11 +7,11 @@
 This function identifies the products for a stoichometric reaction. This function assumes that all your reactions have the following format L-Glutamate[c] <=> CO2[c] + 4-Aminobutanoate[c]
 }
 \usage{
-products(rxn)
+products(reaction)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{rxn}{ A stoichiometric reaction with the following format L-Glutamate[c] <=> CO2[c] + 4-Aminobutanoate[c]
+  \item{reaction}{ A stoichiometric reaction with the following format L-Glutamate[c] <=> CO2[c] + 4-Aminobutanoate[c]
 %%     ~~Describe \code{rxn} here~~
 }
 }

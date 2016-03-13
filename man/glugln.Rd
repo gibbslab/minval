@@ -9,7 +9,7 @@ This dataset contains the stoichiometric reactions from the reconstructon of the
 }
 \usage{data("glugln")}
 \format{
- An array with 317 compartmentalized stoichiometric reactions from the metabolic reconstruction of Glutamate-Glutamine cycle.
+ An array with 128 compartmentalized stoichiometric reactions from the metabolic reconstruction of Glutamate-Glutamine cycle.
 }
 \source{
 Vega-Vela N, Jimenez CM, Barreto G and Gonzalez J (2015). Metabolic Reconstruction of Glutamate-Glutamine Cycling: A Flux Balance Approach. Front. Cell. Neurosci. Conference Abstract: Latin-American School on glial cells in the diseased brain (IBRO). doi: 10.3389/conf.fncel.2015.35.00008

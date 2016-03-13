@@ -18,7 +18,7 @@ orphan.products(reactionList,byCompartment)
 data("glugln")
 
 # Identifying dead-ends from a sample of 100 stoichiometric reactions
-orphan.products(glugln,100)
+orphan.products(glugln)
 # [1] "alpha-D-Glucose[r_n]"           
 # [2] "phosphate(3-)[r_n]"             
 # [3] "2-phospho-D-glyceric acid[r_n]"

@@ -18,9 +18,11 @@ data("glugln")
 
 # For a set of metabolites from stoichiometric reactions
 compartments(metabolites(glugln))
+# [1] "c_n" "r_n" "m_n" "c_a" "r_a" "m_a"
 
 # For a specific metabolite
 compartments("NADH[c]")
+# [1] "c"
 }
 \keyword{ metabolite }
 \keyword{ compartments }
