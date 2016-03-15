@@ -14,10 +14,10 @@ reactants <- function(reaction){
   }
   # Split independient reactants
   reactants <- unlist(strsplit(reactants,"[[:blank:]]\\+[[:blank:]]"))
-  reactants <- gsub("^[[:blank:]]","",reactants)
-  reactants <- gsub("[[:blank:]]$","",reactants)
+  reactants <- gsub("^[[:blank:]]*","",reactants)
+  reactants <- gsub("[[:blank:]]*$","",reactants)
   # Use a regex to extract stoichiometric coefficients and separate the metabolite name
-  reactants <- gsub("^[[:digit:]]+[[:punct:]]?[[:digit:]]?[[:digit:]]?[[:blank:]]","",reactants)
+  reactants <- gsub("^[[:digit:]][[:graph:]]*[[:blank:]]","",reactants)
   return(reactants)
 }
 

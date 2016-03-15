@@ -1,5 +1,8 @@
 NEWS
 ====
+** minval v.0.3**
+* A bug in metabolites, products and reactants related with stoichiometric coefficients was solved
+
 **minval v.0.2**
 * A bug in compartment function was solved
 * Some functions were rewrited

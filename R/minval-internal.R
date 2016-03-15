@@ -4,10 +4,10 @@
 # Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 
 .metname <- function(met, rm.coef = FALSE) {
-  met <- gsub("^[[:blank:]]","",met)
-  met <- gsub("[[:blank:]]$","",met)
+  met <- gsub("^[[:blank:]]*","",met)
+  met <- gsub("[[:blank:]]*$","",met)
   if (rm.coef == TRUE) {
-    met <- gsub("^[[:digit:]]+[[:punct:]]?[[:digit:]]?[[:digit:]]?[[:blank:]]","",met)
+    met <- gsub("^[[:digit:]][[:graph:]]*[[:blank:]]","",met)
   }
     gsub("\\[[[:graph:]]+[[:punct:]\\]$","",met)
 }
@@ -23,7 +23,9 @@
 }
 
 .coeficients <- function(met) {
-  regmatches(met, gregexpr('^[[:digit:]]+[[:punct:]]?[[:digit:]]?[[:digit:]]?[[:blank:]]', met))
+  met <- regmatches(met, gregexpr('^[[:digit:]][[:graph:]]*[[:blank:]]', met))
+  met <- gsub("[[:blank:]]*$","",met)
+  return(met)
 }
 
 .safe.index <- function(df, n){

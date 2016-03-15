@@ -45,4 +45,3 @@ Available datasets
 Citation
 --------
 Daniel Osorio, Janneth Gonzalez and Andres Pinzon-Velasco (2016). **minval: MINimal VALidation for Stoichiometric Reactions**. R package version 0.1. https://CRAN.R-project.org/package=minval
-

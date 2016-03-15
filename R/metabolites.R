@@ -13,9 +13,9 @@ metabolites <- function(reactionList , woCompartment = FALSE){
     }
     metabolites <- unlist(strsplit(metabolites,"[[:blank:]]\\+[[:blank:]]"))
     # Use a regex to extract stoichiometric coefficients and separate the metabolite name
-    metabolites <- gsub("^[[:blank:]]","",metabolites)
-    metabolites <- gsub("[[:blank:]]$","",metabolites)
-    metabolites <- gsub("^[[:digit:]]+[[:punct:]]?[[:digit:]]?[[:digit:]]?[[:blank:]]","",metabolites)
+    metabolites <- gsub("^[[:blank:]]*","",metabolites)
+    metabolites <- gsub("[[:blank:]]*$","",metabolites)
+    metabolites <- gsub("^[[:digit:]][[:graph:]]*[[:blank:]]","",metabolites)
   }
   metabolites <- as.vector(unique(unlist(sapply(reactionList, mets))))
   if (woCompartment == TRUE){

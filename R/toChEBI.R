@@ -9,12 +9,12 @@ toChEBI <- function(reaction, formula = FALSE) {
   reversible <- grepl("<=>",reaction)
   if (reversible) {
     reaction<-unlist(strsplit(reaction,"<=>",fixed = TRUE))
-    reaction <- gsub("^[[:blank:]]","",reaction)
-    reaction <- gsub("[[:blank:]]$","",reaction)
+    reaction <- gsub("^[[:blank:]]*","",reaction)
+    reaction <- gsub("[[:blank:]]*$","",reaction)
   } else {
     reaction<-unlist(strsplit(reaction,"=>",fixed = TRUE))
-    reaction <- gsub("^[[:blank:]]","",reaction)
-    reaction <- gsub("[[:blank:]]$","",reaction)
+    reaction <- gsub("^[[:blank:]]*","",reaction)
+    reaction <- gsub("[[:blank:]]*$","",reaction)
   }
   reactant <- reaction[1]
   product <- reaction[2]

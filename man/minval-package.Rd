@@ -10,8 +10,8 @@ For a given set of stoichiometric reactions, this package evaluates the mass bal
 \tabular{ll}{
 Package: \tab minval\cr
 Type: \tab Package\cr
-Version: \tab 0.2\cr
-Date: \tab 2016-03-13\cr
+Version: \tab 0.3\cr
+Date: \tab 2016-03-15\cr
 License: \tab GPL-2\cr
 }
 }
