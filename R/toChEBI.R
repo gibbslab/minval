@@ -20,9 +20,9 @@ toChEBI <- function(reaction, formula = FALSE) {
   product <- reaction[2]
   reactant <- unlist(strsplit(reactant,"[[:blank:]]\\+[[:blank:]]"))
   product <- unlist(strsplit(product,"[[:blank:]]\\+[[:blank:]]"))
-  r_coef <- as.numeric(sapply(reactant, .coeficients))
+  r_coef <- suppressWarnings(as.numeric(sapply(reactant, .coeficients)))
   r_coef[is.na(r_coef)] <- 1
-  p_coef <- as.numeric(sapply(product, .coeficients))
+  p_coef <- suppressWarnings(as.numeric(sapply(product, .coeficients)))
   p_coef[is.na(p_coef)] <- 1
   
   if (formula == FALSE){
