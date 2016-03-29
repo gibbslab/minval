@@ -9,7 +9,7 @@
   if (rm.coef == TRUE) {
     met <- gsub("^[[:digit:]][[:graph:]]*[[:blank:]]","",met)
   }
-    gsub("\\[[[:graph:]]+[[:punct:]\\]$","",met)
+    gsub("\\[[[:alnum:]]*(\\_)?[[:alnum:]]*\\]$","",met)
 }
 
 .formula2matrix <- function(formula) {
