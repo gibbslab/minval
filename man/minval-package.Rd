@@ -11,7 +11,7 @@ For a given set of stoichiometric reactions, this package evaluates the mass bal
 Package: \tab minval\cr
 Type: \tab Package\cr
 Version: \tab 0.3\cr
-Date: \tab 2016-03-15\cr
+Date: \tab 2016-04-27\cr
 License: \tab GPL-2\cr
 }
 }
