@@ -7,7 +7,7 @@ products <- function(reaction){
   # Identifies if stoichiometric reaction is not reversible. In this case:
   if (grepl("<=>",reaction)){
     products <- unlist(strsplit(reaction,"[[:blank:]]*<=>[[:blank:]]*"))
-  }else {
+  } else {
     products <- unlist(strsplit(reaction,"[[:blank:]]*=>[[:blank:]]*"))[2]
   }
 

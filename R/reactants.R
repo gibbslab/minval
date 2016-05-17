@@ -7,9 +7,7 @@ reactants <- function(reaction){
   # Identifies if stoichiometric reaction is not reversible. In this case:
   if (grepl("<=>",reaction)){
     reactants <- unlist(strsplit(reaction,"[[:blank:]]*<=>[[:blank:]]*"))
-  }
-  # In contrary case:
-  else {
+  } else {
     reactants <- unlist(strsplit(reaction,"[[:blank:]]*=>[[:blank:]]*"))[1]
   }
   # Split independient reactants
