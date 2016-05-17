@@ -12,12 +12,11 @@ products <- function(reaction){
   }
 
   # Split independient reactants
-  products <- unlist(strsplit(products,"[[:blank:]]\\+[[:blank:]]"))
+  products <- unlist(strsplit(products,"[[:blank:]]+\\+[[:blank:]]+"))
   products <- gsub("^[[:blank:]]*","",products)
   products <- gsub("[[:blank:]]*$","",products)
   # Use a regex to extract stoichiometric coefficients and separate the metabolite name
   products <- gsub("^[[:digit:]][[:graph:]]*[[:blank:]]+","",products)
-  
+
   return(products[!is.na(products)])
 }
-
