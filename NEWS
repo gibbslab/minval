@@ -1,5 +1,8 @@
 NEWS
 ====
+**minval v.0.4**
+* A bug in reactants function was solved. It also affected the orphan.reactants function.
+
 **minval v.0.3**
 * A bug in products function was solved
 * A bug related with spaces between metabolites was solved in several functions
