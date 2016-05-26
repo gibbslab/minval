@@ -15,6 +15,6 @@ reactants <- function(reaction){
   reactants <- gsub("^[[:blank:]]*","",reactants)
   reactants <- gsub("[[:blank:]]*$","",reactants)
   # Use a regex to extract stoichiometric coefficients and separate the metabolite name
-  reactants <- .coeficients(reactants)
+  reactants <- .remove_coefficients(reactants)
   return(reactants[!is.na(reactants)])
 }

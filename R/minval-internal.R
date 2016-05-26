@@ -22,6 +22,11 @@
   tapply(atomnumber, atomtype, sum)
 }
 
+.remove_coefficients <- function(met){
+  met <- gsub("^[[:digit:]][[:punct:]]*[[:digit:]]*[[:blank:]]+","",met)
+  return(met)
+}
+
 .coeficients <- function(met) {
   met <- regmatches(met, gregexpr('^[[:digit:]][[:punct:]]*[[:digit:]]*[[:blank:]]+', met))
   met <- gsub("[[:blank:]]*$","",met)
