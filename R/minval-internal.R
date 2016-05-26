@@ -23,7 +23,7 @@
 }
 
 .coeficients <- function(met) {
-  met <- regmatches(met, gregexpr('^[[:digit:]][[:graph:]]*[[:blank:]]', met))
+  met <- regmatches(met, gregexpr('^[[:digit:]][[:punct:]]*[[:digit:]]*[[:blank:]]+', met))
   met <- gsub("[[:blank:]]*$","",met)
   return(met)
 }
@@ -42,4 +42,3 @@
 #   data <- gdata::read.xls(file , sheet = 1)
 #   as.vector(data[-c(data[,1]=="#"),4])
 # }
-
