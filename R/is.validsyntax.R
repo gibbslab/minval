@@ -16,5 +16,5 @@ is.validsyntax <- function(reaction){
       return(TRUE)
     }
   }
-  sapply(reaction, syntax.validation)
+  sapply(reaction, syntax.validation,USE.NAMES = FALSE)
 }
