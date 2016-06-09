@@ -7,7 +7,7 @@
 is.chebi<- function(metabolite){
   # Load ChEBI data
   chebi <- new.env()
-  data("chebi", envir = chebi)
+  data("chebi",package = "minval", envir = chebi)
   # Return
-  return(tolower(metabolite)%in%chebi$name)
+  return(tolower(metabolite)%in%chebi$chebi$name)
 }
