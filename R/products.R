@@ -12,7 +12,7 @@ products <- function(reaction){
   # Remove spaces and report uniques
   reaction <- lapply(reaction, function(reaction){unique(.remove.spaces(unlist(reaction)))})
   # Use a regex to extract stoichiometric coefficients and separate the metabolite name
-  products <- lapply(reaction, function(reaction){unique(.remove_coefficients(reaction))})
+  products <- lapply(reaction, function(reaction){unique(.remove.coefficients(reaction))})
   if (length(products)==1){
     return(unlist(products))
   } else {

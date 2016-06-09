@@ -22,12 +22,12 @@
   tapply(atomnumber, atomtype, sum)
 }
 
-.remove_coefficients <- function(met){
+.remove.coefficients <- function(met){
   met <- gsub("^[[:digit:]]+[[:punct:]]*[[:digit:]]*[[:blank:]]+","",met)
   return(met)
 }
 
-.coeficients <- function(met) {
+.coefficients <- function(met) {
   met <- regmatches(met, gregexpr('^[[:digit:]][[:punct:]]*[[:digit:]]*[[:blank:]]+', met))
   met <- gsub("[[:blank:]]*$","",met)
   return(met)
@@ -38,7 +38,7 @@
 }
 
 .atoms <- function(metabolites) {
-  coef <- as.numeric(sapply(metabolites, .coeficients))
+  coef <- as.numeric(sapply(metabolites, .coefficients))
   formula <- metabolites(metabolites)
   unlist(mapply(function(coef, formula){rep(formula,coef)}, coef = coef, formula = formula,SIMPLIFY = FALSE))
 }
@@ -48,8 +48,3 @@
   metabolite <- gsub("[[:space:]]$","",metabolite)
   return(metabolite)
 }
-# .rxnFromModel <- function(file){
-#   require(gdata)
-#   data <- gdata::read.xls(file , sheet = 1)
-#   as.vector(data[-c(data[,1]=="#"),4])
-# }

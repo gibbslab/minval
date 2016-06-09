@@ -11,7 +11,7 @@ reactants <- function(reaction){
   # Remove spaces and report uniques
   reaction <- lapply(reaction, function(reaction){unique(.remove.spaces(unlist(reaction)))})
   # Use a regex to extract stoichiometric coefficients and separate the metabolite name
-  reactants <- lapply(reaction, function(reaction){unique(.remove_coefficients(reaction))})
+  reactants <- lapply(reaction, function(reaction){unique(.remove.coefficients(reaction))})
   if (length(reactants)==1){
     return(unlist(reactants))
   } else {

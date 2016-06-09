@@ -20,11 +20,11 @@ toChEBI <- function(reaction, formula = FALSE) {
   product <- reaction[2]
   reactant <- unlist(strsplit(reactant,"[[:blank:]]\\+[[:blank:]]"))
   product <- unlist(strsplit(product,"[[:blank:]]\\+[[:blank:]]"))
-  r_coef <- suppressWarnings(as.numeric(sapply(reactant, .coeficients)))
+  r_coef <- suppressWarnings(as.numeric(sapply(reactant, .coefficients)))
   r_coef[is.na(r_coef)] <- 1
-  p_coef <- suppressWarnings(as.numeric(sapply(product, .coeficients)))
+  p_coef <- suppressWarnings(as.numeric(sapply(product, .coefficients)))
   p_coef[is.na(p_coef)] <- 1
-  
+
   if (formula == FALSE){
     reactant <- mapply(function(coef,met){paste(coef,chebi.id(.metname(met,rm.coef = TRUE)),collapse =" ")}, coef=r_coef,met=reactant)
     product <- mapply(function(coef,met){paste(coef,chebi.id(.metname(met,rm.coef = TRUE)),collapse =" ")}, coef=p_coef,met=product)
@@ -32,7 +32,7 @@ toChEBI <- function(reaction, formula = FALSE) {
     reactant <- mapply(function(coef,met){paste(coef,chebi.formula(.metname(met,rm.coef = TRUE)),collapse =" ")}, coef=r_coef,met=reactant)
     product <- mapply(function(coef,met){paste(coef,chebi.formula(.metname(met,rm.coef = TRUE)),collapse =" ")}, coef=p_coef,met=product)
   }
-  
+
   if (reversible){
     paste(paste0(reactant,collapse = " + "),paste0(product, collapse = " + "), sep = " <=> ")
   } else {
