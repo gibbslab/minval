@@ -23,7 +23,7 @@
 }
 
 .remove_coefficients <- function(met){
-  met <- gsub("^[[:digit:]][[:punct:]]*[[:digit:]]*[[:blank:]]+","",met)
+  met <- gsub("^[[:digit:]]+[[:punct:]]*[[:digit:]]*[[:blank:]]+","",met)
   return(met)
 }
 
@@ -41,6 +41,12 @@
   coef <- as.numeric(sapply(metabolites, .coeficients))
   formula <- metabolites(metabolites)
   unlist(mapply(function(coef, formula){rep(formula,coef)}, coef = coef, formula = formula,SIMPLIFY = FALSE))
+}
+
+.remove.spaces <- function(metabolite){
+  metabolite <- gsub("^[[:space:]]","",metabolite)
+  metabolite <- gsub("[[:space:]]$","",metabolite)
+  return(metabolite)
 }
 # .rxnFromModel <- function(file){
 #   require(gdata)
