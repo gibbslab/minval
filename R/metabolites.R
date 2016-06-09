@@ -4,20 +4,11 @@
 # Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 
 metabolites <- function(reactionList , woCompartment = FALSE){
-  # Extract and return the unique metabolites list
-  mets <- function(reaction){
-    if (grepl("<=>",reaction)){
-      metabolites <- unlist(strsplit(reaction,"<=>"))
-    } else {
-      metabolites <- unlist(strsplit(reaction,"=>"))
-    }
-    metabolites <- unlist(strsplit(metabolites,"[[:blank:]]\\+[[:blank:]]"))
-    # Use a regex to extract stoichiometric coefficients and separate the metabolite name
-    metabolites <- gsub("^[[:blank:]]*","",metabolites)
-    metabolites <- gsub("[[:blank:]]*$","",metabolites)
-    metabolites <- .remove_coefficients(metabolites)
-  }
-  metabolites <- as.vector(unique(unlist(sapply(reactionList, mets))))
+  reaction <- strsplit(as.vector(reactionList)," <?=> ")
+  reaction <- lapply(reaction, function(reaction){strsplit(unlist(reaction)," \\+ ")})
+  reaction <- lapply(reaction, function(reaction){unique(.remove.spaces(unlist(reaction)))})
+  reaction <- lapply(reaction, function(reaction){unique(.remove_coefficients(reaction))})
+  metabolites <- unique(unlist(reaction))
   if (woCompartment == TRUE){
     return(unique(.metname(metabolites)))
   } else{
