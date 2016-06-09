@@ -6,8 +6,8 @@
 # Evaluates if a metabolite name is a ChEBI name
 is.chebi<- function(metabolite){
   # Load ChEBI data
-  data("chebi", envir = environment())
-  chebi <- chebi
+  chebi <- new.env()
+  data("chebi", envir = chebi)
   # Return
   return(tolower(metabolite)%in%chebi$name)
 }

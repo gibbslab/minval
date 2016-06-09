@@ -5,9 +5,9 @@
 
 orphan.products <- function(reactionList, byCompartment=FALSE){
   # Extract all reactants
-  reactant <- unique(unlist(sapply(reactionList,reactants)))
+  reactant <- unique(unlist(reactants(reactionList)))
   # Extract all products
-  product <- unique(unlist(sapply(reactionList,products)))
+  product <- unique(unlist(products(reactionList)))
   # Possible candidates to be introduced into the system by exchange reactions or by adding more internal reactions.
   orphan <- product[!(product%in%reactant)]
   if (byCompartment == TRUE){
