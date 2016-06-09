@@ -4,19 +4,19 @@
 # Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 
 products <- function(reaction){
-  # Identifies if stoichiometric reaction is not reversible. In this case:
-  if (grepl("<=>",reaction)){
-    products <- unlist(strsplit(reaction,"[[:blank:]]*<=>[[:blank:]]*"))
-  } else {
-    products <- unlist(strsplit(reaction,"[[:blank:]]*=>[[:blank:]]*"))[2]
-  }
-
+  reaction <- strsplit(as.vector(reaction)," => ")
+  reaction[lengths(reaction)>1] <- lapply(reaction[lengths(reaction)>1],function(reaction){reaction[[2]]})
+  reaction <- strsplit(unlist(reaction), " <=> ")
   # Split independient reactants
-  products <- unlist(strsplit(products,"[[:blank:]]+\\+[[:blank:]]+"))
-  products <- gsub("^[[:blank:]]*","",products)
-  products <- gsub("[[:blank:]]*$","",products)
+  reaction <- lapply(reaction, function(reaction){strsplit(reaction," \\+ ")})
+  # Remove spaces and report uniques
+  reaction <- lapply(reaction, function(reaction){unique(.remove.spaces(unlist(reaction)))})
   # Use a regex to extract stoichiometric coefficients and separate the metabolite name
-  products <- .remove_coefficients(products)
-
-  return(products[!is.na(products)])
+  products <- lapply(reaction, function(reaction){unique(.remove_coefficients(reaction))})
+  if (length(products)==1){
+    return(unlist(products))
+  } else {
+    return(products)
+  }
 }
+
