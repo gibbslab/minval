@@ -6,8 +6,8 @@
 ## Returns the possible ChEBI names based on metabolite synonyms
 chebi.candidates <- function(metabolite) {
   # Load ChEBI data
-  data("chebi", envir = environment())
-  chebi <- chebi
+  chebi <- new.env()
+  data("chebi",package = "minval", envir = chebi)
   # Search in metabolite synonyms the metabolite name
-  chebi$name[grep(metabolite, chebi$synonyms, ignore.case = TRUE)]
+  sapply(metabolite, function(metabolite){chebi$chebi$name[grep(metabolite, chebi$chebi$synonyms, ignore.case = TRUE)]})
 }

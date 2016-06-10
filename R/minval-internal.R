@@ -29,6 +29,7 @@
 
 .coefficients <- function(met) {
   met <- regmatches(met, gregexpr('^[[:digit:]][[:punct:]]*[[:digit:]]*[[:blank:]]+', met))
+  met[lengths(met)==0] <- 1
   met <- gsub("[[:blank:]]*$","",met)
   return(met)
 }
