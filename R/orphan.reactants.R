@@ -10,12 +10,16 @@ orphan.reactants <- function(reactionList, byCompartment=FALSE){
   product <- unique(unlist(products(reactionList)))
   # Possible candidates to be introduced into the system by exchange reactions or by adding more internal reactions.
   orphan <- reactant[!(reactant%in%product)]
-  if (byCompartment == TRUE){
-    # Return orphans by compartment
-    sapply(compartments(orphan), function(comp){orphan[grep(paste0("\\[",comp,"\\]"),orphan)]}, simplify = FALSE)
+  if (length(orphan)==0){
+    return (NA)
   } else {
-    # Return all reactants never produced in any reaction.
-    return(orphan)
+    if (byCompartment == TRUE){
+      # Return orphans by compartment
+      sapply(compartments(orphan), function(comp){orphan[grep(paste0("\\[",comp,"\\]"),orphan)]}, simplify = FALSE)
+    } else {
+      # Return all reactants never produced in any reaction.
+      return(orphan)
+    }
   }
 }
 
