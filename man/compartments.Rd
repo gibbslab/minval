@@ -6,10 +6,10 @@
 This function identifies the compartments for a set of compartmentalized metabolites. This function assumes that all your reactions have the following format L-Glutamate[c] <=> CO2[c] + 4-Aminobutanoate[c]
 }
 \usage{
-compartments(metabolites)
+compartments(reaction)
 }
 \arguments{
-  \item{metabolites}{ A set of compartimentalized metabolites
+  \item{reaction}{A stoichiometric reaction with the following format L-Glutamate[c] <=> CO2[c] + 4-Aminobutanoate[c]
 }
 }
 \examples{
@@ -17,7 +17,7 @@ compartments(metabolites)
 data("glugln")
 
 # For a set of metabolites from stoichiometric reactions
-compartments(metabolites(glugln))
+compartments(glugln)
 # [1] "c_n" "r_n" "m_n" "c_a" "r_a" "m_a"
 
 # For a specific metabolite

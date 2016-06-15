@@ -3,7 +3,8 @@
 # Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 # Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 
-compartments <- function(metabolites){
+compartments <- function(reaction){
+  metabolites <- metabolites(reaction)
   # Compartment main function
   compartments <- unique(unlist(regmatches(metabolites, gregexpr("\\[[[:alnum:]](\\_)?[[:alnum:]]?\\]$", metabolites))))
   compartments <- gsub("\\[","",compartments)
