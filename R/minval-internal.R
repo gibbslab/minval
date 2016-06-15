@@ -3,7 +3,7 @@
 # Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 # Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 
-.metname <- function(met, rm.coef = FALSE) {
+.remove.compartment <- function(met, rm.coef = FALSE) {
   met <- gsub("^[[:blank:]]*","",met)
   met <- gsub("[[:blank:]]*$","",met)
   if (rm.coef == TRUE) {

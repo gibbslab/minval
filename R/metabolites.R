@@ -10,7 +10,7 @@ metabolites <- function(reactionList , woCompartment = FALSE){
   reaction <- lapply(reaction, function(reaction){unique(.remove.coefficients(reaction))})
   metabolites <- unique(unlist(reaction))
   if (woCompartment == TRUE){
-    return(unique(.metname(metabolites)))
+    return(unique(.remove.compartment(metabolites)))
   } else{
     return(metabolites)
   }

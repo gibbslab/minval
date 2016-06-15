@@ -26,11 +26,11 @@ toChEBI <- function(reaction, formula = FALSE) {
   p_coef[is.na(p_coef)] <- 1
 
   if (formula == FALSE){
-    reactant <- mapply(function(coef,met){paste(coef,chebi.id(.metname(met,rm.coef = TRUE)),collapse =" ")}, coef=r_coef,met=reactant)
-    product <- mapply(function(coef,met){paste(coef,chebi.id(.metname(met,rm.coef = TRUE)),collapse =" ")}, coef=p_coef,met=product)
+    reactant <- mapply(function(coef,met){paste(coef,chebi.id(.remove.compartment(met,rm.coef = TRUE)),collapse =" ")}, coef=r_coef,met=reactant)
+    product <- mapply(function(coef,met){paste(coef,chebi.id(.remove.compartment(met,rm.coef = TRUE)),collapse =" ")}, coef=p_coef,met=product)
   } else {
-    reactant <- mapply(function(coef,met){paste(coef,chebi.formula(.metname(met,rm.coef = TRUE)),collapse =" ")}, coef=r_coef,met=reactant)
-    product <- mapply(function(coef,met){paste(coef,chebi.formula(.metname(met,rm.coef = TRUE)),collapse =" ")}, coef=p_coef,met=product)
+    reactant <- mapply(function(coef,met){paste(coef,chebi.formula(.remove.compartment(met,rm.coef = TRUE)),collapse =" ")}, coef=r_coef,met=reactant)
+    product <- mapply(function(coef,met){paste(coef,chebi.formula(.remove.compartment(met,rm.coef = TRUE)),collapse =" ")}, coef=p_coef,met=product)
   }
 
   if (reversible){
