@@ -10,9 +10,9 @@ This dataset contains public data (61895 compounds) from the release 136 of the 
 \format{
   A data frame with 61895 observations on the following 4 variables.
   \describe{
-    \item{\code{chebi}}{the unique identifer}
+    \item{\code{id}}{the unique identifer}
     \item{\code{name}}{the name recommended for use in biological databases}
-    \item{\code{synonyms}}{other names together with an indication of their source}
+    \item{\code{candidates}}{other names together with an indication of their source}
     \item{\code{formula}}{Molecular formula}
   }
 }
