@@ -8,7 +8,7 @@ is.validsyntax <- function(reaction){
   # Coefficient validation
   valid.syntax <- c(valid.syntax,grepl("([[:digit:]][[:blank:]][[:digit:]][[:blank:]])+",reaction))
   # Directionality validation
-  valid.syntax <- c(valid.syntax, (!grepl("[[:blank:]]<*=>*[[:blank:]]",reaction)))
+  valid.syntax <- c(valid.syntax, (!grepl("[[:blank:]]+<?=>[[:blank:]]*",reaction)))
   valid.syntax <- c(valid.syntax,grepl("[[:blank:]](<?)-(>?)[[:blank:]]",reaction))
   # Metabolite names validation
   valid.syntax <- c(valid.syntax,grepl("[[:alnum:]]+\\+[[:alnum:]]+", reaction))
