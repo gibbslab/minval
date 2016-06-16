@@ -6,7 +6,7 @@
 compartments <- function(reaction){
   metabolites <- metabolites(reaction)
   # Compartment main function
-  compartments <- unique(unlist(regmatches(metabolites, gregexpr("\\[[[:alnum:]](\\_)?[[:alnum:]]?\\]$", metabolites))))
+  compartments <- unique(unlist(regmatches(metabolites, gregexpr("\\[[[:alpha:]](\\_)?[[:alpha:]]?\\]$", metabolites))))
   compartments <- gsub("\\[","",compartments)
   compartments <- gsub("\\]","",compartments)
   return(compartments)

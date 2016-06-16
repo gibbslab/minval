@@ -5,30 +5,22 @@
 
 # Returns the unbalanced reactions from a set of stoichiometric reactions
 unbalanced <- function(reaction, show.formulas = FALSE) {
-  is.unbalanced <- function(mfreaction){
-    if (grepl("<=>",mfreaction)){
-      rxn <- unlist(strsplit(mfreaction,"<=>"))
-      rxn <- gsub("^[[:blank:]]","",rxn)
-      rxn <- gsub("[[:blank:]]$","",rxn)
-    } else {
-      rxn <- unlist(strsplit(mfreaction,"=>"))
-      rxn <- gsub("^[[:blank:]]","",rxn)
-      rxn <- gsub("[[:blank:]]$","",rxn)
-    }
-    reactant <- rxn[1]
-    product <- rxn[2]
-    reactant <- unlist(strsplit(reactant,"[[:blank:]]\\+[[:blank:]]"))
-    reactant <- .atoms(reactant)
-    product <- unlist(strsplit(product,"[[:blank:]]\\+[[:blank:]]"))
-    product <- .atoms(product)
-    return(!identical(.formula2matrix(reactant), .formula2matrix(product)))
+  ChEBIformulas <- toChEBI(reaction,formula = TRUE)
+  r_met <- lapply(ChEBIformulas, .get.right)
+  p_met <- lapply(ChEBIformulas, .get.left)
+  r_met <- lapply(r_met, .atoms)
+  p_met <- lapply(p_met, .atoms)
+  r_met <- lapply(r_met, .formula2matrix)
+  p_met <- lapply(p_met, .formula2matrix)
+  balanced <- mapply(function(reactants,products){!identical(reactants,products)},reactants=r_met,products=p_met)
+  if(length(grep("NA",ChEBIformulas))>0){
+    warning("Some metabolites formulas were not found, mass unbalance was reported as NA",call. = FALSE)
   }
-  mfreaction <- sapply(reaction,function(reaction){toChEBI(reaction,formula = TRUE)},USE.NAMES = FALSE)
-  mb <- sapply(mfreaction, is.unbalanced,USE.NAMES = FALSE)
-  if (show.formulas==FALSE){
-    return(mb)
-  } else{
-    ub <- (mb==TRUE)
-    cbind(reaction[ub],mfreaction[ub])
+  balanced[grepl("NA",ChEBIformulas)] <- NA
+  if (show.formulas==TRUE){
+    ChEBIformulas[is.na(balanced)] <- "Some metabolites formulas were not found"
+    balanced[grepl("NA",reaction)] <- FALSE
+    balanced <- cbind(reaction=reaction[balanced==FALSE],formula=ChEBIformulas[balanced==FALSE])
   }
+  return(balanced)
 }

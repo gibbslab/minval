@@ -13,11 +13,9 @@
 }
 
 .formula2matrix <- function(formula) {
-  byatomtype <-
-    unlist(regmatches(formula, gregexpr("([A-Z]{1}[a-z]?)([0-9]*)", formula)))
+  byatomtype <- unlist(regmatches(formula, gregexpr("([[:alpha:]]{1}[[:alpha:]]*)([0-9]*)", formula)))
   atomtype <- sub("([A-Z]{1}[a-z]?)([0-9]*)", '\\1', byatomtype)
-  atomnumber <-
-    as.numeric(regmatches(byatomtype, gregexpr('[0-9]+', byatomtype)))
+  atomnumber <- as.numeric(regmatches(byatomtype, gregexpr('[0-9]+', byatomtype)))
   atomnumber[is.na(atomnumber)] <- 1
   tapply(atomnumber, atomtype, sum)
 }
@@ -34,10 +32,6 @@
   return(met)
 }
 
-.safe.index <- function(df, n){
-  tryCatch(df[n], error = function(e)return(rep(NA, nrow(df))))
-}
-
 .atoms <- function(metabolites) {
   coef <- as.numeric(sapply(metabolites, .coefficients))
   formula <- metabolites(metabolites)
@@ -48,4 +42,25 @@
   metabolite <- gsub("^[[:space:]]","",metabolite)
   metabolite <- gsub("[[:space:]]$","",metabolite)
   return(metabolite)
+}
+
+.get.right <- function(reaction){
+  unlist(strsplit(unlist(strsplit(reaction,"[[:blank:]]+<?=>[[:blank:]]+"))[1],"[[:blank:]]+\\+[[:blank:]]+"))
+}
+
+.get.left <- function(reaction){
+  unlist(strsplit(unlist(strsplit(reaction,"[[:blank:]]+<?=>[[:blank:]]+"))[2],"[[:blank:]]+\\+[[:blank:]]+"))
+}
+
+.join.cm <- function(coefficient,metabolite){
+  joined <- paste(mapply(function(coefficient,metabolite){paste(coefficient,metabolite,collapse =" ")},coefficient=coefficient,metabolite=metabolite),collapse = " + ")
+  return(joined)
+}
+
+.join.reaction <- function(reactant,reversibility,product){
+  if (reversibility) {
+    reaction <- paste(reactant,product,sep = " <=> ")
+  } else {
+    reaction <- paste(reactant,product,sep = " => ")
+  }
 }

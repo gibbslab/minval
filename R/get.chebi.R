@@ -13,7 +13,7 @@ get.chebi <- function(metabolite,get="id"){
   } else {
     name <- tolower(metabolite)
     data <- structure(chebi$chebi[,get],names=chebi$chebi$name)
-    data <- structure(data[metabolite],names=metabolite)
+    data <- structure(data[name],names=metabolite)
     return (data)
   }
 }

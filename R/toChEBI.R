@@ -5,38 +5,37 @@
 
 # Converts metabolite names to ChEBI ids in a stoichiometric reaction
 toChEBI <- function(reaction, formula = FALSE) {
+  chebi <- new.env()
+  data("chebi",package = "minval", envir = chebi)
+  .chebi <- function(metabolite,get){
+    data <- structure(chebi$chebi[,get],names=chebi$chebi$name)
+    return (as.vector(data[tolower(metabolite)]))
+  }
   # Evaluates reversibility
   reversible <- grepl("<=>",reaction)
-  if (reversible) {
-    reaction<-unlist(strsplit(reaction,"<=>",fixed = TRUE))
-    reaction <- gsub("^[[:blank:]]*","",reaction)
-    reaction <- gsub("[[:blank:]]*$","",reaction)
-  } else {
-    reaction<-unlist(strsplit(reaction,"=>",fixed = TRUE))
-    reaction <- gsub("^[[:blank:]]*","",reaction)
-    reaction <- gsub("[[:blank:]]*$","",reaction)
-  }
-  reactant <- reaction[1]
-  product <- reaction[2]
-  reactant <- unlist(strsplit(reactant,"[[:blank:]]\\+[[:blank:]]"))
-  product <- unlist(strsplit(product,"[[:blank:]]\\+[[:blank:]]"))
-  r_coef <- suppressWarnings(as.numeric(sapply(reactant, .coefficients)))
-  r_coef[is.na(r_coef)] <- 1
-  p_coef <- suppressWarnings(as.numeric(sapply(product, .coefficients)))
-  p_coef[is.na(p_coef)] <- 1
-
+  # Extract metabolites
+  r_met <- lapply(reaction, .get.right)
+  p_met <- lapply(reaction, .get.left)
+  # Extract coefficient
+  r_coef <- lapply(r_met, .coefficients)
+  p_coef <- lapply(p_met, .coefficients)
+  # Remove coefficient and compartments
+  r_met <- lapply(r_met, function(reaction){metabolites(reaction,woCompartment = TRUE)})
+  p_met <- lapply(p_met, function(reaction){metabolites(reaction,woCompartment = TRUE)})
+  # Find associated data
   if (formula == FALSE){
-    reactant <- mapply(function(coef,met){paste(coef,chebi.id(.remove.compartment(met,rm.coef = TRUE)),collapse =" ")}, coef=r_coef,met=reactant)
-    product <- mapply(function(coef,met){paste(coef,chebi.id(.remove.compartment(met,rm.coef = TRUE)),collapse =" ")}, coef=p_coef,met=product)
+    r_met <- lapply(r_met, function(metabolites){as.vector(.chebi(metabolites,get="id"))})
+    p_met <- lapply(p_met, function(metabolites){as.vector(.chebi(metabolites,get="id"))})
   } else {
-    reactant <- mapply(function(coef,met){paste(coef,chebi.formula(.remove.compartment(met,rm.coef = TRUE)),collapse =" ")}, coef=r_coef,met=reactant)
-    product <- mapply(function(coef,met){paste(coef,chebi.formula(.remove.compartment(met,rm.coef = TRUE)),collapse =" ")}, coef=p_coef,met=product)
+    r_met <- lapply(r_met, function(metabolites){as.vector(.chebi(metabolites,get="formula"))})
+    p_met <- lapply(p_met, function(metabolites){as.vector(.chebi(metabolites,get="formula"))})
   }
-
-  if (reversible){
-    paste(paste0(reactant,collapse = " + "),paste0(product, collapse = " + "), sep = " <=> ")
-  } else {
-    paste(paste0(reactant,collapse = " + "),paste0(product, collapse = " + "), sep = " => ")
-  }
+  # Join metabolites and coefficient
+  r_met <- mapply(.join.cm,coefficient=r_coef,metabolite=r_met,USE.NAMES = FALSE)
+  p_met <- mapply(.join.cm,coefficient=p_coef,metabolite=p_met,USE.NAMES = FALSE)
+  # Join converted reaction
+  reaction <- mapply(.join.reaction,reactant=r_met,reversibility=reversible,product=p_met,USE.NAMES = FALSE)
+  # Return converted reaction
+  return(reaction)
 }
 
