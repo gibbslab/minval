@@ -14,14 +14,14 @@ toChEBI <- function(reaction, formula = FALSE) {
   # Evaluates reversibility
   reversible <- grepl("<=>",reaction)
   # Extract metabolites
-  r_met <- lapply(reaction, .get.right)
-  p_met <- lapply(reaction, .get.left)
+  r_met <- lapply(reaction, .get.left)
+  p_met <- lapply(reaction, .get.right)
   # Extract coefficient
   r_coef <- lapply(r_met, .coefficients)
   p_coef <- lapply(p_met, .coefficients)
   # Remove coefficient and compartments
-  r_met <- lapply(r_met, function(reaction){metabolites(reaction,woCompartment = TRUE)})
-  p_met <- lapply(p_met, function(reaction){metabolites(reaction,woCompartment = TRUE)})
+  r_met <- lapply(r_met, function(reaction){metabolites(reaction,woCompartment = TRUE,uniques = FALSE)})
+  p_met <- lapply(p_met, function(reaction){metabolites(reaction,woCompartment = TRUE,uniques = FALSE)})
   # Find associated data
   if (formula == FALSE){
     r_met <- lapply(r_met, function(metabolites){as.vector(.chebi(metabolites,get="id"))})

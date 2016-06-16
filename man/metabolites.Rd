@@ -6,11 +6,12 @@
 This function identifies the list of unique metabolites (reactants and products) for a set of stoichiometric reactions. This function assumes that all your reactions have the following format L-Glutamate[c] <=> CO2[c] + 4-Aminobutanoate[c]
 }
 \usage{
-metabolites(reactionList,woCompartment)
+metabolites(reactionList,woCompartment,uniques)
 }
 \arguments{
   \item{reactionList}{ A set of stoichiometric reactions with the following format L-Glutamate[c] <=> CO2[c] + 4-Aminobutanoate[c]}
   \item{woCompartment}{ A logical value (TRUE/FALSE) if compartments should be removed}
+  \item{uniques}{ A logical value (TRUE/FALSE) if unique metabolites should be reported}
 }
 \examples{
 # Loading the stoichiometric reactions from the glutamine/glutamate cycle

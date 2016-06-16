@@ -29,6 +29,7 @@
   met <- regmatches(met, gregexpr('^[[:digit:]][[:punct:]]*[[:digit:]]*[[:blank:]]+', met))
   met[lengths(met)==0] <- 1
   met <- gsub("[[:blank:]]*$","",met)
+  met <- as.numeric(met)
   return(met)
 }
 
@@ -45,11 +46,11 @@
 }
 
 .get.right <- function(reaction){
-  unlist(strsplit(unlist(strsplit(reaction,"[[:blank:]]+<?=>[[:blank:]]+"))[1],"[[:blank:]]+\\+[[:blank:]]+"))
+  unlist(strsplit(unlist(strsplit(reaction,"[[:blank:]]+<?=>[[:blank:]]+"))[2],"[[:blank:]]+\\+[[:blank:]]+"))
 }
 
 .get.left <- function(reaction){
-  unlist(strsplit(unlist(strsplit(reaction,"[[:blank:]]+<?=>[[:blank:]]+"))[2],"[[:blank:]]+\\+[[:blank:]]+"))
+  unlist(strsplit(unlist(strsplit(reaction,"[[:blank:]]+<?=>[[:blank:]]+"))[1],"[[:blank:]]+\\+[[:blank:]]+"))
 }
 
 .join.cm <- function(coefficient,metabolite){

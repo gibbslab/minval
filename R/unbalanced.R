@@ -6,8 +6,8 @@
 # Returns the unbalanced reactions from a set of stoichiometric reactions
 unbalanced <- function(reaction, show.formulas = FALSE) {
   ChEBIformulas <- toChEBI(reaction,formula = TRUE)
-  r_met <- lapply(ChEBIformulas, .get.right)
-  p_met <- lapply(ChEBIformulas, .get.left)
+  r_met <- lapply(ChEBIformulas, .get.left)
+  p_met <- lapply(ChEBIformulas, .get.right)
   r_met <- lapply(r_met, .atoms)
   p_met <- lapply(p_met, .atoms)
   r_met <- lapply(r_met, .formula2matrix)
