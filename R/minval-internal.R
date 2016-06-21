@@ -45,11 +45,11 @@
   return(metabolite)
 }
 
-.get.product <- function(reaction){
+.get.right <- function(reaction){
   unlist(strsplit(unlist(strsplit(reaction,"[[:blank:]]+<?=>[[:blank:]]+"))[2],"[[:blank:]]+\\+[[:blank:]]+"))
 }
 
-.get.reactant <- function(reaction){
+.get.left <- function(reaction){
   unlist(strsplit(unlist(strsplit(reaction,"[[:blank:]]+<?=>[[:blank:]]+"))[1],"[[:blank:]]+\\+[[:blank:]]+"))
 }
 
