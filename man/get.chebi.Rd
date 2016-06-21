@@ -9,11 +9,27 @@ get.chebi(metabolite,get)
 }
 \arguments{
   \item{metabolite}{A compound or a set of compounds names}
-  \item{get}{A character string specifying the associated data to be retrieved, must be one of \code{"id"} }
+  \item{get}{A character string specifying the associated data to be retrieved, must be one of \code{"id"}, \code{"formula"} or {"candidates"} }
 }
 \examples{
-## For a specific metabolite
-get.chebi("ATP")
+## Retrieve ChEBI id for a specific metabolite name
+get.chebi("ATP",get = "id")
+# "15422" 
+
+## Retrieve molecular formula for a specific metabolite name
+get.chebi("ATP",get = "formula")
+# "C10H16N5O13P3"
+
+## Retrieve candidates for a specific metabolite name
+get.chebi("ATP",get = "candidates")
+# [1] "atp"                                                                                           
+# [2] "datp"                                                                                          
+# [3] "5-phosphoribosyl-atp"                                                                          
+# [4] "atp synthase inhibitor"                                                                        
+# [5] "atp-sugar"               
+# .
+# .
+# .
 }
-\keyword{ ChEBI }% use one of  RShowDoc("KEYWORDS")
-\keyword{ data }% __ONLY ONE__ keyword per line
+\keyword{ ChEBI }
+\keyword{ data }
