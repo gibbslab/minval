@@ -31,8 +31,7 @@ xls2sbml<-function(infile,outfile){
   model$compartments <- lapply(compartments(data[,"EQUATION"]), .fill.compartment)
   
   ## Species
-  metIDs <- metabolites(data[,"EQUATION"],woCompartment = FALSE,uniques = TRUE)
-  model$species <- lapply(metIDs,.fill.species)
+  model$species <- lapply(metabolites(data[,"EQUATION"],woCompartment = FALSE,uniques = TRUE),.fill.species)
   
   ## Reactions
   model$reactions<-lapply(as.character(data[,"ID"]),.fill.reactions)
