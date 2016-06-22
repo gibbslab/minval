@@ -28,10 +28,10 @@ xls2sbml<-function(infile,outfile){
   model$id <- sub("(.*)\\.(.*)$", "\\1", basename(infile))
   
   ## Compartments
-  .fill.compartment <- function(compartment,model){
+  .fill.compartment <- function(compartment){
     model[[3]][[length(model[[3]])+1]] <- list(id=compartment,name=compartment)
   }
-  model$compartments <- lapply(compartments(data[,"EQUATION"]), function(x){.fill.compartment(x,model)})
+  model$compartments <- sapply(compartments(data[,"EQUATION"]), function(x){.fill.compartment(x,model)},simplify = FALSE)
   
   ## Species
   .fill.species<- function(met){ 
