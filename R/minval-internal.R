@@ -83,16 +83,7 @@
   return (data)
 }
 
-.fill.compartment <- function(compartment,model){
-  model[[3]][[length(model[[3]])+1]] <- list(id=compartment,name=compartment)
-}
-
-.fill.species<- function(met,model){ 
-  model[[4]][[length(model[[4]])+1]] <- list(id=met, name = metabolites(met,woCompartment = TRUE), compartment=compartments(met)
-  )
-}
-
-.fill.reactions <- function(rxnid){
+.fill.reactions <- function(rxnid,data){
   LB = ifelse(is.na(data[data[,"ID"]%in%rxnid,"LOWER.BOUND"]),ifelse(grepl("<=>",data[data[,"ID"]%in%rxnid,"EQUATION"]),-1000,0),data[data[,"ID"]%in%rxnid,"LOWER.BOUND"])
   UB = ifelse(is.na(data[data[,"ID"]%in%rxnid,"UPPER.BOUND"]),1000,data[data[,"ID"]%in%rxnid,"UPPER.BOUND"])
   rev <- grepl("<=>",data[data[,"ID"]%in%rxnid,"EQUATION"])

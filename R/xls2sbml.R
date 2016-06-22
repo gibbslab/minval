@@ -28,13 +28,20 @@ xls2sbml<-function(infile,outfile){
   model$id <- sub("(.*)\\.(.*)$", "\\1", basename(infile))
   
   ## Compartments
-  model$compartments <- lapply(compartments(data[,"EQUATION"]), function(x){.fill.compartment(x,model)})
+  .fill.compartment <- function(compartment){
+    model[[3]][[length(model[[3]])+1]] <- list(id=compartment,name=compartment)
+  }
+  model$compartments <- lapply(compartments(data[,"EQUATION"]), .fill.compartment)
   
   ## Species
-  model$species <- lapply(metabolites(data[,"EQUATION"],woCompartment = FALSE,uniques = TRUE),function(x){.fill.species(x,model)})
+  .fill.species<- function(met){ 
+    model[[4]][[length(model[[4]])+1]] <- list(id=met, name = metabolites(met,woCompartment = TRUE), compartment=compartments(met)
+    )
+  }
+  model$species <- lapply(metabolites(data[,"EQUATION"],woCompartment = FALSE,uniques = TRUE),.fill.species)
   
   ## Reactions
-  model$reactions<-lapply(as.character(data[,"ID"]),.fill.reactions)
+  model$reactions<-lapply(as.character(data[,"ID"]),function(x){.fill.reactions(x,data)})
   
   # Writing model
   .write.xml(model,outfile)
