@@ -66,19 +66,6 @@
   }
 }
 
-.create.model <- function(){
-  model <- list(
-    id = "",
-    notes = c(""),
-    compartments = list(),
-    species = list(),
-    reactions = list(),
-    globalParameters = list(),
-    rules = list()
-  )
-  model <-structure(model,class ="SBMLR")
-}
-
 .validate.xls <- function(data){
   names <- colnames(data)
   if (length(grep("^ID$",names,ignore.case = TRUE))==0){stop("Reaction ID's not found")}

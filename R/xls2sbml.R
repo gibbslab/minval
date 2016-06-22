@@ -12,7 +12,16 @@ xls2sbml<-function(infile,outfile){
   data[,"EQUATION"] <- gsub("<?->","-",data[,"EQUATION"])
   
   # Creating the model
-  model <- .create.model()
+  model <- list(
+    id = "",
+    notes = c(""),
+    compartments = list(),
+    species = list(),
+    reactions = list(),
+    globalParameters = list(),
+    rules = list()
+  )
+  model <-structure(model,class ="SBMLR")
   
   # Filling the model
   ## ID
