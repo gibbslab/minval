@@ -30,7 +30,7 @@ to.sbml<-function(data,outfile){
   .fill.compartment <- function(compartment){
     model[[3]][[length(model[[3]])+1]] <- list(id=compartment,name=compartment)
   }
-  model$compartments <- lapply(compartments(data[,"EQUATION"]), .fill.compartment)
+  model$compartments <- sapply(compartments(data[,"EQUATION"]),.fill.compartment, simplify = FALSE)
   
   ## Species
   .fill.species<- function(met){ 
