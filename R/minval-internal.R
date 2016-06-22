@@ -92,7 +92,7 @@
   reac<-list(id=as.vector(rxnid), 
               reversible=rev,
               reactants=list(reactants=metabolites(left),stoichiometry=.coefficients(left)),
-              products=list(products=ifelse(is.na(metabolites(right)),paste0(metabolites(.remove.spaces(left),woCompartment = TRUE),"[b]"),.remove.spaces(right)),stoichiometry=.coefficients(right)),
+              products=list(products=ifelse(is.na(metabolites(right)),paste0(metabolites(left),woCompartment = TRUE),"[b]"),metabolites(right),stoichiometry=.coefficients(right)),
               parameters=c(LOWER_BOUND = LB,
                            UPPER_BOUND = UB,
                            OBJECTIVE_COEFFICIENT = ifelse(is.na(data[data[,"ID"]%in%rxnid,"OBJECTIVE"]),0,data[data[,"ID"]%in%rxnid,"OBJECTIVE"]),
