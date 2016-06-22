@@ -32,7 +32,7 @@ to.sbml<-function(data,outfile){
   }
   
   ## Species
-  for(metabolite in metabolites(data[,"EQUATION"],uniques = TRUE)){
+  for(met in metabolites(data[,"EQUATION"],uniques = TRUE)){
     model[["species"]][[length(model[["species"]])+1]] <- list(id=met, name = metabolites(met,woCompartment = TRUE), compartment=compartments(met))
   }
   
