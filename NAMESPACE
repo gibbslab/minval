@@ -1,2 +1,4 @@
 exportPattern("^[[:alpha:]]+")
 importFrom("utils", "data")
+import("XML")
+import("gdata")
