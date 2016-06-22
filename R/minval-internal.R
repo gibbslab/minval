@@ -144,8 +144,10 @@
   }
   if(nCompartments>0){
     cat("<listOfCompartments>", file=fid, sep="\n")
-    cat(sprintf("   <compartment id=\"%s\"  name=\"%s\"/>",  # VV
-                compartments[[i]][["id"]],compartments[[i]][["name"]]), file=fid, sep="\n")
+    for(i in 1:nCompartments){
+      cat(sprintf("   <compartment id=\"%s\"  name=\"%s\"/>",  # VV
+                  compartments[[i]][["id"]],compartments[[i]][["name"]]), file=fid, sep="\n")
+    }
     cat("</listOfCompartments>", file=fid, sep="\n")
   }
   if(nSpecies>0){
