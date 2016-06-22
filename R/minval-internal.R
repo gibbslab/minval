@@ -83,11 +83,11 @@
   return (data)
 }
 
-.fill.compartment <- function(compartment){
+.fill.compartment <- function(compartment,model){
   model[[3]][[length(model[[3]])+1]] <- list(id=compartment,name=compartment)
 }
 
-.fill.species<- function(met){ 
+.fill.species<- function(met,model){ 
   model[[4]][[length(model[[4]])+1]] <- list(id=met, name = metabolites(met,woCompartment = TRUE), compartment=compartments(met)
   )
 }
@@ -98,7 +98,7 @@
   rev <- grepl("<=>",data[data[,"ID"]%in%rxnid,"EQUATION"])
   left <- .get.left(data[data[,"ID"]%in%rxnid,"EQUATION"])
   right <- .get.right(data[data[,"ID"]%in%rxnid,"EQUATION"])
-  reac<-list( id=as.vector(rxnid), 
+  reac<-list(id=as.vector(rxnid), 
               reversible=rev,
               reactants=list(reactants=metabolites(left),stoichiometry=.coefficients(left)),
               products=list(products=ifelse(is.na(metabolites(right)),paste0(metabolites(.remove.spaces(left),woCompartment = TRUE),"[b]"),.remove.spaces(right)),stoichiometry=.coefficients(right)),

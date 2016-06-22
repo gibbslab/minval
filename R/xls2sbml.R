@@ -28,10 +28,10 @@ xls2sbml<-function(infile,outfile){
   model$id <- sub("(.*)\\.(.*)$", "\\1", basename(infile))
   
   ## Compartments
-  model$compartments <- lapply(compartments(data[,"EQUATION"]), .fill.compartment)
+  model$compartments <- lapply(compartments(data[,"EQUATION"]), function(x){.fill.compartment(x,model)})
   
   ## Species
-  model$species <- lapply(metabolites(data[,"EQUATION"],woCompartment = FALSE,uniques = TRUE),.fill.species)
+  model$species <- lapply(metabolites(data[,"EQUATION"],woCompartment = FALSE,uniques = TRUE),function(x){.fill.species(x,model)})
   
   ## Reactions
   model$reactions<-lapply(as.character(data[,"ID"]),.fill.reactions)
