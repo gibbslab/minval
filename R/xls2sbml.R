@@ -12,30 +12,17 @@ xls2sbml<-function(infile,outfile){
   data[,"EQUATION"] <- gsub("<?->","-",data[,"EQUATION"])
   
   # Creating the model
-  model <- list(
-    id = "",
-    notes = c(""),
-    compartments = list(),
-    species = list(),
-    reactions = list(),
-    globalParameters = list(),
-    rules = list()
-  )
-  model <-structure(model,class ="SBMLR")
+  model <- .create.model()
   
   # Filling the model
   ## ID
   model$id <- sub("(.*)\\.(.*)$", "\\1", basename(infile))
   
   ## Compartments
-  for (compartment in compartments(data[,"EQUATION"])){
-    model[["compartments"]][[length(model[["compartments"]])+1]] <- list(id=compartment,name=compartment)
-  }
+  model$compartments <- lapply(compartments(data[,"EQUATION"]),function(compartment){list(id=compartment,name=compartment)}) 
   
   ## Species
-  for(met in metabolites(data[,"EQUATION"],uniques = TRUE)){
-    model[["species"]][[length(model[["species"]])+1]] <- list(id=met, name = metabolites(met,woCompartment = TRUE), compartment=compartments(met))
-  }
+  model$species <- lapply(metabolites(data[,"EQUATION"],uniques = TRUE),function(met){list(id=met, name = metabolites(met,woCompartment = TRUE), compartment=compartments(met))})
   
   ## Reactions
   model$reactions<-lapply(as.character(data[,"ID"]),function(x){.fill.reactions(x,data)})

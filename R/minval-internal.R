@@ -201,3 +201,17 @@
   cat("</sbml>", file=fid, sep="\n")
   close(fid)
 }
+
+.create.model <- function(){
+  model <- list(
+    id = "",
+    notes = c(""),
+    compartments = list(),
+    species = list(),
+    reactions = list(),
+    globalParameters = list(),
+    rules = list()
+  )
+  model <-structure(model,class ="SBMLR")
+  return(model)
+}
