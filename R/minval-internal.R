@@ -169,7 +169,7 @@
     products=reactions[[i]][["products"]]
     if (!is.null(products[[1]])) {
       cat("    <listOfProducts>", file=fid, sep="\n")
-      sapply(seq_along(length(products[["products"]])), function(i){ cat(sprintf("      <speciesReference species=\"%s\" stoichiometry=\"%s\"/>", products[["products"]][[j]],products[["stoichiometry"]][[j]]), file=fid, sep="\n")})
+      sapply(seq_along(length(products[["products"]])), function(j){ cat(sprintf("      <speciesReference species=\"%s\" stoichiometry=\"%s\"/>", products[["products"]][[j]],products[["stoichiometry"]][[j]]), file=fid, sep="\n")})
       cat("    </listOfProducts>", file=fid, sep="\n")     
     }
     
