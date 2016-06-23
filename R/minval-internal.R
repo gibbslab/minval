@@ -9,7 +9,7 @@
   if (rm.coef == TRUE) {
     met <- gsub("^[[:digit:]][[:graph:]]*[[:blank:]]","",met)
   }
-    gsub("\\[[[:alnum:]]*(\\_)?[[:alnum:]]*\\]$","",met)
+  gsub("\\[[[:alnum:]]*(\\_)?[[:alnum:]]*\\]$","",met)
 }
 
 .formula2matrix <- function(formula) {
@@ -90,15 +90,15 @@
   left <- .get.left(data[data[,"ID"]%in%rxnid,"EQUATION"])
   right <- .get.right(data[data[,"ID"]%in%rxnid,"EQUATION"])
   reac<-list(id=as.vector(rxnid), 
-              reversible=rev,
-              reactants=list(reactants=metabolites(left),stoichiometry=.coefficients(left)),
-              products=list(products=ifelse(is.na(right),paste0(metabolites(left,woCompartment=TRUE),"[b]"),metabolites(right)),stoichiometry=.coefficients(right)),
-              parameters=c(LOWER_BOUND = LB,
-                           UPPER_BOUND = UB,
-                           OBJECTIVE_COEFFICIENT = ifelse(is.na(data[data[,"ID"]%in%rxnid,"OBJECTIVE"]),0,data[data[,"ID"]%in%rxnid,"OBJECTIVE"]),
-                           FLUX_VALUE = 0),
-              mathmlLaw = xmlNode("ci","FLUX_VALUE"),
-              strlaw = "FLUX_VALUE")
+             reversible=rev,
+             reactants=list(reactants=metabolites(left),stoichiometry=.coefficients(left)),
+             products=list(products=ifelse(is.na(right),paste0(metabolites(left,woCompartment=TRUE),"[b]"),metabolites(right)),stoichiometry=.coefficients(right)),
+             parameters=c(LOWER_BOUND = LB,
+                          UPPER_BOUND = UB,
+                          OBJECTIVE_COEFFICIENT = ifelse(is.na(data[data[,"ID"]%in%rxnid,"OBJECTIVE"]),0,data[data[,"ID"]%in%rxnid,"OBJECTIVE"]),
+                          FLUX_VALUE = 0),
+             mathmlLaw = xmlNode("ci","FLUX_VALUE"),
+             strlaw = "FLUX_VALUE")
 }
 
 
@@ -138,27 +138,22 @@
   if(nNotes>0){
     cat("<notes>", file=fid, sep="\n")
     cat(" <body xmlns=\"http://www.w3.org/1999/xhtml\">", file=fid, sep="\n")
-    for (i in 1:nNotes) cat(sprintf("   <p> %s  </p>",notes[[i]]), file=fid, sep="\n")
+    sapply(seq_along(nNotes), function(i){cat(sprintf("   <p> %s  </p>",notes[[i]]), file=fid, sep="\n")})
     cat(" </body>", file=fid, sep="\n")
     cat("</notes>", file=fid, sep="\n")
   }
   if(nCompartments>0){
     cat("<listOfCompartments>", file=fid, sep="\n")
-    for(i in 1:nCompartments){
-      cat(sprintf("   <compartment id=\"%s\"  name=\"%s\"/>",  # VV
-                  compartments[[i]][["id"]],compartments[[i]][["name"]]), file=fid, sep="\n")
-    }
+    sapply(seq_along(nCompartments), function(i){cat(sprintf("   <compartment id=\"%s\"  name=\"%s\"/>", compartments[[i]][["id"]],compartments[[i]][["name"]]), file=fid, sep="\n")})
     cat("</listOfCompartments>", file=fid, sep="\n")
   }
   if(nSpecies>0){
     cat("<listOfSpecies>", file=fid, sep="\n")
-    for (i in 1:nSpecies)
-      cat(sprintf("   <species id=\"%s\"  name=\"%s\"  compartment=\"%s\"/>",
-                  species[[i]][["id"]],species[[i]][["name"]],species[[i]][["compartment"]]), file=fid, sep="\n") #VV
-    cat("</listOfSpecies>", file=fid, sep="\n")
+    sapply(seq_along(nSpecies),function(i){cat(sprintf("   <species id=\"%s\"  name=\"%s\"  compartment=\"%s\"/>",species[[i]][["id"]],species[[i]][["name"]],species[[i]][["compartment"]]), file=fid, sep="\n")})
+           cat("</listOfSpecies>", file=fid, sep="\n")
   }
   cat("<listOfReactions>", file=fid, sep="\n")
-  for (i in 1:nReactions){
+  sapply(seq_along(nReactions), function(i){
     if (is.null(reactions[[i]][["reversible"]]))
       print("Internal SBMLR object should have reverse flag set") else
         cat(sprintf("  <reaction id=\"%s\"  reversible=\"%s\">",reactions[[i]][["id"]],
@@ -166,16 +161,15 @@
     reactants=reactions[[i]][["reactants"]]
     if (!is.null(reactants[[1]])) {
       cat("    <listOfReactants>", file=fid, sep="\n")
-      for (j in 1:length(reactants[["reactants"]]))
-        cat(sprintf("      <speciesReference species=\"%s\" stoichiometry=\"%s\"/>", reactants[["reactants"]][[j]],reactants[["stoichiometry"]][[j]]), file=fid, sep="\n")
-      cat("    </listOfReactants>", file=fid, sep="\n")}
+      sapply(seq_along(length(reactants[["reactants"]])),function(i){ cat(sprintf("      <speciesReference species=\"%s\" stoichiometry=\"%s\"/>", reactants[["reactants"]][[j]],reactants[["stoichiometry"]][[j]]), file=fid, sep="\n")})
+      cat("    </listOfReactants>", file=fid, sep="\n")
+    }
     
     # Just switched the order of these two blocks to fix the errors
     products=reactions[[i]][["products"]]
     if (!is.null(products[[1]])) {
       cat("    <listOfProducts>", file=fid, sep="\n")
-      for (j in 1:length(products[["products"]]))
-        cat(sprintf("      <speciesReference species=\"%s\" stoichiometry=\"%s\"/>", products[["products"]][[j]],products[["stoichiometry"]][[j]]), file=fid, sep="\n")
+      sapply(seq_along(length(products[["products"]])), function(i){ cat(sprintf("      <speciesReference species=\"%s\" stoichiometry=\"%s\"/>", products[["products"]][[j]],products[["stoichiometry"]][[j]]), file=fid, sep="\n")})
       cat("    </listOfProducts>", file=fid, sep="\n")     
     }
     
@@ -194,8 +188,7 @@
       cat("    </listOfParameters>", file=fid, sep="\n")   }
     
     cat("    </kineticLaw>", file=fid, sep="\n")
-    cat("  </reaction>", file=fid, sep="\n")
-  }
+    cat("  </reaction>", file=fid, sep="\n")})
   cat("</listOfReactions>", file=fid, sep="\n")
   cat("</model>", file=fid, sep="\n")
   cat("</sbml>", file=fid, sep="\n")
