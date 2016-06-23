@@ -161,7 +161,7 @@
     reactants=reactions[[i]][["reactants"]]
     if (!is.null(reactants[[1]])) {
       cat("    <listOfReactants>", file=fid, sep="\n")
-      sapply(seq_along(length(reactants[["reactants"]])),function(i){ cat(sprintf("      <speciesReference species=\"%s\" stoichiometry=\"%s\"/>", reactants[["reactants"]][[j]],reactants[["stoichiometry"]][[j]]), file=fid, sep="\n")})
+      sapply(seq_along(length(reactants[["reactants"]])),function(j){ cat(sprintf("      <speciesReference species=\"%s\" stoichiometry=\"%s\"/>", reactants[["reactants"]][[j]],reactants[["stoichiometry"]][[j]]), file=fid, sep="\n")})
       cat("    </listOfReactants>", file=fid, sep="\n")
     }
     
