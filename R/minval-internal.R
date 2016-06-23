@@ -186,26 +186,24 @@
       sapply(1:nlocalParameters,function(j){ cat(sprintf("      <parameter id=\"%s\" value=\"%g\"/>", names(parameters)[j],parameters[[j]]), file=fid, sep="\n")})
       cat("    </listOfParameters>", file=fid, sep="\n")
       cat("    </kineticLaw>", file=fid, sep="\n")
-      cat("  </reaction>", file=fid, sep="\n")
-    }
-    
-    cat("</listOfReactions>", file=fid, sep="\n")
-    cat("</model>", file=fid, sep="\n")
-    cat("</sbml>", file=fid, sep="\n")
-    close(fid)
-  }
-}
+      cat("  </reaction>", file=fid, sep="\n")}})
   
-  .create.model <- function(){
-    model <- list(
-      id = "",
-      notes = c(""),
-      compartments = list(),
-      species = list(),
-      reactions = list(),
-      globalParameters = list(),
-      rules = list()
-    )
-    model <-structure(model,class ="SBMLR")
-    return(model)
-  }
+  cat("</listOfReactions>", file=fid, sep="\n")
+  cat("</model>", file=fid, sep="\n")
+  cat("</sbml>", file=fid, sep="\n")
+  close(fid)
+}
+
+.create.model <- function(){
+  model <- list(
+    id = "",
+    notes = c(""),
+    compartments = list(),
+    species = list(),
+    reactions = list(),
+    globalParameters = list(),
+    rules = list()
+  )
+  model <-structure(model,class ="SBMLR")
+  return(model)
+}
