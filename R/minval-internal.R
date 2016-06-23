@@ -138,22 +138,22 @@
   if(nNotes>0){
     cat("<notes>", file=fid, sep="\n")
     cat(" <body xmlns=\"http://www.w3.org/1999/xhtml\">", file=fid, sep="\n")
-    sapply(seq_along(nNotes), function(i){cat(sprintf("   <p> %s  </p>",notes[[i]]), file=fid, sep="\n")})
+    sapply(1:nNotes, function(i){cat(sprintf("   <p> %s  </p>",notes[[i]]), file=fid, sep="\n")})
     cat(" </body>", file=fid, sep="\n")
     cat("</notes>", file=fid, sep="\n")
   }
   if(nCompartments>0){
     cat("<listOfCompartments>", file=fid, sep="\n")
-    sapply(seq_along(nCompartments), function(i){cat(sprintf("   <compartment id=\"%s\"  name=\"%s\"/>", compartments[[i]][["id"]],compartments[[i]][["name"]]), file=fid, sep="\n")})
+    sapply(1:nCompartments, function(i){cat(sprintf("   <compartment id=\"%s\"  name=\"%s\"/>", compartments[[i]][["id"]],compartments[[i]][["name"]]), file=fid, sep="\n")})
     cat("</listOfCompartments>", file=fid, sep="\n")
   }
   if(nSpecies>0){
     cat("<listOfSpecies>", file=fid, sep="\n")
-    sapply(seq_along(nSpecies),function(i){cat(sprintf("   <species id=\"%s\"  name=\"%s\"  compartment=\"%s\"/>",species[[i]][["id"]],species[[i]][["name"]],species[[i]][["compartment"]]), file=fid, sep="\n")})
-           cat("</listOfSpecies>", file=fid, sep="\n")
+    sapply(1:nSpecies,function(i){cat(sprintf("   <species id=\"%s\"  name=\"%s\"  compartment=\"%s\"/>",species[[i]][["id"]],species[[i]][["name"]],species[[i]][["compartment"]]), file=fid, sep="\n")})
+    cat("</listOfSpecies>", file=fid, sep="\n")
   }
   cat("<listOfReactions>", file=fid, sep="\n")
-  sapply(seq_along(nReactions), function(i){
+  sapply(1:nReactions, function(i){
     if (is.null(reactions[[i]][["reversible"]]))
       print("Internal SBMLR object should have reverse flag set") else
         cat(sprintf("  <reaction id=\"%s\"  reversible=\"%s\">",reactions[[i]][["id"]],
@@ -161,7 +161,7 @@
     reactants=reactions[[i]][["reactants"]]
     if (!is.null(reactants[[1]])) {
       cat("    <listOfReactants>", file=fid, sep="\n")
-      sapply(seq_along(length(reactants[["reactants"]])),function(j){ cat(sprintf("      <speciesReference species=\"%s\" stoichiometry=\"%s\"/>", reactants[["reactants"]][[j]],reactants[["stoichiometry"]][[j]]), file=fid, sep="\n")})
+      sapply(1:length(reactants[["reactants"]]),function(j){ cat(sprintf("      <speciesReference species=\"%s\" stoichiometry=\"%s\"/>", reactants[["reactants"]][[j]],reactants[["stoichiometry"]][[j]]), file=fid, sep="\n")})
       cat("    </listOfReactants>", file=fid, sep="\n")
     }
     
@@ -169,7 +169,7 @@
     products=reactions[[i]][["products"]]
     if (!is.null(products[[1]])) {
       cat("    <listOfProducts>", file=fid, sep="\n")
-      sapply(seq_along(length(products[["products"]])), function(j){ cat(sprintf("      <speciesReference species=\"%s\" stoichiometry=\"%s\"/>", products[["products"]][[j]],products[["stoichiometry"]][[j]]), file=fid, sep="\n")})
+      sapply(1:length(products[["products"]]), function(j){ cat(sprintf("      <speciesReference species=\"%s\" stoichiometry=\"%s\"/>", products[["products"]][[j]],products[["stoichiometry"]][[j]]), file=fid, sep="\n")})
       cat("    </listOfProducts>", file=fid, sep="\n")     
     }
     
@@ -181,30 +181,31 @@
     
     parameters=reactions[[i]][["parameters"]]
     nlocalParameters = length(parameters)
-    if(nlocalParameters > 0)			#if local parameters exist, we write it. Else we avoid it.
-    { cat("    <listOfParameters>", file=fid, sep="\n")
-      for (j in 1:nlocalParameters)		# Write each and every local parameter.
-        cat(sprintf("      <parameter id=\"%s\" value=\"%g\"/>", names(parameters)[j],parameters[[j]]), file=fid, sep="\n")
-      cat("    </listOfParameters>", file=fid, sep="\n")   }
+    if(nlocalParameters > 0){
+      cat("    <listOfParameters>", file=fid, sep="\n")
+      sapply(1:nlocalParameters,function(j){ cat(sprintf("      <parameter id=\"%s\" value=\"%g\"/>", names(parameters)[j],parameters[[j]]), file=fid, sep="\n")})
+      cat("    </listOfParameters>", file=fid, sep="\n")
+      cat("    </kineticLaw>", file=fid, sep="\n")
+      cat("  </reaction>", file=fid, sep="\n")
+    }
     
-    cat("    </kineticLaw>", file=fid, sep="\n")
-    cat("  </reaction>", file=fid, sep="\n")})
-  cat("</listOfReactions>", file=fid, sep="\n")
-  cat("</model>", file=fid, sep="\n")
-  cat("</sbml>", file=fid, sep="\n")
-  close(fid)
+    cat("</listOfReactions>", file=fid, sep="\n")
+    cat("</model>", file=fid, sep="\n")
+    cat("</sbml>", file=fid, sep="\n")
+    close(fid)
+  }
 }
-
-.create.model <- function(){
-  model <- list(
-    id = "",
-    notes = c(""),
-    compartments = list(),
-    species = list(),
-    reactions = list(),
-    globalParameters = list(),
-    rules = list()
-  )
-  model <-structure(model,class ="SBMLR")
-  return(model)
-}
+  
+  .create.model <- function(){
+    model <- list(
+      id = "",
+      notes = c(""),
+      compartments = list(),
+      species = list(),
+      reactions = list(),
+      globalParameters = list(),
+      rules = list()
+    )
+    model <-structure(model,class ="SBMLR")
+    return(model)
+  }
