@@ -70,7 +70,8 @@
   names <- colnames(data)
   if (length(grep("^ID$",names,ignore.case = TRUE))==0){stop("Reaction ID's not found")}
   if (!identical(data[,"ID"],unique(data[,"ID"]))){stop("Reaction ID's must be unique")}
-  if (length(grep("^EQUATION$",names,ignore.case = TRUE))==0){stop("Equations not found")}
+  if (length(grep("^REACTION$",names,ignore.case = TRUE))==0){stop("REACTIONS not found")}
+  if (length(grep("^GPR$",names,ignore.case = TRUE))==0){stop("GPR not found")}
   if (length(grep("^LOWER.BOUND$",names,ignore.case = TRUE))==0){stop("LB not found")}
   if (length(grep("^UPPER.BOUND$",names,ignore.case = TRUE))==0){stop("UB not found")}
   if (length(grep("^OBJECTIVE$",names,ignore.case = TRUE))==0){stop("OBJECTIVE not found")}
@@ -84,11 +85,12 @@
 }
 
 .fill.reactions <- function(rxnid,data){
-  LB = ifelse(is.na(data[data[,"ID"]%in%rxnid,"LOWER.BOUND"]),ifelse(grepl("<=>",data[data[,"ID"]%in%rxnid,"EQUATION"]),-1000,0),data[data[,"ID"]%in%rxnid,"LOWER.BOUND"])
+  LB = ifelse(is.na(data[data[,"ID"]%in%rxnid,"LOWER.BOUND"]),ifelse(grepl("<=>",data[data[,"ID"]%in%rxnid,"REACTION"]),-1000,0),data[data[,"ID"]%in%rxnid,"LOWER.BOUND"])
   UB = ifelse(is.na(data[data[,"ID"]%in%rxnid,"UPPER.BOUND"]),1000,data[data[,"ID"]%in%rxnid,"UPPER.BOUND"])
-  rev <- grepl("<=>",data[data[,"ID"]%in%rxnid,"EQUATION"])
-  left <- .get.left(data[data[,"ID"]%in%rxnid,"EQUATION"])
-  right <- .get.right(data[data[,"ID"]%in%rxnid,"EQUATION"])
+  rev <- grepl("<=>",data[data[,"ID"]%in%rxnid,"REACTION"])
+  left <- .get.left(data[data[,"ID"]%in%rxnid,"REACTION"])
+  right <- .get.right(data[data[,"ID"]%in%rxnid,"REACTION"])
+  gpr <- data[data[,"ID"]%in%rxnid,"GPR"]
   reac<-list(id=as.vector(rxnid), 
              reversible=rev,
              reactants=list(reactants=metabolites(left),stoichiometry=.coefficients(left)),
@@ -98,9 +100,11 @@
                           OBJECTIVE_COEFFICIENT = ifelse(is.na(data[data[,"ID"]%in%rxnid,"OBJECTIVE"]),0,data[data[,"ID"]%in%rxnid,"OBJECTIVE"]),
                           FLUX_VALUE = 0),
              mathmlLaw = xmlNode("ci","FLUX_VALUE"),
-             strlaw = "FLUX_VALUE")
+             strlaw = "FLUX_VALUE",
+             notes=list(GPR=gpr,
+             GENE=paste0(unique(na.omit(gsub("([(|and|or|)])",NA,unlist(strsplit(gpr," "))))),collapse = " ")))
+  return(reac)
 }
-
 
 # write.xml
 # Daniel Camilo Osorio
@@ -154,10 +158,15 @@
   }
   cat("<listOfReactions>", file=fid, sep="\n")
   sapply(1:nReactions, function(i){
-    if (is.null(reactions[[i]][["reversible"]]))
-      print("Internal SBMLR object should have reverse flag set") else
-        cat(sprintf("  <reaction id=\"%s\"  reversible=\"%s\">",reactions[[i]][["id"]],
-                    ifelse(reactions[[i]][["reversible"]],"true","false")), file=fid, sep="\n")
+    if (is.null(reactions[[i]][["reversible"]])){ print("Internal SBMLR object should have reverse flag set")} else{
+      cat(sprintf("  <reaction id=\"%s\"  reversible=\"%s\">",reactions[[i]][["id"]], ifelse(reactions[[i]][["reversible"]],"true","false")), file=fid, sep="\n") 
+    }
+    gpr = reactions[[i]][["notes"]]
+    if(!is.na(gpr[["GPR"]])){
+      cat(sprintf("    <notes>"),file=fid,sep="\n")
+      cat(sprintf("      <html xmlns=\"http://www.w3.org/1999/xhtml\"><p>GENE_ASSOCIATION: %s</p><p>GENE_LIST: %s</p></html>",gpr[["GPR"]],gpr[["GENE"]]),file=fid,sep="\n")
+      cat(sprintf("    </notes>"),file=fid,sep="\n")
+    }
     reactants=reactions[[i]][["reactants"]]
     if (!is.null(reactants[[1]])) {
       cat("    <listOfReactants>", file=fid, sep="\n")

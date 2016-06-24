@@ -8,21 +8,21 @@ to.sbml<-function(data,outfile){
   # Getting data
   .validate.xls(data)
   data <- .remove.comments(data)
-  data[,"EQUATION"] <- gsub("<?->","-",data[,"EQUATION"])
+  data[,"REACTION"] <- gsub("<?->","-",data[,"REACTION"])
   
   # Creating the model
   model <- .create.model()
   
   # Filling the model
   ## ID
-  model$id <- "model"
+  model$id <- sub("(.*)\\.(.*)$", "\\1", basename(infile))
   
   ## Compartments
-  model$compartments <- lapply(compartments(data[,"EQUATION"]),function(compartment){list(id=compartment,name=compartment)}) 
-
+  model$compartments <- lapply(compartments(data[,"REACTION"]),function(compartment){list(id=compartment,name=compartment)}) 
+  
   ## Species
-  model$species <- lapply(metabolites(data[,"EQUATION"],uniques = TRUE),function(met){list(id=met, name = metabolites(met,woCompartment = TRUE), compartment=compartments(met))})
-
+  model$species <- lapply(metabolites(data[,"REACTION"],uniques = TRUE),function(met){list(id=met, name = metabolites(met,woCompartment = TRUE), compartment=compartments(met))})
+  
   ## Reactions
   model$reactions<-lapply(as.character(data[,"ID"]),function(x){.fill.reactions(x,data)})
   
