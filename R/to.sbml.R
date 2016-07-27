@@ -15,7 +15,7 @@ to.sbml<-function(data,outfile){
   
   # Filling the model
   ## ID
-  model$id <- sub("(.*)\\.(.*)$", "\\1", basename(infile))
+  model$id <- "model"
   
   ## Compartments
   model$compartments <- lapply(compartments(data[,"REACTION"]),function(compartment){list(id=compartment,name=compartment)}) 
