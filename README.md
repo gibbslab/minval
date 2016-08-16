@@ -25,12 +25,12 @@ Available functions:
 -------------------
 |Function | Description |
 |:--------|:------------|
+|is.validSyntax|Evaluates if a stoichiometric reaction has a valid syntax|
 |chebi.candidates|Returns the possible ChEBI names based on compound synonyms|
 |chebi.formula|Returns the molecular formula associated to a ChEBI compound name|
 |chebi.id|Returns the ChEBI id asociated to a compound name|
 |compartments|Identifies the compartments for a set of metabolites|
 |is.chebi|Evaluates if a compound name is a ChEBI name|
-|is.validsyntax|Evaluates if a stoichiometric reaction has a valid syntax|
 |metabolites|Identifies the list of unique metabolites for a set of stoichiometric reactions|
 |orphan.products|Identifies the orphan products for a set of stoichometric reactions|
 |orphan.reactant|Identifies the orphan reactants for a set of stoichometric reactions|
