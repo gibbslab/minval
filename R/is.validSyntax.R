@@ -3,20 +3,20 @@
 # Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 # Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 
-is.validSyntax <- function(reaction){
+is.validSyntax <- function(reactionList){
   valid.syntax <- NULL
   # Coefficient validation
-  valid.syntax <- c(valid.syntax,grepl("([[:digit:]][[:blank:]][[:digit:]][[:blank:]])+",reaction))
-  valid.syntax <- c(valid.syntax,grepl("(\\([[:digit:]]+\\)[[:blank:]]+)",reaction))
+  valid.syntax <- c(valid.syntax,grepl("([[:digit:]][[:blank:]][[:digit:]][[:blank:]])+",reactionList))
+  valid.syntax <- c(valid.syntax,grepl("(\\([[:digit:]]+\\)[[:blank:]]+)",reactionList))
   # Directionality validation
-  valid.syntax <- c(valid.syntax, (!grepl("[[:blank:]]+<?=>[[:blank:]]*",reaction)))
-  valid.syntax <- c(valid.syntax,grepl("[[:blank:]](<?)-?-(>?)[[:blank:]]",reaction))
+  valid.syntax <- c(valid.syntax, (!grepl("[[:blank:]]+<?=>[[:blank:]]*",reactionList)))
+  valid.syntax <- c(valid.syntax,grepl("[[:blank:]](<?)-?-(>?)[[:blank:]]",reactionList))
   # Metabolite names validation
-  valid.syntax <- c(valid.syntax,grepl("[[:alnum:]]+\\+[[:alnum:]]+", reaction))
+  valid.syntax <- c(valid.syntax,grepl("[[:alnum:]]+\\+[[:alnum:]]+",reactionList))
   # Blank spaces validation
-  valid.syntax <- c(valid.syntax, (!grepl("[[:blank:]]",reaction)))
+  valid.syntax <- c(valid.syntax, (!grepl("[[:blank:]]",reactionList)))
   # Validating metabolite name
-  valid.syntax <- c(valid.syntax, grepl("[[:blank:]]\\-[[:alnum:]]",reaction))
+  valid.syntax <- c(valid.syntax, grepl("[[:blank:]]\\-[[:alnum:]]",reactionList))
   # Warnings!
   valid.syntax <- matrix(valid.syntax,ncol = 7)
   sapply(which(valid.syntax[,1]==TRUE),function(x){warning(paste0("Reaction ",x,": Invalid coefficients. Metabolites should have just one coefficient."),call. = FALSE)})
@@ -27,6 +27,6 @@ is.validSyntax <- function(reaction){
   sapply(which(valid.syntax[,6]==TRUE),function(x){warning(paste0("Reaction ",x,": No blank spaces detected."),call. = FALSE)})
   sapply(which(valid.syntax[,7]==TRUE),function(x){warning(paste0("Reaction ",x,": Invalid metabolite name. Substituent should not be separated of the metabolite name."),call. = FALSE)})
   # Return
-  valid.syntax <- sapply(seq_along(reaction), function(reaction){identical(valid.syntax[reaction,],rep(FALSE,7))})
+  valid.syntax <- sapply(seq_along(reactionList), function(reaction){identical(valid.syntax[reaction,],rep(FALSE,7))})
   return(valid.syntax)
 }
