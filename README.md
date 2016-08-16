@@ -13,10 +13,14 @@ install.packages("minval", dependencies=TRUE)
 If you have devtools installed, install the latest stable version this package directly from GitHub:
 
 ```
-library(devtools)
-install_github("gibbslab/minval")
+# Install devtools R package
+install.packages("devtools")
+
+#Install 'minval' package
+devtools::install_github("gibbslab/minval")
 library(minval)
 ```
+
 Available functions:
 -------------------
 |Function | Description |
