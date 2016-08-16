@@ -1,6 +1,6 @@
 minval
 ======
-A package to evaluate the mass balance and extract all reactants, products, orphan metabolites, metabolite names and compartments of stoichiometric reactions. Also are included some options to check the compound names associated to ChEBI database.
+The *minval* package was designed as a tool to identify orphan metabolites and the mass unbalanced reactions in a set of stoichometry reactions, it also permits to extract all reactants, products, metabolite names and compartments from a metabolic reconstruction.  Moreover specific functions to map compound names associated to the Chemical Entities of Biological Interest (ChEBI) database are also included.
 
 Install:
 --------
@@ -14,7 +14,7 @@ If you have devtools installed, install the latest stable version this package d
 
 ```
 library(devtools)
-install_github("dosorio/minval")
+install_github("gibbslab/minval")
 library(minval)
 ```
 Available functions:
