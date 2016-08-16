@@ -1,4 +1,4 @@
-minval
+minval : MINimal VALidation of stoichiometric reactions
 ======
 The *minval* package was designed as a tool to identify orphan metabolites and the mass unbalanced reactions in a set of stoichometry reactions, it also permits to extract all reactants, products, metabolite names and compartments from a metabolic reconstruction.  Moreover specific functions to map compound names associated to the Chemical Entities of Biological Interest (ChEBI) database are also included.
 
