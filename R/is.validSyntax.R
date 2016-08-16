@@ -15,7 +15,7 @@ is.validSyntax <- function(reaction){
   valid.syntax <- c(valid.syntax,grepl("[[:alnum:]]+\\+[[:alnum:]]+", reaction))
   # Blank spaces validation
   valid.syntax <- c(valid.syntax, (!grepl("[[:blank:]]",reaction)))
-  # 
+  # Validating metabolite name
   valid.syntax <- c(valid.syntax, grepl("[[:blank:]]\\-[[:alnum:]]",reaction))
   # Warnings!
   valid.syntax <- matrix(valid.syntax,ncol = 7)
@@ -26,7 +26,7 @@ is.validSyntax <- function(reaction){
   sapply(which(valid.syntax[,5]==TRUE),function(x){warning(paste0("Reaction ",x,": Metabolites names should be separated by a plus symbol between spaces."),call. = FALSE)})
   sapply(which(valid.syntax[,6]==TRUE),function(x){warning(paste0("Reaction ",x,": No blank spaces detected."),call. = FALSE)})
   sapply(which(valid.syntax[,7]==TRUE),function(x){warning(paste0("Reaction ",x,": Invalid metabolite name. Substituent should not be separated of the metabolite name."),call. = FALSE)})
-  # Return!
+  # Return
   valid.syntax <- sapply(seq_along(reaction), function(reaction){identical(valid.syntax[reaction,],rep(FALSE,7))})
   return(valid.syntax)
 }
