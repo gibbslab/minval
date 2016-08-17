@@ -7,7 +7,7 @@ convert2SBMLR <- function(data){
   # Import data.frame
   data <- as.data.frame.array(data)
   # Validate colnames
-  .validate.xls(data)
+  .validateData(data)
   # Remove comments
   data <- .remove.comments(data)
   # Verify syntaxis
