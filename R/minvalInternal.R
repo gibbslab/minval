@@ -72,61 +72,6 @@
   }
 }
 
-.validateData <- function(data){
-  names <- colnames(data)
-  if (length(grep("^ID$",names,ignore.case = TRUE))==0){stop("Reaction ID's not found")}
-  if (!identical(data[,"ID"],unique(data[,"ID"]))){stop("Reaction ID's must be unique")}
-  if (length(grep("^REACTION$",names,ignore.case = TRUE))==0){stop("REACTIONS not found")}
-  if (length(grep("^GPR$",names,ignore.case = TRUE))==0){stop("GPR not found")}
-  if (length(grep("^LOWER.BOUND$",names,ignore.case = TRUE))==0){stop("LB not found")}
-  if (length(grep("^UPPER.BOUND$",names,ignore.case = TRUE))==0){stop("UB not found")}
-  if (length(grep("^OBJECTIVE$",names,ignore.case = TRUE))==0){stop("OBJECTIVE not found")}
-}
-
-.remove.comments <- function(data){
-  if (length(grep("#",data[,1]))>0){
-    data <- data[!data[,1]=="#"]
-  }
-  return (data)
-}
-
-.fill.reactions <- function(rxnid,data){
-  LB = ifelse(is.na(data[data[,"ID"]%in%rxnid,"LOWER.BOUND"]),ifelse(grepl("<=>",data[data[,"ID"]%in%rxnid,"REACTION"]),-1000,0),data[data[,"ID"]%in%rxnid,"LOWER.BOUND"])
-  UB = ifelse(is.na(data[data[,"ID"]%in%rxnid,"UPPER.BOUND"]),1000,data[data[,"ID"]%in%rxnid,"UPPER.BOUND"])
-  rev <- grepl("<=>",data[data[,"ID"]%in%rxnid,"REACTION"])
-  left <- .get.left(data[data[,"ID"]%in%rxnid,"REACTION"])
-  right <- .get.right(data[data[,"ID"]%in%rxnid,"REACTION"])
-  gpr <- data[data[,"ID"]%in%rxnid,"GPR"]
-  reac<-list(id=as.vector(rxnid), 
-             reversible=rev,
-             reactants=list(reactants=metabolites(left),stoichiometry=.coefficients(left)),
-             products=list(products=ifelse(is.na(right),paste0(metabolites(left,woCompartment=TRUE),"[b]"),metabolites(right)),stoichiometry=.coefficients(right)),
-             parameters=c(LOWER_BOUND = LB,
-                          UPPER_BOUND = UB,
-                          OBJECTIVE_COEFFICIENT = ifelse(is.na(data[data[,"ID"]%in%rxnid,"OBJECTIVE"]),0,data[data[,"ID"]%in%rxnid,"OBJECTIVE"]),
-                          FLUX_VALUE = 0),
-             mathmlLaw = xmlNode("ci","FLUX_VALUE"),
-             strlaw = "FLUX_VALUE",
-             notes=list(GPR=gpr,
-             GENE=paste0(unique(na.omit(gsub("([(|and|or|)])",NA,unlist(strsplit(gpr," "))))),collapse = " ")))
-  return(reac)
-}
-
-.create.model <- function(){
-  model <- list(
-    id = "",
-    notes = c(""),
-    compartments = list(),
-    species = list(),
-    reactions = list(),
-    globalParameters = list(),
-    rules = list()
-  )
-  model <-structure(model,class ="SBMLR")
-  return(model)
-}
-
-
 .write.tsv <- function(model,prefix){
  met <- matrix(as.vector(unlist(lapply(model$species, function(metabolite){unlist(metabolite)}))),ncol = 3,byrow = TRUE,dimnames = list(c(),c("abbreviation","name","compartment")))
  write.table(x = met,file = paste0(prefix,"_met.tsv"),row.names = FALSE)

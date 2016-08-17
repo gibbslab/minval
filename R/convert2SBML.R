@@ -99,10 +99,3 @@ convert2SBML<-function(data,outfile){
   }
   writeSBML(model,outfile)
 }
-
-
-
-
-
-
-
