@@ -222,3 +222,11 @@
   model <-structure(model,class ="SBMLR")
   return(model)
 }
+
+
+.write.tsv <- function(model,prefix){
+ met <- matrix(as.vector(unlist(lapply(model$species, function(metabolite){unlist(metabolite)}))),ncol = 3,byrow = TRUE,dimnames = list(c(),c("abbreviation","name","compartment")))
+ write.table(x = met,file = paste0(prefix,"_met.tsv"),row.names = FALSE)
+ lapply(model$reactions, function(reaction){})
+ 
+}
