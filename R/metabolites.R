@@ -4,7 +4,6 @@
 # Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 
 metabolites <- function(reactionList, woCompartment = FALSE, uniques=TRUE){
-  reactionList <- reactionList[is.validSyntax(reactionList)]
   reaction <- strsplit(as.vector(reactionList),"[[:blank:]]+<?=>[[:blank:]]*")
   reaction <- lapply(reaction, function(reaction){strsplit(unlist(reaction),"[[:blank:]]+\\+[[:blank:]]+")})
   reaction <- lapply(reaction, function(reaction){.remove.spaces(unlist(reaction))})

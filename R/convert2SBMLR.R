@@ -27,7 +27,8 @@ convert2SBMLR <- function(data){
   }
   data <- removeComments(data)
   # Verify syntaxis
-  data <- data[is.validSyntax(as.vector(data[,"REACTION"])),]
+  validSyntax <- is.validSyntax(data[,"REACTION"])
+  data <- data[validSyntax,]
   # Remove arrows
   data[,"REACTION"] <- gsub("<?->","-",data[,"REACTION"])
   # Creating the model

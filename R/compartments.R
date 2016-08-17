@@ -4,10 +4,6 @@
 # Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 
 compartments <- function(reactionList){
-  # Convert to a vector
-  reactionList <- as.vector(reactionList)
-  # Remove reaction with invalid syntax
-  reactionList <- reactionList[is.validSyntax(reactionList)]
   # Extract metabolites
   metabolites <- metabolites(reactionList)
   # Extract compartments
