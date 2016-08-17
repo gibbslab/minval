@@ -61,6 +61,7 @@ convert2SBMLR <- function(data){
     left <- .get.left(data[data[,"ID"]%in%rxnid,"REACTION"])
     right <- .get.right(data[data[,"ID"]%in%rxnid,"REACTION"])
     gpr <- data[data[,"ID"]%in%rxnid,"GPR"]
+    genes <- unlist(strsplit(gsub("[(and|or)]","",gpr),"[[:blank:]]+"))
     reac<-list(id=as.vector(rxnid), 
                reversible=rev,
                reactants=list(reactants=metabolites(left),stoichiometry=.coefficients(left)),
@@ -72,7 +73,7 @@ convert2SBMLR <- function(data){
                mathmlLaw = xmlNode("ci","FLUX_VALUE"),
                strlaw = "FLUX_VALUE",
                notes=list(GPR=gpr,
-                          GENE=paste0(unique(na.omit(gsub("([(|and|or|)])",NA,unlist(strsplit(gpr," "))))),collapse = " ")))
+                          GENE=genes))
     return(reac)
   }
   model$reactions<-lapply(as.character(data[,"ID"]),function(x){fillReactions(x,data)})

@@ -28,6 +28,7 @@ convert2TSV <- function(data, prefix){
     }
     react <- matrix(unlist(sapply(model$reactions, writeReaction,simplify = FALSE)),ncol = 10,byrow = TRUE,dimnames = list(c(),c("abbreviation","name","equation","reversible","compartment","lowbnd","uppbnd","obj_coef","rule","subsystem")))
     write.table(x = react,file = paste0(prefix,"_react.tsv"),row.names = FALSE)
+    desc <- c(name = model$id,id = model$id, description = model$notes, compartment = paste0(sapply(model$compartments,function(compartment){compartment[["id"]]}),collapse = ", "),Nmetabolites = length(model$species), Nreactions=length(model$reactions))
   }
   write.tsv(model,prefix)
 }
