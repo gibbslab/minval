@@ -10,7 +10,7 @@ convert2SBML<-function(data,outfile){
   # This function is a modified copy of saveSBML function included in SBMLR package.
   # Original 'saveSBML' function was writed by Tomas Radivoyevitch
   # Please see: https://www.bioconductor.org/packages/release/bioc/html/SBMLR.html
-  write.sbml <- function(model,outfile) {
+  writeSBML <- function(model,outfile) {
     fid <- file(outfile, "w")
     sbml=model[["sbml"]]
     id=model[["id"]]
@@ -97,7 +97,7 @@ convert2SBML<-function(data,outfile){
     cat("</sbml>", file=fid, sep="\n")
     close(fid)
   }
-  write.sbml(model,outfile)
+  writeSBML(model,outfile)
 }
 
 
