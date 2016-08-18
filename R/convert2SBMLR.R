@@ -70,7 +70,7 @@ convert2SBMLR <- function(data){
                             UPPER_BOUND = UB,
                             OBJECTIVE_COEFFICIENT = ifelse(is.na(data[data[,"ID"]%in%rxnid,"OBJECTIVE"]),0,data[data[,"ID"]%in%rxnid,"OBJECTIVE"]),
                             FLUX_VALUE = 0),
-               mathmlLaw = xmlNode("ci","FLUX_VALUE"),
+               mathmlLaw = XML::xmlNode("ci","FLUX_VALUE"),
                strlaw = "FLUX_VALUE",
                notes=list(GPR=gpr,
                           GENE=genes))

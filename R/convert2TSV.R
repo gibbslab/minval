@@ -8,9 +8,11 @@ convert2TSV <- function(data, prefix){
   model <- convert2SBMLR(data)
   # Function to write files
   write.tsv <- function(model,prefix){
-    met <- matrix(as.vector(unlist(lapply(model$species, function(metabolite){unlist(metabolite)}))),ncol = 3,byrow = TRUE,dimnames = list(c(),c("abbreviation","name","compartment")))
-    write.table(x = met,file = paste0(prefix,"_met.tsv"),row.names = FALSE)
-    
+    met <- t(sapply(model$species,function(metabolite){c(metabolite[["name"]],metabolite[["compartment"]])}))
+    met <- cbind(unique(met[,1]),unique(met[,1]),sapply(unique(met[,1]),function(metabolite){paste0(met[which(met[,1]==metabolite),2],collapse = ", ")},USE.NAMES = FALSE))
+    colnames(met) <- c("abbreviation","name","compartment")
+    write.table(x = met,file = paste0(prefix,"_met.tsv"),row.names = FALSE,sep = "\t")
+
     writeReaction <- function(reaction){
       compartment <- paste0(compartments(c(reaction[["reactants"]][["reactants"]],reaction[["products"]][["products"]])),collapse = ", ")
       reactants <- paste0(sapply(seq_along(reaction[["reactants"]][["reactants"]]), function(reactants){paste0("(",reaction[["reactants"]][["stoichiometry"]][reactants],") ",reaction[["reactants"]][["reactants"]][reactants])}),collapse = " + ")
@@ -27,8 +29,9 @@ convert2TSV <- function(data, prefix){
       return(reaction)
     }
     react <- matrix(unlist(sapply(model$reactions, writeReaction,simplify = FALSE)),ncol = 10,byrow = TRUE,dimnames = list(c(),c("abbreviation","name","equation","reversible","compartment","lowbnd","uppbnd","obj_coef","rule","subsystem")))
-    write.table(x = react,file = paste0(prefix,"_react.tsv"),row.names = FALSE)
-    desc <- c(name = model$id,id = model$id, description = model$notes, compartment = paste0(sapply(model$compartments,function(compartment){compartment[["id"]]}),collapse = ", "),Nmetabolites = length(model$species), Nreactions=length(model$reactions))
+    write.table(x = react,file = paste0(prefix,"_react.tsv"),row.names = FALSE,sep = "\t")
+    desc <- c(name = model$id,id = model$id)#, description = model$notes, compartment = paste0(sapply(model$compartments,function(compartment){compartment[["id"]]}),collapse = ", "), Nmetabolites = length(model$species), Nreactions=length(model$reactions))
+    write.table(t(desc),row.names = FALSE,file = paste0(prefix,"_desc.tsv"),sep = "\t")
   }
   write.tsv(model,prefix)
 }
