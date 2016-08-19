@@ -28,7 +28,7 @@ Available functions:
 |compartments|Identifies the compartments for a set of metabolites|
 |convert2SBML|Converts a data.frame to a SBML file
 |convert2SBMLR|Converts a data.frame to a SBMLR object
-|convert2TSV|Converts a data.frame to a TSV model for sybil package
+|convert2TSV|Converts a data.frame to a TSV model for 'sybil' package
 |is.validSyntax|Evaluates if a stoichiometric reaction has a valid syntax|
 |metabolites|Identifies the list of unique metabolites for a set of stoichiometric reactions|
 |orphanProducts|Identifies the orphan products for a set of stoichometric reactions|
