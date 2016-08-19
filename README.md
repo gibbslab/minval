@@ -25,19 +25,17 @@ Available functions:
 -------------------
 |Function | Description |
 |:--------|:------------|
+|compartments|Identifies the compartments for a set of metabolites|
+|convert2SBML|Converts a data.frame to a SBML file
+|convert2SBMLR|Converts a data.frame to a SBMLR object
+|convert2TSV|Converts a data.frame to a TSV model for sybil package
 |is.validSyntax|Evaluates if a stoichiometric reaction has a valid syntax|
 |metabolites|Identifies the list of unique metabolites for a set of stoichiometric reactions|
-|reactants|Identifies the reactants for a stoichometric reaction|
-|chebi.candidates|Returns the possible ChEBI names based on compound synonyms|
-|chebi.formula|Returns the molecular formula associated to a ChEBI compound name|
-|chebi.id|Returns the ChEBI id asociated to a compound name|
-|compartments|Identifies the compartments for a set of metabolites|
-|is.chebi|Evaluates if a compound name is a ChEBI name|
-|orphan.products|Identifies the orphan products for a set of stoichometric reactions|
-|orphan.reactant|Identifies the orphan reactants for a set of stoichometric reactions|
+|orphanProducts|Identifies the orphan products for a set of stoichometric reactions|
+|orphanReactant|Identifies the orphan reactants for a set of stoichometric reactions|
 |products|Identifies the products for a stoichometric reaction|
-|toChEBI|Translates compounds names to ChEBI ids or molecular formulas in a stoichiometric reaction|
-|unbalances|Evaluates if a stoichiometric reaction is mass-balanced|
+|reactants|Identifies the reactants for a stoichometric reaction|
+|stoichiometricMatrix|Generate the stoichiometric matrix from a set of stoichiometric reactions|
 
 Available datasets
 -------------------
