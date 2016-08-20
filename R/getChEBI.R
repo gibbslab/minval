@@ -52,7 +52,7 @@ getChEBI <- function(release="latest"){
   DB <- merge(DB,mass, by = "ID",all.x = TRUE)
   message("DONE",appendLF = TRUE)
   } else { message("NOT AVAILABLE FOR THIS RELEASE")}
-  message("Downloading charges ... ",appendLF = FALSE)
+  message("Downloading molecular charges ... ",appendLF = FALSE)
   if("CHARGE" %in% unique(formulas[,"TYPE"])){
   charge <- formulas[formulas[,"TYPE"]=="CHARGE",c("COMPOUND_ID","CHEMICAL_DATA")]
   colnames(charge) <- c("ID","CHARGE")
@@ -68,6 +68,7 @@ getChEBI <- function(release="latest"){
   } else { message("NOT AVAILABLE FOR THIS RELEASE")}
   # Building database
   message("Building ChEBI ... ",appendLF = FALSE)
-  ChEBI <<- unique(DB)
+  ChEBI <- unique(DB)
   message("DONE",appendLF = TRUE)
+  return(ChEBI)
 }
