@@ -3,7 +3,7 @@
 # Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 # Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 
-getChEBI <- function(release){
+getChEBI <- function(release="latest"){
   # Download folder
   chebi_download <- tempdir()
   # Download releases
@@ -19,14 +19,12 @@ getChEBI <- function(release){
   message("OK")
   # Download files
   ftp <- paste0("ftp://ftp.ebi.ac.uk/pub/databases/chebi/archive/rel",release,"/Flat_file_tab_delimited/")
-  
   message("Downloading compounds ... ",appendLF = FALSE)
   download.file(paste0(ftp,"compounds.tsv.gz"),paste0(chebi_download,"compounds.tsv"),quiet = TRUE)
   compounds <- as.data.frame.array(read.delim2(paste0(chebi_download,"compounds.tsv")))
   compounds <- compounds[compounds["STAR"]>=3,c("ID","NAME")]
   compounds[compounds[,"NAME"]=="null","NAME"] <- NA
   message("DONE",appendLF = TRUE)
-  
   message("Downloading synonyms ... ",appendLF = FALSE)
   download.file(paste0(ftp,"names.tsv.gz"),paste0(chebi_download,"names.tsv"),quiet = TRUE)
   names <- suppressWarnings(as.data.frame.array(read.delim2(paste0(chebi_download,"names.tsv"))))
@@ -38,7 +36,6 @@ getChEBI <- function(release){
   DB <- merge(compounds,names, by = "ID")
   DB <- merge(DB, kegg, by = "ID")
   message("DONE",appendLF = TRUE)
-  
   message("Downloading formulas ... ",appendLF = FALSE)
   download.file(paste0(ftp,"chemical_data.tsv"),paste0(chebi_download,"formulas.tsv"),quiet = TRUE)
   formulas <- suppressWarnings(as.data.frame.array(read.delim2(paste0(chebi_download,"formulas.tsv"))))
@@ -69,7 +66,7 @@ getChEBI <- function(release){
   DB <- merge(DB,mmass, by = "ID",all.x = TRUE)
   message("DONE",appendLF = TRUE)
   } else { message("NOT AVAILABLE FOR THIS RELEASE")}
-  
+  # Building database
   message("Building ChEBI ... ",appendLF = FALSE)
   ChEBI <<- unique(DB)
   message("DONE",appendLF = TRUE)
