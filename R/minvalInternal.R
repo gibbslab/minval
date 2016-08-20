@@ -51,12 +51,14 @@
 
 
 
-.get.right <- function(reaction){
-  .remove.spaces(unlist(strsplit(unlist(strsplit(reaction,"[[:blank:]]*<?=>[[:blank:]]*"))[2],"[[:blank:]]+\\+[[:blank:]]+")))
+.get.left <- function(reaction){
+  lapply(strsplit(glugln,"<?=>"),function(reactants){reactants <- reactants[1]
+  metabolites(.remove.spaces(reactants),woCompartment = TRUE)})
 }
 
-.get.left <- function(reaction){
-  .remove.spaces(unlist(strsplit(unlist(strsplit(reaction,"[[:blank:]]*<?=>[[:blank:]]*"))[1],"[[:blank:]]+\\+[[:blank:]]+")))
+.get.right <- function(reaction){
+  lapply(strsplit(glugln,"<?=>"),function(products){products <- products[2]
+  metabolites(.remove.spaces(products),woCompartment = TRUE)})
 }
 
 .join.cm <- function(coefficient,metabolite){

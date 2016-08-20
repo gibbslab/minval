@@ -22,35 +22,80 @@ getChEBI <- function(release="latest"){
   message("Downloading compounds ... ",appendLF = FALSE)
   download.file(paste0(ftp,"compounds.tsv.gz"),paste0(chebi_download,"compounds.tsv"),quiet = TRUE)
   compounds <- as.data.frame.array(read.delim2(paste0(chebi_download,"compounds.tsv")))
-  compounds <- compounds[compounds["STAR"]>=3,c("ID","NAME")]
-  compounds[compounds[,"NAME"]=="null","NAME"] <- NA
   message("DONE",appendLF = TRUE)
   message("Downloading synonyms ... ",appendLF = FALSE)
   download.file(paste0(ftp,"names.tsv.gz"),paste0(chebi_download,"names.tsv"),quiet = TRUE)
   names <- suppressWarnings(as.data.frame.array(read.delim2(paste0(chebi_download,"names.tsv"))))
-  kegg <- names[names[,"SOURCE"]=="KEGG COMPOUND",]
-  kegg <- names[names[,"TYPE"]=="NAME",c("COMPOUND_ID","NAME")]
-  colnames(kegg) <- c("ID","KEGG")
-  names <- as.data.frame.array(names[names[,"COMPOUND_ID"]%in%compounds[,"ID"],c("COMPOUND_ID","NAME")])
-  colnames(names) <- c("ID","SYNONYMS")
-  DB <- merge(compounds,names, by = "ID")
-  DB <- merge(DB, kegg, by = "ID")
   message("DONE",appendLF = TRUE)
   message("Downloading formulas ... ",appendLF = FALSE)
   download.file(paste0(ftp,"chemical_data.tsv"),paste0(chebi_download,"formulas.tsv"),quiet = TRUE)
   formulas <- suppressWarnings(as.data.frame.array(read.delim2(paste0(chebi_download,"formulas.tsv"))))
+  message("DONE",appendLF = TRUE)
+  
+  # Building database
+  message("Building ChEBI ... ",appendLF = TRUE)
+  compoundsParent <- compounds
+  compounds[compounds[,"PARENT_ID"]!="null","ID"] <- compounds[compounds[,"PARENT_ID"]!="null","PARENT_ID"]
+  compounds <- unique(rbind(compounds,compoundsParent))
+  DB <- suppressWarnings((merge(compounds[,c("ID","PARENT_ID","NAME")],names[,c("COMPOUND_ID","SOURCE","NAME")],by.x = "ID",by.y = "COMPOUND_ID",all.x = TRUE)))
+  DB[DB[,"PARENT_ID"]!="null","ID"] <- DB[DB[,"PARENT_ID"]!="null","PARENT_ID"]
+  DB <- unique(DB)
+  # Creating Associations
+  ## CHEBI
+  ChEBI <- unique(DB[DB[,"NAME.x"]!="null",c("ID","NAME.x")])
+  ChEBI <- ChEBI[complete.cases(ChEBI),]
+  colnames(ChEBI) <- c("ID","ChEBI")
+  ## KEGG
+  message("Creating KEGG Associations ... ",appendLF = FALSE)
+  KEGG <- unique(DB[DB[,"SOURCE"]=="KEGG COMPOUND",c("ID","NAME.y")])
+  KEGG <- KEGG[complete.cases(KEGG),]
+  colnames(KEGG) <- c("ID","KEGG")
+  message("DONE",appendLF = TRUE)
+  ## IUPAC
+  message("Creating IUPAC Associations ... ",appendLF = FALSE)
+  IUPAC <- unique(DB[DB[,"SOURCE"]=="IUPAC",c("ID","NAME.y")])
+  IUPAC <- IUPAC[complete.cases(IUPAC),]
+  colnames(IUPAC) <- c("ID","IUPAC")
+  message("DONE",appendLF = TRUE)
+  ## METACYC
+  message("Creating MetaCyc Associations ... ",appendLF = FALSE)
+  MetaCyc <- unique(DB[DB[,"SOURCE"]=="MetaCyc",c("ID","NAME.y")])
+  MetaCyc <- MetaCyc[complete.cases(MetaCyc),]
+  colnames(MetaCyc) <- c("ID","MetaCyc")
+  message("DONE",appendLF = TRUE)
+  ## CHEMBL
+  message("Creating ChEMBL Associations ... ",appendLF = FALSE)
+  ChEMBL <- unique(DB[DB[,"SOURCE"]=="ChEMBL",c("ID","NAME.y")])
+  ChEMBL <- ChEMBL[complete.cases(ChEMBL),]
+  colnames(ChEMBL) <- c("ID","ChEMBL")
+  message("DONE",appendLF = TRUE)
+  DB <- unique(merge(DB["ID"],ChEBI,by = "ID",all.x = TRUE))
+  DB <- unique(merge(DB,KEGG,by = "ID",all.x = TRUE))
+  DB <- unique(merge(DB,IUPAC,by = "ID",all.x = TRUE))
+  DB <- unique(merge(DB,MetaCyc,by = "ID",all.x = TRUE))
+  DB <- unique(merge(DB,ChEMBL,by = "ID",all.x = TRUE))
+  
+
   if("FORMULA" %in% unique(formulas[,"TYPE"])){
+    message("Creating Formula Associations ... ")
     formula <- formulas[formulas[,"TYPE"]=="FORMULA",c("COMPOUND_ID","CHEMICAL_DATA")]
     colnames(formula) <- c("ID","FORMULA")
-    DB <- merge(DB,formula, by = "ID")
-    message("DONE",appendLF = TRUE)
-  } else { message("NOT AVAILABLE FOR THIS RELEASE")}
+    DB <- unique(merge(DB,formula, by = "ID"))
+    } else { message("NOT AVAILABLE FOR THIS RELEASE")}
+  
   message("Downloading molecular weights ... ",appendLF = FALSE)
   if("MASS" %in% unique(formulas[,"TYPE"])){
   mass <- formulas[formulas[,"TYPE"]=="MASS",c("COMPOUND_ID","CHEMICAL_DATA")]
   colnames(mass) <- c("ID","MASS")
   DB <- merge(DB,mass, by = "ID",all.x = TRUE)
   message("DONE",appendLF = TRUE)
+  } else { message("NOT AVAILABLE FOR THIS RELEASE")}
+  message("Downloading monoisotopic molecular weights ... ",appendLF = FALSE)
+  if("MONOISOTOPIC MASS" %in% unique(formulas[,"TYPE"])){
+    mmass <- formulas[formulas[,"TYPE"]=="MONOISOTOPIC MASS",c("COMPOUND_ID","CHEMICAL_DATA")]
+    colnames(mmass) <- c("ID","MONOISOTOPIC")
+    DB <- merge(DB,mmass, by = "ID",all.x = TRUE)
+    message("DONE",appendLF = TRUE)
   } else { message("NOT AVAILABLE FOR THIS RELEASE")}
   message("Downloading molecular charges ... ",appendLF = FALSE)
   if("CHARGE" %in% unique(formulas[,"TYPE"])){
@@ -59,15 +104,6 @@ getChEBI <- function(release="latest"){
   DB <- merge(DB,charge, by = "ID",all.x = TRUE)
   message("DONE",appendLF = TRUE)
   } else { message("NOT AVAILABLE FOR THIS RELEASE")}
-  message("Downloading monoisotopic molecular weights ... ",appendLF = FALSE)
-  if("MONOISOTOPIC MASS" %in% unique(formulas[,"TYPE"])){
-  mmass <- formulas[formulas[,"TYPE"]=="MONOISOTOPIC MASS",c("COMPOUND_ID","CHEMICAL_DATA")]
-  colnames(mmass) <- c("ID","MONOISOTOPIC")
-  DB <- merge(DB,mmass, by = "ID",all.x = TRUE)
-  message("DONE",appendLF = TRUE)
-  } else { message("NOT AVAILABLE FOR THIS RELEASE")}
-  # Building database
-  message("Building ChEBI ... ",appendLF = FALSE)
   ChEBI <- unique(DB)
   message("DONE",appendLF = TRUE)
   return(ChEBI)
