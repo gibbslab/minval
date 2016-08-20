@@ -11,4 +11,5 @@ Description: For a given set of stoichiometric reactions, this package evaluates
 License: GPL-2
 LazyData: TRUE
 NeedsCompilation: no
-Depends:XML, gdata, R (>= 2.10)
+Depends: R (>= 2.10)
+Imports: XML, gdata
