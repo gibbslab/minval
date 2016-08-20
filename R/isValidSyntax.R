@@ -1,9 +1,9 @@
-# is.validSyntax
+# isValidSyntax
 # Daniel Camilo Osorio
 # Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 # Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 
-is.validSyntax <- function(reactionList){
+isValidSyntax <- function(reactionList){
   valid.syntax <- NULL
   # Coefficient validation
   valid.syntax <- c(valid.syntax,grepl("([[:digit:]][[:blank:]][[:digit:]][[:blank:]])+",reactionList))
