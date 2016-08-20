@@ -30,9 +30,13 @@ getChEBI <- function(release){
   message("Downloading synonyms ... ",appendLF = FALSE)
   download.file(paste0(ftp,"names.tsv.gz"),paste0(chebi_download,"names.tsv"),quiet = TRUE)
   names <- suppressWarnings(as.data.frame.array(read.delim2(paste0(chebi_download,"names.tsv"))))
+  kegg <- names[names[,"SOURCE"]=="KEGG COMPOUND",]
+  kegg <- names[names[,"TYPE"]=="NAME",c("COMPOUND_ID","NAME")]
+  colnames(kegg) <- c("ID","KEGG")
   names <- as.data.frame.array(names[names[,"COMPOUND_ID"]%in%compounds[,"ID"],c("COMPOUND_ID","NAME")])
   colnames(names) <- c("ID","SYNONYMS")
   DB <- merge(compounds,names, by = "ID")
+  DB <- merge(DB, kegg, by = "ID")
   message("DONE",appendLF = TRUE)
   
   message("Downloading formulas ... ",appendLF = FALSE)
@@ -48,26 +52,25 @@ getChEBI <- function(release){
   if("MASS" %in% unique(formulas[,"TYPE"])){
   mass <- formulas[formulas[,"TYPE"]=="MASS",c("COMPOUND_ID","CHEMICAL_DATA")]
   colnames(mass) <- c("ID","MASS")
-  DB <- merge(DB,mass, by = "ID")
+  DB <- merge(DB,mass, by = "ID",all.x = TRUE)
   message("DONE",appendLF = TRUE)
   } else { message("NOT AVAILABLE FOR THIS RELEASE")}
   message("Downloading charges ... ",appendLF = FALSE)
   if("CHARGE" %in% unique(formulas[,"TYPE"])){
   charge <- formulas[formulas[,"TYPE"]=="CHARGE",c("COMPOUND_ID","CHEMICAL_DATA")]
   colnames(charge) <- c("ID","CHARGE")
-  DB <- merge(DB,charge, by = "ID")
+  DB <- merge(DB,charge, by = "ID",all.x = TRUE)
   message("DONE",appendLF = TRUE)
   } else { message("NOT AVAILABLE FOR THIS RELEASE")}
   message("Downloading monoisotopic molecular weights ... ",appendLF = FALSE)
   if("MONOISOTOPIC MASS" %in% unique(formulas[,"TYPE"])){
   mmass <- formulas[formulas[,"TYPE"]=="MONOISOTOPIC MASS",c("COMPOUND_ID","CHEMICAL_DATA")]
   colnames(mmass) <- c("ID","MONOISOTOPIC")
-  DB <- merge(DB,mmass, by = "ID")
+  DB <- merge(DB,mmass, by = "ID",all.x = TRUE)
   message("DONE",appendLF = TRUE)
   } else { message("NOT AVAILABLE FOR THIS RELEASE")}
   
   message("Building ChEBI ... ",appendLF = FALSE)
-  DB <- DB[complete.cases(DB),]
-  ChEBI <<- DB
+  ChEBI <<- unique(DB)
   message("DONE",appendLF = TRUE)
 }
