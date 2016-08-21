@@ -26,7 +26,7 @@
 }
 
 .formula2matrix <- function(formula) {
-  byatomtype <- unlist(regmatches(formula, gregexpr("([[:alpha:]]{1}[[:alpha:]]*)([0-9]*)", formula)))
+  byatomtype <- unlist(regmatches(formula, gregexpr("([A-Z]{1}[a-z]?)([0-9]*)", formula)))
   atomtype <- sub("([A-Z]{1}[a-z]?)([0-9]*)", '\\1', byatomtype)
   atomnumber <- as.numeric(regmatches(byatomtype, gregexpr('[0-9]+', byatomtype)))
   atomnumber[is.na(atomnumber)] <- 1
@@ -52,12 +52,12 @@
 
 
 .get.left <- function(reaction){
-  lapply(strsplit(glugln,"<?=>"),function(reactants){reactants <- reactants[1]
+  lapply(strsplit(reaction,"<?=>"),function(reactants){reactants <- reactants[1]
   metabolites(.remove.spaces(reactants),woCompartment = TRUE)})
 }
 
 .get.right <- function(reaction){
-  lapply(strsplit(glugln,"<?=>"),function(products){products <- products[2]
+  lapply(strsplit(reaction,"<?=>"),function(products){products <- products[2]
   metabolites(.remove.spaces(products),woCompartment = TRUE)})
 }
 
