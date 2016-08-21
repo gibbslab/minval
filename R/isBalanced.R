@@ -29,6 +29,7 @@ isBalanced <- function(reactionList, referenceData, ids="NAME",mFormula=NULL,mWe
     reactants <- lapply(reactants, function(reactants){sum(reactants)})
     products <- lapply(products, function(products){sum(products)})
   }
-  balanced <- sapply(seq_along(reactants),function(reaction){all.equal(reactants[[reaction]],products[[reaction]],tolerance = 0.01)})
+  min(nchar(sub("[[:digit:]]+\\.","",referenceData[,2])))
+  balanced <- sapply(seq_along(reactants),function(reaction){isTRUE(all.equal(reactants[[reaction]],products[[reaction]],tolerance = 10^-min(nchar(sub("[[:digit:]]+\\.","",referenceData[,2])))))})
   return(balanced)
 }
