@@ -7,13 +7,15 @@ orphanReactants <- function(reactionList, byCompartment=FALSE){
   # Convert to a vector
   reactionList <- as.vector(reactionList)
   # Remove reaction with invalid syntax
-  reactionList <- reactionList[is.validSyntax(reactionList)]
+  reactionList <- reactionList[isValidSyntax(reactionList)]
   # Extract all reactants
   reactant <- unique(unlist(reactants(reactionList)))
   # Extract all products
   product <- unique(unlist(products(reactionList)))
   # Possible candidates to be introduced into the system by exchange reactions or by adding more internal reactions.
-  orphan <- reactant[!(reactant%in%product)]
+  orphan <- rowSums(abs(stoichiometric.matrix(reactionList)))
+  orphan <- c(names(orphan)[orphan<2],reactant[!(reactant%in%product)])
+  orphan <- unique(orphan[!orphan%in%product[!product%in%reactant]])
   if (length(orphan)==0){
     return (NA)
   } else {
