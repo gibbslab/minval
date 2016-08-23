@@ -1,5 +1,10 @@
 NEWS
 ====
+**minval v.0.5**
+* All functions were vectorized
+* Functions to write TSV and SBML models were added
+* A function to download the different releases of the ChEBI database was added
+
 **minval v.0.4**
 * A bug in reactants function was solved. It also affected the orphan.reactants function.
 
