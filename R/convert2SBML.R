@@ -59,7 +59,7 @@ convert2SBML<-function(data,outfile){
       gpr = reactions[[i]][["notes"]]
       if(!is.na(gpr[["GPR"]])){
         cat(sprintf("    <notes>"),file=fid,sep="\n")
-        cat(sprintf("      <html xmlns=\"http://www.w3.org/1999/xhtml\"><p>GENE_ASSOCIATION: %s</p><p>GENE_LIST: %s</p></html>",gpr[["GPR"]],gpr[["GENE"]]),file=fid,sep="\n")
+        cat(sprintf("      <html xmlns=\"http://www.w3.org/1999/xhtml\"><p>GENE_ASSOCIATION: %s</p></html>",gpr[["GPR"]]),file=fid,sep="\n")
         cat(sprintf("    </notes>"),file=fid,sep="\n")
       }
       reactants=reactions[[i]][["reactants"]]
@@ -80,7 +80,7 @@ convert2SBML<-function(data,outfile){
       cat("  <kineticLaw>", file=fid, sep="\n")
       cat("    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">", file=fid, sep="\n")
       # cat(reactions[[i]]$mathmlLaw)
-      ml=saveXML(reactions[[i]]$mathmlLaw,prefix=NULL,file=fid) # annoying warnings were coming from here without file=fid
+      ml=XML::saveXML(reactions[[i]]$mathmlLaw,prefix=NULL,file=fid) # annoying warnings were coming from here without file=fid
       cat("    </math>", file=fid, sep="\n")
       
       parameters=reactions[[i]][["parameters"]]
