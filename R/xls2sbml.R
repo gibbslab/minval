@@ -7,7 +7,7 @@ xls2sbml<-function(infile,outfile){
   # Reading data
   data <- gdata::read.xls(infile,sheet = 1)
   # Creating SBMLR model
-  model <- convert2SBMLR(data)
+  model <- convert2sbmlR(data)
   # Writing model
   # This function is a modified copy of saveSBML function included in SBMLR package.
   # Original 'saveSBML' function was writed by Tomas Radivoyevitch
