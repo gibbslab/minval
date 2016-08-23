@@ -13,13 +13,13 @@ isBalanced <- function(reactionList, referenceData, ids="NAME",mFormula=NULL,mWe
   if(length(c(mFormula,mWeight,mCharge))>1){
     stop("Just one value (mFormula, mWeight or mCharge) must be given to evaluate the reaction balance")
   }
-  if(!is.null(mFormula)){
+  if(isTRUE(match(mFormula,colnames(referenceData))>0)){
     referenceData <- as.data.frame.array(unique(referenceData[referenceData[,ids]%in%metabolites,c(ids,mFormula)]))
   }
-  if(!is.null(mWeight)){
+  if(isTRUE(match(mWeight,colnames(referenceData))>0)){
     referenceData <- as.data.frame.array(unique(referenceData[referenceData[,ids]%in%metabolites,c(ids,mWeight)]))
   }
-  if(!is.null(mCharge)){
+  if(isTRUE(match(mCharge,colnames(referenceData))>0)){
     referenceData <- as.data.frame.array(unique(referenceData[referenceData[,ids]%in%metabolites,c(ids,mCharge)]))
   }
   rownames(referenceData) <- referenceData[,1]
