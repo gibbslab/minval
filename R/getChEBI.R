@@ -40,31 +40,31 @@ getChEBI <- function(release="latest"){
   DB <- suppressWarnings((merge(compounds[,c("ID","PARENT_ID","NAME")],names[,c("COMPOUND_ID","SOURCE","NAME")],by.x = "ID",by.y = "COMPOUND_ID",all.x = TRUE)))
   DB[DB[,"PARENT_ID"]!="null","ID"] <- DB[DB[,"PARENT_ID"]!="null","PARENT_ID"]
   DB <- unique(DB)
-  # Creating Associations
+  #  Associations
   ## CHEBI
   ChEBI <- unique(DB[DB[,"NAME.x"]!="null",c("ID","NAME.x")])
   ChEBI <- ChEBI[complete.cases(ChEBI),]
   colnames(ChEBI) <- c("ID","ChEBI")
   ## KEGG
-  message("Creating KEGG Associations ... ",appendLF = FALSE)
+  message(" KEGG Associations ... ",appendLF = FALSE)
   KEGG <- unique(DB[DB[,"SOURCE"]=="KEGG COMPOUND",c("ID","NAME.y")])
   KEGG <- KEGG[complete.cases(KEGG),]
   colnames(KEGG) <- c("ID","KEGG")
   message("DONE",appendLF = TRUE)
   ## IUPAC
-  message("Creating IUPAC Associations ... ",appendLF = FALSE)
+  message(" IUPAC Associations ... ",appendLF = FALSE)
   IUPAC <- unique(DB[DB[,"SOURCE"]=="IUPAC",c("ID","NAME.y")])
   IUPAC <- IUPAC[complete.cases(IUPAC),]
   colnames(IUPAC) <- c("ID","IUPAC")
   message("DONE",appendLF = TRUE)
   ## METACYC
-  message("Creating MetaCyc Associations ... ",appendLF = FALSE)
+  message(" MetaCyc Associations ... ",appendLF = FALSE)
   MetaCyc <- unique(DB[DB[,"SOURCE"]=="MetaCyc",c("ID","NAME.y")])
   MetaCyc <- MetaCyc[complete.cases(MetaCyc),]
   colnames(MetaCyc) <- c("ID","MetaCyc")
   message("DONE",appendLF = TRUE)
   ## CHEMBL
-  message("Creating ChEMBL Associations ... ",appendLF = FALSE)
+  message(" ChEMBL Associations ... ",appendLF = FALSE)
   ChEMBL <- unique(DB[DB[,"SOURCE"]=="ChEMBL",c("ID","NAME.y")])
   ChEMBL <- ChEMBL[complete.cases(ChEMBL),]
   colnames(ChEMBL) <- c("ID","ChEMBL")
@@ -77,7 +77,7 @@ getChEBI <- function(release="latest"){
   
 
   if("FORMULA" %in% unique(formulas[,"TYPE"])){
-    message("Creating Formula Associations ... ")
+    message(" Formula Associations ... ", appendLF = FALSE)
     formula <- formulas[formulas[,"TYPE"]=="FORMULA",c("COMPOUND_ID","CHEMICAL_DATA")]
     colnames(formula) <- c("ID","FORMULA")
     DB <- unique(merge(DB,formula, by = "ID",all.x = TRUE))

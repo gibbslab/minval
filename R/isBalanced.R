@@ -23,10 +23,10 @@ isBalanced <- function(reactionList, referenceData, ids="NAME",mFormula=NULL,mWe
     referenceData <- as.data.frame.array(unique(referenceData[referenceData[,ids]%in%metabolites,c(ids,mCharge)]))
   }
   rownames(referenceData) <- referenceData[,1]
-  reactants <- .get.left(reactionList)
+  reactants <- lapply(reactionList, .get.left)
   reactants <- lapply(reactants, function(reactants){rep(metabolites(reactants),.coefficients(reactants))})
-  products <- .get.right(reactionList)
-  products <- lapply(products, function(products){rep(metabolites(products),.coefficients(products))})
+  products <- lapply(reactionList, .get.right)
+  products <- lapply(products, function(products){(rep(metabolites(products),.coefficients(products)))})
   
   reactants <- lapply(reactants, function(reactants){referenceData[reactants,2]})
   products <- lapply(products, function(products){referenceData[products,2]})
