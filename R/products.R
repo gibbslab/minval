@@ -7,7 +7,7 @@ products <- function(reactionList){
   # Convert to a vector
   reactionList <- as.vector(reactionList)
   # Remove reaction with invalid syntax
-  reactionList <- reactionList[is.validSyntax(reactionList)]
+  reactionList <- reactionList[isValidSyntax(reactionList)]
   # Extract reactants for irreversible reactions
   reaction <- strsplit(reactionList,"[[:blank:]]+=>[[:blank:]]+")
   reaction[lengths(reaction)>1] <- lapply(reaction[lengths(reaction)>1],function(reaction){reaction[[2]]})

@@ -7,7 +7,7 @@ reactants <- function(reactionList){
   # Convert to a vector
   reactionList <- as.vector(reactionList)
   # Remove reaction with invalid syntax
-  reactionList <- reactionList[is.validSyntax(reactionList)]
+  reactionList <- reactionList[isValidSyntax(reactionList)]
   # Extract reactants for irreversible reactions
   reaction <- unlist(lapply(strsplit(reactionList,"[[:blank:]]+=>[[:blank:]]+"),function(reactionList){reactionList[[1]]}))
   # Extract metabolites for reversible reactions
