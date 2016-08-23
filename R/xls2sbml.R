@@ -1,9 +1,11 @@
-# convert2SBML
+# xls2sbml
 # Daniel Camilo Osorio
 # Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 # Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 
-convert2SBML<-function(data,outfile){
+xls2sbml<-function(infile,outfile){
+  # Reading data
+  data <- gdata::read.xls(infile,sheet = 1)
   # Creating SBMLR model
   model <- convert2SBMLR(data)
   # Writing model
