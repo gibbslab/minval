@@ -7,7 +7,7 @@ stoichiometricMatrix <- function(reactionList){
   # Convert to a vector
   reactionList <- as.vector(reactionList)
   # Remove reaction with invalid syntax
-  reactionList <- reactionList[is.validSyntax(reactionList)]
+  reactionList <- reactionList[isValidSyntax(reactionList)]
   # Extract metabolites
   mets<- metabolites(reactionList)
   # Create matrix
