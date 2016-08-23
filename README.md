@@ -18,7 +18,7 @@ install.packages("devtools")
 
 # Install 'minval' package
 devtools::install_github("gibbslab/minval")
-library(minval)
+library("minval"")
 ```
 
 Available functions:
