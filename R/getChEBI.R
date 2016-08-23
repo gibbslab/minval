@@ -81,6 +81,7 @@ getChEBI <- function(release="latest"){
     formula <- formulas[formulas[,"TYPE"]=="FORMULA",c("COMPOUND_ID","CHEMICAL_DATA")]
     colnames(formula) <- c("ID","FORMULA")
     DB <- unique(merge(DB,formula, by = "ID",all.x = TRUE))
+    message("DONE",appendLF = TRUE)
     } else { message("NOT AVAILABLE FOR THIS RELEASE")}
   
   message("Downloading molecular weights ... ",appendLF = FALSE)
