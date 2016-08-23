@@ -13,7 +13,7 @@ orphanProducts <- function(reactionList, byCompartment=FALSE){
   # Extract all products
   product <- unique(unlist(products(reactionList)))
   # Possible candidates to be introduced into the system by exchange reactions or by adding more internal reactions.
-  orphan <- rowSums(abs(stoichiometric.matrix(reactionList)))
+  orphan <- rowSums(stoichiometricMatrix(reactionList)!=0)
   orphan <- c(names(orphan)[orphan<2],product[!(product%in%reactant)])
   orphan <- unique(orphan[!orphan%in%reactant[!reactant%in%product]])
   if(length(orphan)==0){
