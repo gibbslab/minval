@@ -27,7 +27,7 @@ convert2SBMLR <- function(data){
   }
   data <- removeComments(data)
   # Verify syntaxis
-  validSyntax <- is.validSyntax(data[,"REACTION"])
+  validSyntax <- isValidSyntax(data[,"REACTION"])
   data <- data[validSyntax,]
   # Remove arrows
   data[,"REACTION"] <- gsub("<?->","-",data[,"REACTION"])

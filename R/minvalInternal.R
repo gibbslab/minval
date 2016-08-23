@@ -49,16 +49,12 @@
   unlist(mapply(function(coef, formula){rep(formula,coef)}, coef = coef, formula = formula,SIMPLIFY = FALSE))
 }
 
-
-
-.get.left <- function(reaction){
-  lapply(strsplit(reaction,"<?=>"),function(reactants){reactants <- reactants[1]
-  metabolites(.remove.spaces(reactants),woCompartment = TRUE)})
+.get.right <- function(reaction){
+  .remove.spaces(unlist(strsplit(unlist(strsplit(reaction,"[[:blank:]]*<?=>[[:blank:]]*"))[2],"[[:blank:]]+\\+[[:blank:]]+")))
 }
 
-.get.right <- function(reaction){
-  lapply(strsplit(reaction,"<?=>"),function(products){products <- products[2]
-  metabolites(.remove.spaces(products),woCompartment = TRUE)})
+.get.left <- function(reaction){
+  .remove.spaces(unlist(strsplit(unlist(strsplit(reaction,"[[:blank:]]*<?=>[[:blank:]]*"))[1],"[[:blank:]]+\\+[[:blank:]]+")))
 }
 
 .join.cm <- function(coefficient,metabolite){
