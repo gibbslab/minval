@@ -1,8 +1,16 @@
-# convert2sbml
-# Daniel Camilo Osorio
-# Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
-# Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
-
+#' @aliases convert2sbml
+#' @author Daniel Camilo Osorio
+#  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
+#  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
+#' @title Writes a SBML file.
+#' @description This function converts a data.frame to a valid SBML file. The Systems Biology Markup Language (SBML) is a representation format, based on XML, for communicating and storing computational models of biological processes. More Info: Encyclopedia of Systems Biology Dubitzky, W., Wolkenhauer, O., Yokota, H., Cho, K.-H. (Eds.) SBML, pp2057-2062 Springer 2013.
+#' @details This function takes a data.frame as input and convert it to a valid sbmlR object, then the object is writed into the SBML output file.
+#' @param data A data.frame with the following mandatory colnames: \code{"ID"},\code{"REACTION"},\code{"GPR"},\code{"LOWER.BOUND"},\code{"UPPER.BOUND"} and \code{"OBJECTIVE"}.
+#' @param outfile A writable path for the output 'SBML' file to be generated.
+#' @return A SBML file.
+#' @examples  
+#' @keywords Convert SBML Metabolic Reconstruction
+#' 
 convert2sbml<-function(data,outfile){
   # Creating SBMLR model
   model <- convert2sbmlR(data)

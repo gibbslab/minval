@@ -2,7 +2,7 @@
 #' @author Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
-#' @title  Extracts the list of unique compartments for the metabolites of a set of stoichiometric reactions
+#' @title  Extracts the list of unique compartments for the metabolites of a set of stoichiometric reactions.
 #' @description For a given set of stoichiometric reactions, this function identifies the compartments 
 #' associated to each involved metabolite and return a vector with the list of unique compartments identified.
 #' @param reactionList A set of stoichiometric reaction with the following format: 

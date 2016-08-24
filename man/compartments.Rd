@@ -2,7 +2,7 @@
 % Please edit documentation in R/compartments.R
 \name{compartments}
 \alias{compartments}
-\title{Extract the compartments for the metabolites of a set of stoichiometric reactions}
+\title{Extracts the list of unique compartments for the metabolites of a set of stoichiometric reactions.}
 \usage{
 compartments(reactionList)
 }
@@ -33,4 +33,5 @@ Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 \keyword{Extract}
 \keyword{Metabolic}
 \keyword{Reconstruction}
+\keyword{Unique}
 
