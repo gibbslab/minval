@@ -28,7 +28,7 @@ Available functions:
 |compartments|Extracts the list of unique compartments for the metabolites of a set of stoichiometric reactions.|
 |convert2sbml|Writes a SBML file.|
 |convert2sbmlR|Converts a data.frame data to a SBMLR object|
-|convert2tsv||
+|convert2tsv|Writes a TSV model for the 'sybil' R package.|
 |getChEBI||
 |isBalanced||
 |isValidSyntax||
