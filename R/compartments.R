@@ -15,7 +15,6 @@
 #' compartments("H2O[c] + Urea-1-carboxylate[c] => 2 CO2[c] + 2 NH3[m]")
 #' compartments("L-Glutamate[c] <=> CO2[c] + 4-Aminobutanoate[c]")
 #' @keywords Extract Unique Compartments Metabolic Reconstruction
-#' 
 
 compartments <- function(reactionList){
   # Extract metabolites of a set of stoichiometric reactions
