@@ -8,13 +8,18 @@ convert2tsv(data, prefix)
 }
 \arguments{
 \item{data}{A data.frame with the following mandatory colnames: \itemize{
-\item \code{"ID":} A list of single character strings containing the reaction abbreviations, Entries in the field abbreviation are used as reaction ids, so they must be unique.
-\item \code{"REACTION":} A set of stoichiometric reaction with the following format: \code{"H2O[c] + Urea-1-carboxylate[c] <=> 2 CO2[c] + 2 NH3[c]"} Where arrows and plus signs are surrounded by a "space character".
+\item \code{"ID":} A list of single character strings containing the reaction abbreviations.
+Entries in the field abbreviation are used as reaction ids, so they must be unique.
+\item \code{"REACTION":} A set of stoichiometric reaction with the following format: \code{"H2O[c] + Urea-1-carboxylate[c] <=> 2 CO2[c] + 2 NH3[c]"} 
+Where arrows and plus signs are surrounded by a "space character".
 It is also expected that stoichiometry coefficients are surrounded by spaces, (nothe the "2" before the CO2[c] or the NH3[c]).
-It also expects arrows to be in the form "\code{=>}" or "\code{<=>}". Meaning that arrows like "\code{==>}", "\code{<==>}", "\code{-->}" or "\code{->}" will not be parsed and will lead to errors.,
+It also expects arrows to be in the form "\code{=>}" or "\code{<=>}". 
+Meaning that arrows like "\code{==>}", "\code{<==>}", "\code{-->}" or "\code{->}" will not be parsed and will lead to errors.,
 \item \code{"GPR":} A set of genes joined by boolean operators as AND or OR, rules may be nested by parenthesis. (optional: column can be empty),
-\item \code{"LOWER.BOUND":} A list of numeric values containing the lower bounds of the reaction rates. If not set, zero is used for an irreversible reaction and 1000 for a reversible reaction. (optional: column can be empty),
-\item \code{"UPPER.BOUND":} A list of numeric values containing the upper bounds of the reaction rates. If not set, 1000 is used by default. (optional: column can be empty),
+\item \code{"LOWER.BOUND":} A list of numeric values containing the lower bounds of the reaction rates. 
+If not set, zero is used for an irreversible reaction and 1000 for a reversible reaction. (optional: column can be empty),
+\item \code{"UPPER.BOUND":} A list of numeric values containing the upper bounds of the reaction rates. 
+If not set, 1000 is used by default. (optional: column can be empty),
 \item \code{"OBJECTIVE":} A list of numeric values containing objective values for each reaction (optional: column can be empty). 
 }}
 
@@ -38,17 +43,14 @@ glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "
 # Data structure
 head(glycolysis)
 
-# Writing SBML file
+# Writing TSV files
 convert2tsv(glycolysis,"glycolysis")}
 }
 \author{
 Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 }
-\seealso{
-Original 'saveSBML': https://www.bioconductor.org/packages/release/bioc/html/SBMLR.html
-}
 \keyword{Convert}
 \keyword{Metabolic}
 \keyword{Reconstruction}
-\keyword{SBML}
+\keyword{TSV}
 
