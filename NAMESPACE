@@ -3,5 +3,5 @@
 export(compartments)
 export(convert2sbml)
 export(convert2sbmlR)
-import(read.csv2)
+export(convert2tsv)
 importFrom(XML,saveXML)

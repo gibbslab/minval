@@ -1,15 +1,14 @@
 #' @aliases convert2sbml
 #' @export convert2sbml
-#' @import read.csv2
 #' @importFrom XML saveXML
 #' @author  Created by: Tomas Radivoyevitch and modified by: Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 #' @title Writes a SBML file.
 #' @description This function converts a data.frame to a valid SBML file. The Systems Biology Markup Language (SBML) is a representation format, based on XML, for communicating and storing computational models of biological processes. More Info: Encyclopedia of Systems Biology Dubitzky, W., Wolkenhauer, O., Yokota, H., Cho, K.-H. (Eds.) SBML, pp2057-2062 Springer 2013.
-#' @details This function takes a data.frame as input and convert it to a valid sbmlR object, then the object is writed into the SBML output file.
+#' @details This function takes a data.frame as input and convert it to a valid sbmlR object, then the object is written into the SBML output file.
 #' @param data A data.frame with the following mandatory colnames: \itemize{
-#' \item \code{"ID":} A list of single character strings containing the reaction abbreviations, Entries in the field abbreviation are used as reaction id’s, so they must be unique.
+#' \item \code{"ID":} A list of single character strings containing the reaction abbreviations, Entries in the field abbreviation are used as reaction ids, so they must be unique.
 #' \item \code{"REACTION":} A set of stoichiometric reaction with the following format: \code{"H2O[c] + Urea-1-carboxylate[c] <=> 2 CO2[c] + 2 NH3[c]"} Where arrows and plus signs are surrounded by a "space character".
 #' It is also expected that stoichiometry coefficients are surrounded by spaces, (nothe the "2" before the CO2[c] or the NH3[c]).
 #' It also expects arrows to be in the form "\code{=>}" or "\code{<=>}". Meaning that arrows like "\code{==>}", "\code{<==>}", "\code{-->}" or "\code{->}" will not be parsed and will lead to errors.,
@@ -21,9 +20,15 @@
 #' @param outfile A writable path for the output 'SBML' file to be generated.
 #' @return A SBML file.
 #' @examples  
+#' \dontrun{
+#' # Loading a CSV file
 #' glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
+#' 
+#' # Data structure
 #' head(glycolysis)
-#' convert2sbml(glycolysis,"glycolysis.xml")
+#' 
+#' # Writing SBML file
+#' convert2sbml(glycolysis,"glycolysis.xml")}
 #' @seealso Original 'saveSBML': https://www.bioconductor.org/packages/release/bioc/html/SBMLR.html
 #' @keywords Convert SBML Metabolic Reconstruction
 #' 
