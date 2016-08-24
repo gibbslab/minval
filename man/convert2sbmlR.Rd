@@ -2,7 +2,7 @@
 % Please edit documentation in R/convert2sbmlR.R
 \name{convert2sbmlR}
 \alias{convert2sbmlR}
-\title{Converts a data.frame to a SBMLR object}
+\title{Converts a data.frame data to a SBMLR object}
 \usage{
 convert2sbmlR(data)
 }
