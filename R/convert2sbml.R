@@ -1,7 +1,7 @@
 #' @aliases convert2sbml
 #' @export convert2sbml
 #' @importFrom XML saveXML
-#' @author  Created by: Tomas Radivoyevitch and modified by: Daniel Camilo Osorio
+#' @author  Created by: Tomas Radivoyevitch and modified by: Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 #' @title Writes a SBML file.
@@ -20,8 +20,9 @@
 #' @param outfile A writable path for the output 'SBML' file to be generated.
 #' @return A SBML file.
 #' @examples  
-#' fpath <- system.file("glycolysisKEGG.csv","minval","exdata")
-#' read.c
+#' inputFile <- list.files(path = system.file(package = "minval","exdata"), full.names = TRUE, pattern = "gly")
+#' glycolysis <- read.csv2(file = inputFile)
+#' convert2sbml(glycolysis,"glycolysis.xml")
 #' @seealso Original 'saveSBML': https://www.bioconductor.org/packages/release/bioc/html/SBMLR.html
 #' @keywords Convert SBML Metabolic Reconstruction
 #' 

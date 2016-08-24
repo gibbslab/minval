@@ -1,11 +1,11 @@
 ID;DESCRIPTION;REACTION;GPR;LOWER.BOUND;UPPER.BOUND;OBJECTIVE
-R01786;ATP:alpha-D-glucose 6-phosphotransferase;alpha-D-Glucose + Orthophosphate => alpha-D-Glucose 6-phosphate + H2O;( 3101 and 3098 and 3099 and 80201 ) or ( 2645 );0;1000;0
-R02740;alpha-D-Glucose 6-phosphate ketol-isomerase;alpha-D-Glucose 6-phosphate <=> beta-D-Fructose 6-phosphate;-2821;-1000;1000;0
-R04779 ;ATP:D-fructose-6-phosphate 1-phosphotransferase;ATP + beta-D-Fructose 6-phosphate => ADP + beta-D-Fructose 1,6-bisphosphate;( 5213 and 5214 and 5211 );0;1000;0
-R01070;beta-D-fructose-1,6-bisphosphate D-glyceraldehyde-3-phosphate-lyase (glycerone-phosphate-forming);beta-D-Fructose 1,6-bisphosphate <=> Glycerone phosphate + D-Glyceraldehyde 3-phosphate;( 230 and 226 and 229 );-1000;1000;0
-R01015;D-glyceraldehyde-3-phosphate aldose-ketose-isomerase;D-Glyceraldehyde 3-phosphate <=> Glycerone phosphate;-7167;-1000;1000;0
-R01061;D-glyceraldehyde-3-phosphate:NAD+ oxidoreductase (phosphorylating);D-Glyceraldehyde 3-phosphate + Orthophosphate + NAD+ => 3-Phospho-D-glyceroyl phosphate + NADH + H+;( 2597 ) or ( 26330 );-1000;1000;0
-R01512;ATP:3-phospho-D-glycerate 1-phosphotransferase;ATP + 3-Phospho-D-glycerate <=> ADP + 3-Phospho-D-glyceroyl phosphate;( 5232 and 5230 );-1000;1000;0
-R01518;D-phosphoglycerate 2,3-phosphomutase;2-Phospho-D-glycerate <=> 3-Phospho-D-glycerate;( 5223 and 5224 and 441531 ) or ( 669 );-1000;1000;0
-R00658;2-phospho-D-glycerate hydro-lyase (phosphoenolpyruvate-forming);2-Phospho-D-glycerate <=> Phosphoenolpyruvate + H2O;( 2027 and 2026 and 2023 );-1000;1000;0
-R00200;ATP:pyruvate 2-O-phosphotransferase;ATP + Phosphoenolpyruvate => Pyruvate + ADP ;( 5315 ) or ( 5313 );0;1000;1
+R01786;ATP:alpha-D-glucose 6-phosphotransferase;alpha-D-Glucose[c] + Orthophosphate[c] => alpha-D-Glucose 6-phosphate[c] + H2O[c];( 3101 and 3098 and 3099 and 80201 ) or ( 2645 );0;1000;0
+R02740;alpha-D-Glucose 6-phosphate ketol-isomerase;alpha-D-Glucose 6-phosphate[c] <=> beta-D-Fructose 6-phosphate[c];2821;-1000;1000;0
+R04779 ;ATP:D-fructose-6-phosphate 1-phosphotransferase;ATP[c] + beta-D-Fructose 6-phosphate[c] => ADP[c] + beta-D-Fructose 1,6-bisphosphate[c];( 5213 and 5214 and 5211 );0;1000;0
+R01070;beta-D-fructose-1,6-bisphosphate D-glyceraldehyde-3-phosphate-lyase (glycerone-phosphate-forming);beta-D-Fructose 1,6-bisphosphate[c] <=> Glycerone phosphate[c] + D-Glyceraldehyde 3-phosphate[c];( 230 and 226 and 229 );-1000;1000;0
+R01015;D-glyceraldehyde-3-phosphate aldose-ketose-isomerase;D-Glyceraldehyde 3-phosphate[c] <=> Glycerone phosphate[c];7167;-1000;1000;0
+R01061;D-glyceraldehyde-3-phosphate:NAD+ oxidoreductase (phosphorylating);D-Glyceraldehyde 3-phosphate[c] + Orthophosphate[c] + NAD+[c] => 3-Phospho-D-glyceroyl phosphate[c] + NADH[c] + H+[c];( 2597 ) or ( 26330 );-1000;1000;0
+R01512;ATP:3-phospho-D-glycerate 1-phosphotransferase;ATP[c] + 3-Phospho-D-glycerate[c] <=> ADP[c] + 3-Phospho-D-glyceroyl phosphate[c];( 5232 and 5230 );-1000;1000;0
+R01518;D-phosphoglycerate 2,3-phosphomutase;2-Phospho-D-glycerate[c] <=> 3-Phospho-D-glycerate[c];( 5223 and 5224 and 441531 ) or ( 669 );-1000;1000;0
+R00658;2-phospho-D-glycerate hydro-lyase (phosphoenolpyruvate-forming);2-Phospho-D-glycerate[c] <=> Phosphoenolpyruvate[c] + H2O[c];( 2027 and 2026 and 2023 );-1000;1000;0
+R00200;ATP:pyruvate 2-O-phosphotransferase;ATP[c] + Phosphoenolpyruvate[c] => Pyruvate[c] + ADP[c];( 5315 ) or ( 5313 );0;1000;1

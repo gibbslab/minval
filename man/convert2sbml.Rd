@@ -31,11 +31,12 @@ This function takes a data.frame as input and convert it to a valid sbmlR object
 }
 \examples{
  
-fpath <- system.file("glycolysisKEGG.csv","minval","exdata")
-read.c
+inputFile <- list.files(path = system.file(package = "minval","exdata"), full.names = TRUE, pattern = "gly")
+glycolysis <- read.csv2(file = inputFile)
+convert2sbml(glycolysis,"glycolysis.xml")
 }
 \author{
-Created by: Tomas Radivoyevitch and modified by: Daniel Camilo Osorio
+Created by: Tomas Radivoyevitch and modified by: Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 }
 \seealso{
 Original 'saveSBML': https://www.bioconductor.org/packages/release/bioc/html/SBMLR.html
