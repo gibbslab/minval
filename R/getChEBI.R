@@ -1,8 +1,28 @@
-# getChEBI
-# Daniel Camilo Osorio
-# Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
-# Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
-
+#' @aliases getChEBI
+#' @export getChEBI
+#' @author Daniel Camilo Osorio <dcosorioh@unal.edu.co>
+#  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
+#  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
+#' @title Downloads ands parse the ChEBI database
+#' @description This function downloads the compounds, formulas, masses and charges from the selected release of the ChEBI database. 
+#' The ChEBI database (Chemical Entities of Biological Interest), is a database and ontology of molecular entities focused on 'small' chemical compounds.
+#' @param release A release number of the ChEBI database version to be downloaded, by default \code{"latest"} release is downloaded.
+#' @return A data.frame with the following data associated to the ChEBI compounds: \itemize{
+#' \item \code{"ID"}: The unique identifer
+#' \item \code{"ChEBI"}: The name recommended for use in biological databases
+#' \item \code{"KEGG"}: The associated name(s) in the KEGG database
+#' \item \code{"IUPAC"}: The name(s) generated according to recommendations of IUPAC
+#' \item \code{"MetaCyc"}: The associated name(s) in the MetaCyc database
+#' \item \code{"ChEMBL"}: The associated name(s) in the ChEMBL database
+#' \item \code{"FORMULA"}: The molecular formula
+#' \item \code{"MASS"}: The molecular mass
+#' \item \code{"MONOISOTOPIC"}: The molecular monoisotopic mass
+#' \item \code{"CHARGE"}: The molecular net charge 
+#'  }
+#' @examples 
+#' \dontrun{
+#' ChEBI <- getChEBI(release = "142")}
+#' @seealso The ChEBI database webpage: https://www.ebi.ac.uk/chebi/
 getChEBI <- function(release="latest"){
   # Download folder
   chebi_download <- tempdir()
