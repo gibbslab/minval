@@ -18,7 +18,7 @@ It also expects arrows to be in the form "\code{=>}" or "\code{<=>}". Meaning th
 \item \code{"OBJECTIVE":} A list of numeric values containing objective values for each reaction (optional: column can be empty). 
 }}
 
-\item{outfile}{A writable path for the output 'TSV' files to be generated.}
+\item{prefix}{A writable path and prefix for the output 'TSV' files to be generated.}
 }
 \value{
 A set of three 'TSV' files in a valid format to the 'sybil' R package.

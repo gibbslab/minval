@@ -1,3 +1,7 @@
+#' @importFrom stats complete.cases
+#' @importFrom utils download.file read.delim2 read.table write.table
+#' @importFrom XML saveXML
+
 # minval-internal
 # Daniel Camilo Osorio
 # Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia

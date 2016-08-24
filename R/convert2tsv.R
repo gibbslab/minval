@@ -16,7 +16,7 @@
 #' \item \code{"UPPER.BOUND":} A list of numeric values containing the upper bounds of the reaction rates. If not set, 1000 is used by default. (optional: column can be empty),
 #' \item \code{"OBJECTIVE":} A list of numeric values containing objective values for each reaction (optional: column can be empty). 
 #' }
-#' @param outfile A writable path for the output 'TSV' files to be generated.
+#' @param prefix A writable path and prefix for the output 'TSV' files to be generated.
 #' @return A set of three 'TSV' files in a valid format to the 'sybil' R package.
 #' @examples  
 #' \dontrun{
@@ -26,10 +26,9 @@
 #' # Data structure
 #' head(glycolysis)
 #' 
-#' # Writing SBML file
+#' # Writing TSV files
 #' convert2tsv(glycolysis,"glycolysis")}
-#' @seealso Original 'saveSBML': https://www.bioconductor.org/packages/release/bioc/html/SBMLR.html
-#' @keywords Convert SBML Metabolic Reconstruction
+#' @keywords Convert TSV Metabolic Reconstruction
 #' 
 convert2tsv <- function(data, prefix){
   # Creating SBMLR model
