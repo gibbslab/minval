@@ -25,8 +25,8 @@ Available functions:
 -------------------
 |Function | Description |
 |:--------|:------------|
-|compartments||
-|convert2sbml||
+|compartments|Extracts the list of unique compartments for the metabolites of a set of stoichiometric reactions.|
+|convert2sbml|Writes a SBML file.|
 |convert2sbmlR||
 |convert2tsv||
 |getChEBI||

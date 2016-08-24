@@ -31,7 +31,8 @@ This function takes a data.frame as input and convert it to a valid sbmlR object
 }
 \examples{
  
-
+fpath <- system.file("glycolysisKEGG.csv","minval","exdata")
+read.c
 }
 \author{
 Created by: Tomas Radivoyevitch and modified by: Daniel Camilo Osorio

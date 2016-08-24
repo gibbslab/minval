@@ -1,4 +1,6 @@
 #' @aliases convert2sbml
+#' @export convert2sbml
+#' @importFrom XML saveXML
 #' @author  Created by: Tomas Radivoyevitch and modified by: Daniel Camilo Osorio
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
