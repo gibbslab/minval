@@ -1,7 +1,7 @@
-# isBalanced
-# Daniel Camilo Osorio
-# Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
-# Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
+#' @export isBalanced
+#' @author Daniel Camilo Osorio <dcosorioh@unal.edu.co>
+#  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
+#  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 
 isBalanced <- function(reactionList, referenceData, ids="NAME",mFormula=NULL,mWeight=NULL,mCharge=NULL){
   reactionList <- reactionList[isValidSyntax(as.vector(reactionList))]

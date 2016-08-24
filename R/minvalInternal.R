@@ -1,6 +1,7 @@
 #' @importFrom stats complete.cases
 #' @importFrom utils download.file read.delim2 read.table write.table
 #' @importFrom XML saveXML
+#' @importFrom XML xmlNode
 
 # minval-internal
 # Daniel Camilo Osorio
