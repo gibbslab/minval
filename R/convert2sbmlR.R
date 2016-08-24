@@ -3,7 +3,7 @@
 #' @author Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
-#' @title Converts a data.frame data to a SBMLR object
+#' @title Convert a data.frame data to a SBMLR object
 #' @description This function converts a data.frame to a SBML-like R list of lists core object of class SBMLR. 
 #' The Systems Biology Markup Language (SBML) is a representation format, based on XML, for communicating and storing computational models of biological processes. 
 #' More Info: Encyclopedia of Systems Biology Dubitzky, W., Wolkenhauer, O., Yokota, H., Cho, K.-H. (Eds.) SBML, pp2057-2062 Springer 2013.

@@ -25,11 +25,11 @@ Available functions:
 -------------------
 |Function | Description |
 |:--------|:------------|
-|compartments|Extracts the list of unique compartments for the metabolites of a set of stoichiometric reactions.|
-|convert2sbml|Writes a SBML file.|
-|convert2sbmlR|Converts a data.frame data to a SBMLR object|
-|convert2tsv|Writes a TSV model for the 'sybil' R package.|
-|getChEBI||
+|compartments|Extract the list of unique compartments for the metabolites of a set of stoichiometric reactions.|
+|convert2sbml|Write a SBML file.|
+|convert2sbmlR|Convert a data.frame data to a SBMLR object|
+|convert2tsv|Write a TSV model for the 'sybil' R package.|
+|getChEBI|Download the ChEBI database|
 |isBalanced||
 |isValidSyntax||
 |metabolites||

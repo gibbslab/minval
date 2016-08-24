@@ -2,7 +2,7 @@
 % Please edit documentation in R/convert2tsv.R
 \name{convert2tsv}
 \alias{convert2tsv}
-\title{Writes a TSV model for the 'sybil' R package.}
+\title{Write a TSV model for the 'sybil' R package.}
 \usage{
 convert2tsv(data, prefix)
 }

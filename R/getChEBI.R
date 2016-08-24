@@ -3,7 +3,7 @@
 #' @author Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
-#' @title Downloads ands parse the ChEBI database
+#' @title Download the ChEBI database
 #' @description This function downloads the compounds, formulas, masses and charges from the selected release of the ChEBI database. 
 #' The ChEBI database (Chemical Entities of Biological Interest), is a database and ontology of molecular entities focused on 'small' chemical compounds.
 #' @param release A release number of the ChEBI database version to be downloaded, by default \code{"latest"} release is downloaded.

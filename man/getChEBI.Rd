@@ -2,7 +2,7 @@
 % Please edit documentation in R/getChEBI.R
 \name{getChEBI}
 \alias{getChEBI}
-\title{Downloads ands parse the ChEBI database}
+\title{Download the ChEBI database}
 \usage{
 getChEBI(release = "latest")
 }

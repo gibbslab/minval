@@ -2,7 +2,7 @@
 % Please edit documentation in R/convert2sbml.R
 \name{convert2sbml}
 \alias{convert2sbml}
-\title{Writes a SBML file.}
+\title{Write a SBML file.}
 \usage{
 convert2sbml(data, outfile)
 }
