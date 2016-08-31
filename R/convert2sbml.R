@@ -5,37 +5,37 @@
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 #' @title Write a SBML file.
-#' @description This function converts a data.frame to a valid SBML file. The Systems Biology Markup Language (SBML) is a representation format, based on XML, for communicating and storing computational models of biological processes. 
+#' @description This function converts a data.frame to a valid SBML file. The Systems Biology Markup Language (SBML) is a representation format, based on XML, for communicating and storing computational models of biological processes.
 #' More Info: Encyclopedia of Systems Biology Dubitzky, W., Wolkenhauer, O., Yokota, H., Cho, K.-H. (Eds.) SBML, pp2057-2062 Springer 2013.
 #' @details This function takes a data.frame as input and convert it to a valid sbmlR object, then the object is written into the SBML output file.
 #' @param data A data.frame with the following mandatory colnames: \itemize{
 #' \item \code{"ID":} A list of single character strings containing the reaction abbreviations, Entries in the field abbreviation are used as reaction ids, so they must be unique.
 #' \item \code{"REACTION":} A set of stoichiometric reaction with the following format: \code{"H2O[c] + Urea-1-carboxylate[c] <=> 2 CO2[c] + 2 NH3[c]"} Where arrows and plus signs are surrounded by a "space character".
 #' It is also expected that stoichiometry coefficients are surrounded by spaces, (nothe the "2" before the CO2[c] or the NH3[c]).
-#' It also expects arrows to be in the form "\code{=>}" or "\code{<=>}". 
+#' It also expects arrows to be in the form "\code{=>}" or "\code{<=>}".
 #' Meaning that arrows like "\code{==>}", "\code{<==>}", "\code{-->}" or "\code{->}" will not be parsed and will lead to errors.,
 #' \item \code{"GPR":} A set of genes joined by boolean operators as AND or OR, rules may be nested by parenthesis. (optional: column can be empty),
-#' \item \code{"LOWER.BOUND":} A list of numeric values containing the lower bounds of the reaction rates. 
+#' \item \code{"LOWER.BOUND":} A list of numeric values containing the lower bounds of the reaction rates.
 #' If not set, zero is used for an irreversible reaction and 1000 for a reversible reaction. (optional: column can be empty),
-#' \item \code{"UPPER.BOUND":} A list of numeric values containing the upper bounds of the reaction rates. 
+#' \item \code{"UPPER.BOUND":} A list of numeric values containing the upper bounds of the reaction rates.
 #' If not set, 1000 is used by default. (optional: column can be empty),
-#' \item \code{"OBJECTIVE":} A list of numeric values containing objective values for each reaction (optional: column can be empty). 
+#' \item \code{"OBJECTIVE":} A list of numeric values containing objective values for each reaction (optional: column can be empty).
 #' }
 #' @param outfile A writable path for the output 'SBML' file to be generated.
 #' @return A SBML file.
-#' @examples  
+#' @examples
 #' \dontrun{
 #' # Loading a CSV file
 #' glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
-#' 
+#'
 #' # Data structure
 #' head(glycolysis)
-#' 
+#'
 #' # Writing SBML file
 #' convert2sbml(glycolysis,"glycolysis.xml")}
 #' @seealso Original 'saveSBML': https://www.bioconductor.org/packages/release/bioc/html/SBMLR.html
 #' @keywords Convert SBML Metabolic Reconstruction
-#' 
+#'
 convert2sbml<-function(data,outfile){
   # Creating SBMLR model
   model <- convert2sbmlR(data)
@@ -55,7 +55,7 @@ convert2sbml<-function(data,outfile){
     rules=model[["rules"]]
     reactions=model[["reactions"]]
     units=model[["units"]]
-    
+
     nNotes=length(notes)
     nCompartments=length(compartments)
     nReactions=length(reactions)
@@ -63,7 +63,7 @@ convert2sbml<-function(data,outfile){
     nGlobalParameters=length(globalParameters)
     nRules=length(rules)
     nUnits=length(units)
-    
+
     cat("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", file=fid, sep="\n")
     cat("<sbml xmlns=\"http://www.sbml.org/sbml/level2\" level=\"2\" version=\"1\">", file=fid, sep="\n")
     cat(sprintf("<model id=\"%s\" name=\"%s\">",id,id), file=fid, sep="\n")
@@ -81,13 +81,13 @@ convert2sbml<-function(data,outfile){
     }
     if(nSpecies>0){
       cat("<listOfSpecies>", file=fid, sep="\n")
-      sapply(1:nSpecies,function(i){cat(sprintf("   <species id=\"%s\"  name=\"%s\"  compartment=\"%s\"/>",species[[i]][["id"]],species[[i]][["name"]],species[[i]][["compartment"]]), file=fid, sep="\n")})
+      sapply(1:nSpecies,function(i){cat(sprintf("   <species id=\"%s\"  name=\"%s\"  compartment=\"%s\"/>",metabolites(species[[i]][["id"]],woCompartment = TRUE),species[[i]][["name"]],species[[i]][["compartment"]]), file=fid, sep="\n")})
       cat("</listOfSpecies>", file=fid, sep="\n")
     }
     cat("<listOfReactions>", file=fid, sep="\n")
     sapply(1:nReactions, function(i){
       if (is.null(reactions[[i]][["reversible"]])){ print("Internal SBMLR object should have reverse flag set")} else{
-        cat(sprintf("  <reaction id=\"%s\"  reversible=\"%s\">",reactions[[i]][["id"]], ifelse(reactions[[i]][["reversible"]],"true","false")), file=fid, sep="\n") 
+        cat(sprintf("  <reaction id=\"%s\"  reversible=\"%s\">",reactions[[i]][["id"]], ifelse(reactions[[i]][["reversible"]],"true","false")), file=fid, sep="\n")
       }
       gpr = reactions[[i]][["notes"]]
       if(!is.na(gpr[["GPR"]])){
@@ -101,21 +101,21 @@ convert2sbml<-function(data,outfile){
         sapply(1:length(reactants[["reactants"]]),function(j){ cat(sprintf("      <speciesReference species=\"%s\" stoichiometry=\"%s\"/>", reactants[["reactants"]][[j]],reactants[["stoichiometry"]][[j]]), file=fid, sep="\n")})
         cat("    </listOfReactants>", file=fid, sep="\n")
       }
-      
+
       # Just switched the order of these two blocks to fix the errors
       products=reactions[[i]][["products"]]
       if (!is.null(products[[1]])) {
         cat("    <listOfProducts>", file=fid, sep="\n")
         sapply(1:length(products[["products"]]), function(j){ cat(sprintf("      <speciesReference species=\"%s\" stoichiometry=\"%s\"/>", products[["products"]][[j]],products[["stoichiometry"]][[j]]), file=fid, sep="\n")})
-        cat("    </listOfProducts>", file=fid, sep="\n")     
+        cat("    </listOfProducts>", file=fid, sep="\n")
       }
-      
+
       cat("  <kineticLaw>", file=fid, sep="\n")
       cat("    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">", file=fid, sep="\n")
       # cat(reactions[[i]]$mathmlLaw)
       ml=XML::saveXML(reactions[[i]]$mathmlLaw,prefix=NULL,file=fid) # annoying warnings were coming from here without file=fid
       cat("    </math>", file=fid, sep="\n")
-      
+
       parameters=reactions[[i]][["parameters"]]
       nlocalParameters = length(parameters)
       if(nlocalParameters > 0){
@@ -124,7 +124,7 @@ convert2sbml<-function(data,outfile){
         cat("    </listOfParameters>", file=fid, sep="\n")
         cat("    </kineticLaw>", file=fid, sep="\n")
         cat("  </reaction>", file=fid, sep="\n")}})
-    
+
     cat("</listOfReactions>", file=fid, sep="\n")
     cat("</model>", file=fid, sep="\n")
     cat("</sbml>", file=fid, sep="\n")
