@@ -4,21 +4,21 @@
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 #' @title Convert a data.frame data to a SBMLR object
-#' @description This function converts a data.frame to a SBML-like R list of lists core object of class SBMLR. 
-#' The Systems Biology Markup Language (SBML) is a representation format, based on XML, for communicating and storing computational models of biological processes. 
+#' @description This function converts a data.frame to a SBML-like R list of lists core object of class SBMLR.
+#' The Systems Biology Markup Language (SBML) is a representation format, based on XML, for communicating and storing computational models of biological processes.
 #' More Info: Encyclopedia of Systems Biology Dubitzky, W., Wolkenhauer, O., Yokota, H., Cho, K.-H. (Eds.) SBML, pp2057-2062 Springer 2013.
 #' @param data A data.frame with the following mandatory colnames: \itemize{
 #' \item \code{"ID":} A list of single character strings containing the reaction abbreviations, Entries in the field abbreviation are used as reaction ids, so they must be unique.
 #' \item \code{"REACTION":} A set of stoichiometric reaction with the following format: \code{"H2O[c] + Urea-1-carboxylate[c] <=> 2 CO2[c] + 2 NH3[c]"} Where arrows and plus signs are surrounded by a "space character".
 #' It is also expected that stoichiometry coefficients are surrounded by spaces, (nothe the "2" before the CO2[c] or the NH3[c]).
-#' It also expects arrows to be in the form "\code{=>}" or "\code{<=>}". 
+#' It also expects arrows to be in the form "\code{=>}" or "\code{<=>}".
 #' Meaning that arrows like "\code{==>}", "\code{<==>}", "\code{-->}" or "\code{->}" will not be parsed and will lead to errors.,
 #' \item \code{"GPR":} A set of genes joined by boolean operators as AND or OR, rules may be nested by parenthesis. (optional: column can be empty),
-#' \item \code{"LOWER.BOUND":} A list of numeric values containing the lower bounds of the reaction rates. 
+#' \item \code{"LOWER.BOUND":} A list of numeric values containing the lower bounds of the reaction rates.
 #' If not set, zero is used for an irreversible reaction and 1000 for a reversible reaction. (optional: column can be empty),
-#' \item \code{"UPPER.BOUND":} A list of numeric values containing the upper bounds of the reaction rates. 
+#' \item \code{"UPPER.BOUND":} A list of numeric values containing the upper bounds of the reaction rates.
 #' If not set, 1000 is used by default. (optional: column can be empty),
-#' \item \code{"OBJECTIVE":} A list of numeric values containing objective values for each reaction (optional: column can be empty). 
+#' \item \code{"OBJECTIVE":} A list of numeric values containing objective values for each reaction (optional: column can be empty).
 #' }
 #' @return A SBML-like R list of lists core object of class SBMLR
 convert2sbmlR <- function(data){
@@ -68,9 +68,9 @@ convert2sbmlR <- function(data){
   ## ID
   model$id <- "model"
   ## Compartments
-  model$compartments <- lapply(compartments(data[,"REACTION"]),function(compartment){list(id=compartment,name=compartment)}) 
+  model$compartments <- lapply(compartments(data[,"REACTION"]),function(compartment){list(id=compartment,name=compartment)})
   ## Species
-  model$species <- lapply(metabolites(data[,"REACTION"],uniques = TRUE),function(met){list(id=met, name = metabolites(met,woCompartment = TRUE), compartment=compartments(met))})
+  model$species <- lapply(metabolites(data[,"REACTION"],uniques = TRUE),function(met){list(id=.sbmlCompatible(metabolites(met,woCompartment = TRUE)), name = metabolites(met,woCompartment = TRUE), compartment=compartments(met))})
   ## Reactions
   fillReactions <- function(rxnid,data){
     LB = ifelse(is.na(data[data[,"ID"]%in%rxnid,"LOWER.BOUND"]),ifelse(grepl("<=>",data[data[,"ID"]%in%rxnid,"REACTION"]),-1000,0),data[data[,"ID"]%in%rxnid,"LOWER.BOUND"])
@@ -80,10 +80,11 @@ convert2sbmlR <- function(data){
     right <- .get.right(data[data[,"ID"]%in%rxnid,"REACTION"])
     gpr <- data[data[,"ID"]%in%rxnid,"GPR"]
     genes <- unlist(strsplit(gsub("[(and|or)]","",gpr),"[[:blank:]]+"))
-    reac<-list(id=as.vector(rxnid), 
+    reac<-list(id=as.vector(rxnid),
                reversible=rev,
-               reactants=list(reactants=metabolites(left),stoichiometry=.coefficients(left)),
-               products=list(products=ifelse(is.na(right),paste0(metabolites(left,woCompartment=TRUE),"[b]"),metabolites(right)),stoichiometry=.coefficients(right)),
+               reactants=list(reactants=paste0(.sbmlCompatible(metabolites(left,woCompartment = TRUE)),"[",compartments(left),"]"),
+                              stoichiometry=.coefficients(left)),
+               products=list(products=ifelse(is.na(right),paste0(.sbmlCompatible(metabolites(left,woCompartment=TRUE)),"[b]"),paste0(.sbmlCompatible(metabolites(right,woCompartment = TRUE)),"[",compartments(right),"]")),stoichiometry=.coefficients(right)),
                parameters=c(LOWER_BOUND = LB,
                             UPPER_BOUND = UB,
                             OBJECTIVE_COEFFICIENT = ifelse(is.na(data[data[,"ID"]%in%rxnid,"OBJECTIVE"]),0,data[data[,"ID"]%in%rxnid,"OBJECTIVE"]),
