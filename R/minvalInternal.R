@@ -99,7 +99,7 @@
 }
 
 .sbmlCompatible <- function(metabolite){
-  metabolite <- gsub("[[:blank:]]+","",metabolite)
+  metabolite <- gsub("[[:blank:]]+","_",metabolite)
   metabolite <- gsub("[[:punct:]]","_",metabolite)
   return(metabolite)
 }
