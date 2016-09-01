@@ -8,4 +8,4 @@ R01061;D-glyceraldehyde-3-phosphate:NAD+ oxidoreductase (phosphorylating);D-Glyc
 R01512;ATP:3-phospho-D-glycerate 1-phosphotransferase;ATP[c] + 3-Phospho-D-glycerate[c] <=> ADP[c] + 3-Phospho-D-glyceroyl phosphate[c];( 5232 and 5230 );-1000;1000;0
 R01518;D-phosphoglycerate 2,3-phosphomutase;2-Phospho-D-glycerate[c] <=> 3-Phospho-D-glycerate[c];( 5223 and 5224 and 441531 ) or ( 669 );-1000;1000;0
 R00658;2-phospho-D-glycerate hydro-lyase (phosphoenolpyruvate-forming);2-Phospho-D-glycerate[c] <=> Phosphoenolpyruvate[c] + H2O[c];( 2027 and 2026 and 2023 );-1000;1000;0
-R00200;ATP:pyruvate 2-O-phosphotransferase;ATP[c] + Phosphoenolpyruvate[c] => Pyruvate[c] + ADP[c];( 5315 ) or ( 5313 );0;1000;1
+R00200;ATP:pyruvate 2-O-phosphotransferase;ADP[c] + Phosphoenolpyruvate[c] => Pyruvate[c] + ATP[c];( 5315 ) or ( 5313 );0;1000;1
