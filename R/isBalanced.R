@@ -21,7 +21,7 @@
 #' glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
 #' 
 #' # Evaluating mass balance
-#' isBalanced(glycolysis$REACTION,chemicalData,"NAME","FORMULA)
+#' isBalanced(reactionList = glycolysis$REACTION, referenceData = chemicalData, ids = "NAME",mFormula = "FORMULA")
 
 isBalanced <- function(reactionList, referenceData, ids, mFormula=NULL, mWeight=NULL, mCharge=NULL){
   reactionList <- as.vector(reactionList[isValidSyntax(as.vector(reactionList))])
