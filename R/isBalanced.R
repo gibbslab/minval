@@ -27,7 +27,6 @@
 #' # Evaluating charge balance
 #' isBalanced(reactionList = glycolysis$REACTION, referenceData = chemicalData, ids = "NAME",mCharge = "CHARGE")
 
-
 isBalanced <- function(reactionList, referenceData, ids, mFormula=NULL, mWeight=NULL, mCharge=NULL){
   reactionList <- as.vector(reactionList[isValidSyntax(as.vector(reactionList))])
   referenceData <- as.data.frame.array(referenceData)
