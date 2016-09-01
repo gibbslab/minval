@@ -16,7 +16,7 @@ If you have devtools installed, install the latest stable version this package d
 # Install 'devtools' R package
 install.packages("devtools")
 
-# For LINUX users, you must install libxml before install MINVAL. Just type:
+# LINUX users must install 'libxml' before install 'minval'. Just open a terminal and type:
 sudo apt-get install libxml2-dev
 
 # Install 'minval' package
