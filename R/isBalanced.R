@@ -24,7 +24,7 @@
 #' isBalanced(glycolysis$REACTION,chemicalData,"NAME","FORMULA)
 
 isBalanced <- function(reactionList, referenceData, ids, mFormula=NULL, mWeight=NULL, mCharge=NULL){
-  reactionList <- reactionList[isValidSyntax(as.vector(reactionList))]
+  reactionList <- as.vector(reactionList[isValidSyntax(as.vector(reactionList))])
   referenceData <- as.data.frame.array(referenceData)
   metabolites <- metabolites(reactionList,woCompartment = TRUE)
   if (is.null(c(mFormula,mWeight,mCharge))){
