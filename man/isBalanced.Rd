@@ -29,12 +29,16 @@ For a given set of stoichiometric reactions, this function evaluate the mass or 
 \examples{
 # Using external chemical table
 chemicalData <- read.csv2(system.file("extdata", "chemData.csv", package = "minval"))
+head(chemicalData)
 
 # Loading stoichiometric reactions
 glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
 
 # Evaluating mass balance
-isBalanced()
+isBalanced(reactionList = glycolysis$REACTION, referenceData = chemicalData, ids = "NAME",mFormula = "FORMULA")
+
+# Evaluating charge balance
+isBalanced(reactionList = glycolysis$REACTION, referenceData = chemicalData, ids = "NAME",mCharge = "CHARGE")
 }
 \author{
 Daniel Camilo Osorio <dcosorioh@unal.edu.co>

@@ -1,4 +1,4 @@
-# stoichiometricMatrix
+#' @export stoichiometricMatrix
 # Daniel Camilo Osorio
 # Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 # Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
