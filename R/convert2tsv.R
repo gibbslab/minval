@@ -40,7 +40,7 @@ convert2tsv <- function(data, prefix){
   write.tsv <- function(model,prefix){
     # Extracting metabolites
     met <- t(sapply(model$species,function(metabolite){c(metabolite[["name"]],metabolite[["compartment"]])}))
-    met <- cbind(unique(met[,1]),unique(met[,1]),sapply(unique(met[,1]),function(metabolite){paste0(met[which(met[,1]==metabolite),2],collapse = ", ")},USE.NAMES = FALSE))
+    met <- cbind(.sbmlCompatible(unique(met[,1])),unique(met[,1]),sapply(unique(met[,1]),function(metabolite){paste0(met[which(met[,1]==metabolite),2],collapse = ", ")},USE.NAMES = FALSE))
     colnames(met) <- c("abbreviation","name","compartment")
     # Writing metabolites file
     write.table(x = met,file = paste0(prefix,"_met.tsv"),row.names = FALSE,sep = "\t")
