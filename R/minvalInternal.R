@@ -101,7 +101,6 @@
 .sbmlCompatible <- function(metabolite){
   metabolite <- gsub("[[:blank:]]+","_",metabolite)
   metabolite <- gsub("[[:punct:]]+","_",metabolite)
-  metabolite <- paste0(gsub("^([[:digit:]]+[[:punct:]])([[:print:]]+)","\\2",metabolite),
-                       gsub("^([[:digit:]]+)([[:print:]]+)","\\1",metabolite))
+  metabolite <- gsub("^([[:digit:]][[:punct:]]*[[:digit:]]*)","s\\1",metabolite)
   return(metabolite)
 }
