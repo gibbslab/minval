@@ -1,4 +1,3 @@
-#' @aliases getChEBI
 #' @export getChEBI
 #' @author Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia

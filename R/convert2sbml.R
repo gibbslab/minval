@@ -1,4 +1,3 @@
-#' @aliases convert2sbml
 #' @export convert2sbml
 #' @author  Created by: Tomas Radivoyevitch
 #' Modified by: Daniel Camilo Osorio <dcosorioh@unal.edu.co>
