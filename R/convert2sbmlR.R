@@ -82,7 +82,7 @@ convert2sbmlR <- function(data,optimizedFor){
     genes <- unlist(strsplit(gsub("[(and|or)]","",gpr),"[[:blank:]]+"))
     reac<-list(id=as.vector(rxnid),
                reversible=rev,
-               reactants=list(reactants=.sbmlCompatible(right,optimizedFor,'r'),
+               reactants=list(reactants=.sbmlCompatible(left,optimizedFor,'r'),
                               stoichiometry=.coefficients(left)),
                products=list(products=ifelse(is.na(right),gsub("\\[[[:graph:]]+\\]","\\[b\\]",.sbmlCompatible(left,optimizedFor,'r')),.sbmlCompatible(right,optimizedFor,"r")),stoichiometry=.coefficients(right)),
                parameters=c(LOWER_BOUND = LB,
