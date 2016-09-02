@@ -33,13 +33,14 @@ Available functions:
 |convert2sbmlR|Convert a data.frame data to a SBMLR object|
 |convert2tsv|Write a TSV model for the 'sybil' R package.|
 |getChEBI|Download the ChEBI database|
-|isBalanced||
-|isValidSyntax||
+|isBalanced|Evaluate the mass or charge balance for a set of stoichiometric reactions|
+|isValidSyntax|Evaluate if a stoichiometric reaction has a valid syntax|
+|mapReactions|Return reactions of a reference data by a selected column|
 |metabolites||
 |orphanProducts||
 |orphanReactants||
-|products||
-|reactants||
+|products|Identifies the reactants for a stoichometric reaction|
+|reactants|Identifies the reactants for a stoichometric reaction|
 |stoichiometricMatrix||
 |xls2sbml||
 |xls2tsv||
