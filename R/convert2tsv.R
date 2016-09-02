@@ -4,7 +4,7 @@
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 #' @title Write a TSV model for the 'sybil' R package.
 #' @description This function converts a data.frame to a TSV model for the 'sybil' R package.
-#' @details This function takes a data.frame as input and convert it to a valid sbmlR object, then the object is written into three TSV output files.
+#' @details This function takes a data.frame as input and convert it to a valid sbmlR object, then the object is written into three TSV output files (\code{'_react.tsv'}, \code{'_met.tsv'},\code{'_desc.tsv'}).
 #' @param data A data.frame with the following mandatory colnames: \itemize{
 #' \item \code{"ID":} A list of single character strings containing the reaction abbreviations, Entries in the field abbreviation are used as reaction ids, so they must be unique.
 #' \item \code{"REACTION":} A set of stoichiometric reaction with the following format: \code{"H2O[c] + Urea-1-carboxylate[c] <=> 2 CO2[c] + 2 NH3[c]"} Where arrows and plus signs are surrounded by a "space character".

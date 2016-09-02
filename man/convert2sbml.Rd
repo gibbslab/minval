@@ -45,8 +45,7 @@ head(glycolysis)
 convert2sbml(glycolysis,"glycolysis.xml")}
 }
 \author{
-Created by: Tomas Radivoyevitch
-Modified by: Daniel Camilo Osorio <dcosorioh@unal.edu.co>
+Created by: Tomas Radivoyevitch - Modified by: Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 }
 \seealso{
 Original 'saveSBML': https://www.bioconductor.org/packages/release/bioc/html/SBMLR.html

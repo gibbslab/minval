@@ -1,6 +1,5 @@
 #' @export convert2sbml
-#' @author  Created by: Tomas Radivoyevitch
-#' Modified by: Daniel Camilo Osorio <dcosorioh@unal.edu.co>
+#' @author  Created by: Tomas Radivoyevitch - Modified by: Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 #' @title Write a SBML file.

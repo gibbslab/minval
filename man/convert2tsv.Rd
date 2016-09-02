@@ -30,7 +30,7 @@ A set of three 'TSV' files in a valid format to the 'sybil' R package.
 This function converts a data.frame to a TSV model for the 'sybil' R package.
 }
 \details{
-This function takes a data.frame as input and convert it to a valid sbmlR object, then the object is written into three TSV output files.
+This function takes a data.frame as input and convert it to a valid sbmlR object, then the object is written into three TSV output files (\code{'_react.tsv'}, \code{'_met.tsv'},\code{'_desc.tsv'}).
 }
 \examples{
  
