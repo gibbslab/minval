@@ -1,8 +1,8 @@
 #' @export isValidSyntax
-# Daniel Camilo Osorio
+#' @author Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 # Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 # Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
-
+#' @title Evaluate if a stoichiometric reaction has a valid syntax
 isValidSyntax <- function(reactionList){
   valid.syntax <- NULL
   # Coefficient validation

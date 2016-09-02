@@ -24,7 +24,7 @@ Meaning that arrows like "\code{==>}", "\code{<==>}", "\code{-->}" or "\code{->}
 \item{mCharge}{An optional id of net charge column in the referenceData}
 }
 \description{
-For a given set of stoichiometric reactions, this function evaluate the mass or charge balance based in a reference data. Return a boolean value \code{'TRUE'} if reaction is balanced.
+For a given set of stoichiometric reactions, this function evaluate the mass or charge balance based in a reference data. Return a boolean value \code{'TRUE'} if reaction is balanced. One of \code{mFormula}, \code{mWeight}, \code{mCharge} must be given.
 }
 \examples{
 # Using external chemical table
