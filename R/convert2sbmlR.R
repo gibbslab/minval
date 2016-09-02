@@ -70,7 +70,7 @@ convert2sbmlR <- function(data,optimizedFor){
   ## Compartments
   model$compartments <- lapply(compartments(data[,"REACTION"]),function(compartment){list(id=compartment,name=compartment)})
   ## Species
-  model$species <- lapply(metabolites(data[,"REACTION"],uniques = TRUE),function(met){list(id=.sbmlCompatible(met,optimizedFor), name = metabolites(met,woCompartment = TRUE), compartment=compartments(met))})
+  model$species <- lapply(metabolites(data[,"REACTION"],uniques = TRUE),function(met){list(id=.sbmlCompatible(met,optimizedFor,'s'), name = metabolites(met,woCompartment = TRUE), compartment=compartments(met))})
   ## Reactions
   fillReactions <- function(rxnid,data){
     LB = ifelse(is.na(data[data[,"ID"]%in%rxnid,"LOWER.BOUND"]),ifelse(grepl("<=>",data[data[,"ID"]%in%rxnid,"REACTION"]),-1000,0),data[data[,"ID"]%in%rxnid,"LOWER.BOUND"])
@@ -82,9 +82,9 @@ convert2sbmlR <- function(data,optimizedFor){
     genes <- unlist(strsplit(gsub("[(and|or)]","",gpr),"[[:blank:]]+"))
     reac<-list(id=as.vector(rxnid),
                reversible=rev,
-               reactants=list(reactants=paste0(.sbmlCompatible(right,optimizedFor),"[",compartments(left),"]"),
+               reactants=list(reactants=.sbmlCompatible(right,optimizedFor,'r'),
                               stoichiometry=.coefficients(left)),
-               products=list(products=ifelse(is.na(right),paste0(.sbmlCompatible(left,optimizedFor),"[b]"),paste0(.sbmlCompatible(right,optimizedFor),"[",compartments(right),"]")),stoichiometry=.coefficients(right)),
+               products=list(products=ifelse(is.na(right),gsub("\\[[[:graph:]]+\\]","\\[b\\]",.sbmlCompatible(left,optimizedFor,'r')),.sbmlCompatible(right,optimizedFor,"r")),stoichiometry=.coefficients(right)),
                parameters=c(LOWER_BOUND = LB,
                             UPPER_BOUND = UB,
                             OBJECTIVE_COEFFICIENT = ifelse(is.na(data[data[,"ID"]%in%rxnid,"OBJECTIVE"]),0,data[data[,"ID"]%in%rxnid,"OBJECTIVE"]),

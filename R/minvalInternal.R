@@ -98,15 +98,19 @@
  write.table(x = react,file = paste0(prefix,"_react.tsv"),row.names = FALSE)
 }
 
-.sbmlCompatible <- function(metabolite,optimizedFor){
+.sbmlCompatible <- function(metabolite,optimizedFor,type){
   compartment <- compartments(metabolite)
   metabolite <- metabolites(metabolite,woCompartment = TRUE)
   metabolite <- gsub("[[:blank:]]+","_",metabolite)
   metabolite <- gsub("[[:punct:]]+","_",metabolite)
   metabolite <- gsub("^([[:digit:]][[:punct:]]*[[:digit:]]*)","R\\1",metabolite)
-  if(optimizedFor == 'sybil'){
+  if (type == 's'){
+    if(optimizedFor == 'sybil'){
+      return(paste0(metabolite,"[",compartment,"]"))
+    } else {
+      return (metabolite)
+    }
+  } else if (type == 'r'){
     return(paste0(metabolite,"[",compartment,"]"))
-  } else {
-    return (metabolite)
   }
 }
