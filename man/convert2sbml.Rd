@@ -4,7 +4,7 @@
 \alias{convert2sbml}
 \title{Write a SBML file.}
 \usage{
-convert2sbml(data, outfile, optimizedFor = "sybil")
+convert2sbml(data, outfile, optimizedFor)
 }
 \arguments{
 \item{data}{A data.frame with the following mandatory colnames: \itemize{

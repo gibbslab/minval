@@ -34,7 +34,7 @@
 #' 
 convert2tsv <- function(data, prefix){
   # Creating SBMLR model
-  model <- convert2sbmlR(data)
+  model <- convert2sbmlR(data,optimizedFor='sybil')
   # Function to write files
   write.tsv <- function(model,prefix){
     # Extracting metabolites
