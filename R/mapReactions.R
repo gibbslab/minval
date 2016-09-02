@@ -3,6 +3,20 @@
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 #' @title Return reactions of a reference data by a selected column
+#' @description 
+#' 
+#' @examples 
+#' # Loading a CSV file
+#' glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
+#'
+#' # Data structure
+#' head(glycolysis)
+#' 
+#' # Mapping reactions
+#' mapReactions(reactionList = isValidSyntax(glycolysis$REACTION), referenceData = glycolysis, by = "bool")
+#' 
+#' # Mapping inverse
+#' mapReactions(reactionList = isValidSyntax(glycolysis$REACTION), referenceData = glycolysis, by = "bool", inverse = TRUE)
 
 mapReactions <- function(reactionList, referenceData, by, inverse=FALSE ){
   if(!is.null(dim(referenceData)) && is.null(dim(reactionList))){
