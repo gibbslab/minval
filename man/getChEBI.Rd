@@ -7,7 +7,7 @@
 getChEBI(release = "latest")
 }
 \arguments{
-\item{release}{A release number of the ChEBI database version to be downloaded, by default \code{"latest"} release is downloaded.}
+\item{release}{A release number of the ChEBI database version to be downloaded, by default \code{'latest'} release is downloaded.}
 }
 \value{
 A data.frame with the following data associated to the ChEBI compounds: \itemize{

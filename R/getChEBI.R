@@ -5,7 +5,7 @@
 #' @title Download the ChEBI database
 #' @description This function downloads the compounds, formulas, masses and charges from the selected release of the ChEBI database. 
 #' The ChEBI database (Chemical Entities of Biological Interest), is a database and ontology of molecular entities focused on 'small' chemical compounds.
-#' @param release A release number of the ChEBI database version to be downloaded, by default \code{"latest"} release is downloaded.
+#' @param release A release number of the ChEBI database version to be downloaded, by default \code{'latest'} release is downloaded.
 #' @return A data.frame with the following data associated to the ChEBI compounds: \itemize{
 #' \item \code{"ID"}: The unique identifer
 #' \item \code{"ChEBI"}: The name recommended for use in biological databases
@@ -93,8 +93,7 @@ getChEBI <- function(release="latest"){
   DB <- unique(merge(DB,IUPAC,by = "ID",all.x = TRUE))
   DB <- unique(merge(DB,MetaCyc,by = "ID",all.x = TRUE))
   DB <- unique(merge(DB,ChEMBL,by = "ID",all.x = TRUE))
-  
-
+  ## FORMULA
   if("FORMULA" %in% unique(formulas[,"TYPE"])){
     message(" Formula Associations ... ", appendLF = FALSE)
     formula <- formulas[formulas[,"TYPE"]=="FORMULA",c("COMPOUND_ID","CHEMICAL_DATA")]
@@ -102,7 +101,7 @@ getChEBI <- function(release="latest"){
     DB <- unique(merge(DB,formula, by = "ID",all.x = TRUE))
     message("DONE",appendLF = TRUE)
     } else { message("NOT AVAILABLE FOR THIS RELEASE")}
-  
+  ## MASS
   message("Downloading molecular weights ... ",appendLF = FALSE)
   if("MASS" %in% unique(formulas[,"TYPE"])){
   mass <- formulas[formulas[,"TYPE"]=="MASS",c("COMPOUND_ID","CHEMICAL_DATA")]
@@ -111,6 +110,7 @@ getChEBI <- function(release="latest"){
   message("DONE",appendLF = TRUE)
   } else { message("NOT AVAILABLE FOR THIS RELEASE")}
   message("Downloading monoisotopic molecular weights ... ",appendLF = FALSE)
+  ## MMASS
   if("MONOISOTOPIC MASS" %in% unique(formulas[,"TYPE"])){
     mmass <- formulas[formulas[,"TYPE"]=="MONOISOTOPIC MASS",c("COMPOUND_ID","CHEMICAL_DATA")]
     colnames(mmass) <- c("ID","MONOISOTOPIC")
@@ -118,6 +118,7 @@ getChEBI <- function(release="latest"){
     message("DONE",appendLF = TRUE)
   } else { message("NOT AVAILABLE FOR THIS RELEASE")}
   message("Downloading molecular charges ... ",appendLF = FALSE)
+  ## CHARGE
   if("CHARGE" %in% unique(formulas[,"TYPE"])){
   charge <- formulas[formulas[,"TYPE"]=="CHARGE",c("COMPOUND_ID","CHEMICAL_DATA")]
   colnames(charge) <- c("ID","CHARGE")
