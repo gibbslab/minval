@@ -7,11 +7,17 @@
 mapReactions <- function(reactionList, referenceData, by, inverse=FALSE ){
   if(!is.null(dim(referenceData)) && is.null(dim(reactionList))){
     referenceData <- as.data.frame.array(referenceData)
-    if(by%in%colnames(referenceData)){
-      if(inverse == FALSE){
-        referenceData[referenceData[,match(by,colnames(referenceData))]%in%reactionList,]
+    if(by=="bool"){
+      if (inverse == FALSE){
+        return(referenceData[reactionList,])
       } else {
-        referenceData[!referenceData[,match(by,colnames(referenceData))]%in%reactionList,]
+        return(referenceData[!reactionList,])
+      }
+    } else if(by%in%colnames(referenceData)){
+      if(inverse == FALSE){
+        return(referenceData[referenceData[,match(by,colnames(referenceData))]%in%reactionList,])
+      } else {
+        return(referenceData[!referenceData[,match(by,colnames(referenceData))]%in%reactionList,])
       }
     }
   }
