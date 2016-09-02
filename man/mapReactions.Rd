@@ -6,6 +6,31 @@
 \usage{
 mapReactions(reactionList, referenceData, by, inverse = FALSE)
 }
+\arguments{
+\item{reactionList}{}
+
+\item{referenceData}{}
+
+\item{by}{}
+
+\item{inverse}{}
+}
+\description{
+
+}
+\examples{
+# Loading a CSV file
+glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
+
+# Data structure
+head(glycolysis)
+
+# Mapping reactions
+mapReactions(reactionList = isValidSyntax(glycolysis$REACTION), referenceData = glycolysis, by = "bool")
+
+# Mapping inverse
+mapReactions(reactionList = isValidSyntax(glycolysis$REACTION), referenceData = glycolysis, by = "bool", inverse = TRUE)
+}
 \author{
 Daniel Camilo Osorio Hurtado <dcosorioh@unal.edu.co>
 }

@@ -3,7 +3,12 @@
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 #' @title Return reactions of a reference data by a selected column
-#' @description 
+#' @description
+#' 
+#' @param reactionList 
+#' @param referenceData 
+#' @param by 
+#' @param inverse 
 #' 
 #' @examples 
 #' # Loading a CSV file
