@@ -21,7 +21,7 @@ If not set, 1000 is used by default. (optional: column can be empty),
 \item \code{"OBJECTIVE":} A list of numeric values containing objective values for each reaction (optional: column can be empty).
 }}
 
-\item{optimizedFor}{A character string specifying the toolbox for which the SBML file must be optimized; must be one of \code{'sybil'}, \code{'COBRA'} or \code{'RAVEN'}.}
+\item{optimizedFor}{A character string specifying the toolbox for which the SBML file must be optimized; must be one of \code{'sybil'} or \code{'COBRA'}.}
 }
 \value{
 A SBML-like R list of lists core object of class SBMLR

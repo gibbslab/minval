@@ -19,7 +19,7 @@
 #' If not set, 1000 is used by default. (optional: column can be empty),
 #' \item \code{"OBJECTIVE":} A list of numeric values containing objective values for each reaction (optional: column can be empty).
 #' }
-#' @param optimizedFor A character string specifying the toolbox for which the SBML file must be optimized; must be one of \code{'sybil'}, \code{'COBRA'} or \code{'RAVEN'}.
+#' @param optimizedFor A character string specifying the toolbox for which the SBML file must be optimized; must be one of \code{'sybil'} or \code{'COBRA'}.
 #' @return A SBML-like R list of lists core object of class SBMLR
 convert2sbmlR <- function(data,optimizedFor){
   # Import data.frame
