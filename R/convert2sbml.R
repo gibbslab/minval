@@ -79,7 +79,7 @@ convert2sbml<-function(data,outfile,optimizedFor){
     }
     if(nSpecies>0){
       cat("<listOfSpecies>", file=fid, sep="\n")
-      sapply(1:nSpecies,function(i){cat(sprintf("   <species id=\"%s\"  name=\"%s\"  compartment=\"%s\"/>",metabolites(species[[i]][["id"]],woCompartment = TRUE),species[[i]][["name"]],species[[i]][["compartment"]]), file=fid, sep="\n")})
+      sapply(1:nSpecies,function(i){cat(sprintf("   <species id=\"%s\"  name=\"%s\"  compartment=\"%s\"/>",species[[i]][["id"]],species[[i]][["name"]],species[[i]][["compartment"]]), file=fid, sep="\n")})
       cat("</listOfSpecies>", file=fid, sep="\n")
     }
     cat("<listOfReactions>", file=fid, sep="\n")
