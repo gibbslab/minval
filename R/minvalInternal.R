@@ -99,12 +99,14 @@
 }
 
 .sbmlCompatible <- function(metabolite,optimizedFor){
+  compartment <- compartments(metabolite)
+  metabolite <- metabolites(metabolite,woCompartment = TRUE)
   metabolite <- gsub("[[:blank:]]+","_",metabolite)
   metabolite <- gsub("[[:punct:]]+","_",metabolite)
   metabolite <- gsub("^([[:digit:]][[:punct:]]*[[:digit:]]*)","R\\1",metabolite)
   if(optimizedFor == 'sybil'){
-    return(metabolite) 
+    return(paste0(metabolite,"[",compartment,"]"))
   } else {
-    return(metabolites(metabolite,woCompartment = TRUE))
+    return (metabolite)
   }
 }
