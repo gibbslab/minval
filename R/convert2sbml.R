@@ -34,7 +34,7 @@
 #' @seealso Original 'saveSBML': https://www.bioconductor.org/packages/release/bioc/html/SBMLR.html
 #' @keywords Convert SBML Metabolic Reconstruction
 #'
-convert2sbml<-function(data,outfile){
+convert2sbml<-function(data,outfile,optimizedFor='sybil'){
   # Creating SBMLR model
   model <- convert2sbmlR(data)
   # Writing model
