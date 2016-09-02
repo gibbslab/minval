@@ -4,7 +4,7 @@
 \alias{convert2sbmlR}
 \title{Convert a data.frame data to a SBMLR object}
 \usage{
-convert2sbmlR(data)
+convert2sbmlR(data, optimizedFor)
 }
 \arguments{
 \item{data}{A data.frame with the following mandatory colnames: \itemize{
@@ -20,6 +20,8 @@ If not set, zero is used for an irreversible reaction and 1000 for a reversible 
 If not set, 1000 is used by default. (optional: column can be empty),
 \item \code{"OBJECTIVE":} A list of numeric values containing objective values for each reaction (optional: column can be empty).
 }}
+
+\item{optimizedFor}{A character string specifying the toolbox for which the SBML file must be optimized; must be one of \code{'sybil'}, \code{'COBRA'} or \code{'RAVEN'}.}
 }
 \value{
 A SBML-like R list of lists core object of class SBMLR

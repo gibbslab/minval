@@ -19,8 +19,9 @@
 #' If not set, 1000 is used by default. (optional: column can be empty),
 #' \item \code{"OBJECTIVE":} A list of numeric values containing objective values for each reaction (optional: column can be empty).
 #' }
+#' @param optimizedFor A character string specifying the toolbox for which the SBML file must be optimized; must be one of \code{'sybil'}, \code{'COBRA'} or \code{'RAVEN'}.
 #' @return A SBML-like R list of lists core object of class SBMLR
-convert2sbmlR <- function(data){
+convert2sbmlR <- function(data,optimizedFor){
   # Import data.frame
   data <- as.data.frame.array(data)
   # Validate colnames
@@ -69,7 +70,7 @@ convert2sbmlR <- function(data){
   ## Compartments
   model$compartments <- lapply(compartments(data[,"REACTION"]),function(compartment){list(id=compartment,name=compartment)})
   ## Species
-  model$species <- lapply(metabolites(data[,"REACTION"],uniques = TRUE),function(met){list(id=.sbmlCompatible(metabolites(met,woCompartment = TRUE)), name = metabolites(met,woCompartment = TRUE), compartment=compartments(met))})
+  model$species <- lapply(metabolites(data[,"REACTION"],uniques = TRUE),function(met){list(id=.sbmlCompatible(met,optimizedFor), name = metabolites(met,woCompartment = TRUE), compartment=compartments(met))})
   ## Reactions
   fillReactions <- function(rxnid,data){
     LB = ifelse(is.na(data[data[,"ID"]%in%rxnid,"LOWER.BOUND"]),ifelse(grepl("<=>",data[data[,"ID"]%in%rxnid,"REACTION"]),-1000,0),data[data[,"ID"]%in%rxnid,"LOWER.BOUND"])
@@ -81,9 +82,9 @@ convert2sbmlR <- function(data){
     genes <- unlist(strsplit(gsub("[(and|or)]","",gpr),"[[:blank:]]+"))
     reac<-list(id=as.vector(rxnid),
                reversible=rev,
-               reactants=list(reactants=paste0(.sbmlCompatible(metabolites(left,woCompartment = TRUE)),"[",compartments(left),"]"),
+               reactants=list(reactants=paste0(.sbmlCompatible(right,optimizedFor),"[",compartments(left),"]"),
                               stoichiometry=.coefficients(left)),
-               products=list(products=ifelse(is.na(right),paste0(.sbmlCompatible(metabolites(left,woCompartment=TRUE)),"[b]"),paste0(.sbmlCompatible(metabolites(right,woCompartment = TRUE)),"[",compartments(right),"]")),stoichiometry=.coefficients(right)),
+               products=list(products=ifelse(is.na(right),paste0(.sbmlCompatible(left,optimizedFor),"[b]"),paste0(.sbmlCompatible(right,optimizedFor),"[",compartments(right),"]")),stoichiometry=.coefficients(right)),
                parameters=c(LOWER_BOUND = LB,
                             UPPER_BOUND = UB,
                             OBJECTIVE_COEFFICIENT = ifelse(is.na(data[data[,"ID"]%in%rxnid,"OBJECTIVE"]),0,data[data[,"ID"]%in%rxnid,"OBJECTIVE"]),
