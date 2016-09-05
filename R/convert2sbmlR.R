@@ -70,7 +70,7 @@ convert2sbmlR <- function(data,optimizedFor){
   ## Compartments
   model$compartments <- lapply(compartments(data[,"REACTION"]),function(compartment){list(id=.sbmlCompartment(compartment,optimizedFor),name=compartment)})
   ## Species
-  model$species <- lapply(metabolites(data[,"REACTION"],uniques = TRUE),function(met){list(id=.sbmlCompatible(met,optimizedFor,'s'), name = metabolites(met,woCompartment = TRUE), compartment=compartments(met))})
+  model$species <- lapply(metabolites(data[,"REACTION"],uniques = TRUE),function(met){list(id=.sbmlCompatible(met,optimizedFor,'s'), name = metabolites(met,woCompartment = TRUE), compartment=.sbmlCompartment(compartments(met),optimizedFor))})
   ## Reactions
   fillReactions <- function(rxnid,data){
     LB = ifelse(is.na(data[data[,"ID"]%in%rxnid,"LOWER.BOUND"]),ifelse(grepl("<=>",data[data[,"ID"]%in%rxnid,"REACTION"]),-1000,0),data[data[,"ID"]%in%rxnid,"LOWER.BOUND"])
