@@ -105,7 +105,7 @@
   }
   metabolite <- gsub("[[:blank:]]+","_",metabolite)
   metabolite <- gsub("[[:punct:]]+","_",metabolite)
-  metabolite <- gsub("^([[:graph:]]+*)","M_\\1",metabolite)
+  metabolite <- gsub("^([[:graph:]]+)","M_\\1",metabolite)
   if (type == 's'){
     if(optimizedFor == 'sybil'){
       metabolite <- paste0(metabolite,"[",compartment,"]")
