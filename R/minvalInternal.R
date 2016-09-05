@@ -100,18 +100,24 @@
 
 .sbmlCompatible <- function(metabolite,optimizedFor,type){
   compartment <- compartments(metabolite)
-  metabolite <- metabolites(metabolite,woCompartment = TRUE)
+  if(optimizedFor == 'sybil' || optimizedFor == 'COBRA'){
+    metabolite <- metabolites(metabolite,woCompartment = TRUE) 
+  }
   metabolite <- gsub("[[:blank:]]+","_",metabolite)
   metabolite <- gsub("[[:punct:]]+","_",metabolite)
   metabolite <- gsub("^([[:digit:]][[:punct:]]*[[:digit:]]*)","R\\1",metabolite)
   if (type == 's'){
-    if(optimizedFor == 'sybil' || optimizedFor =='RAVEN'){
+    if(optimizedFor == 'sybil'){
       metabolite <- paste0(metabolite,"[",compartment,"]")
       return(metabolite)
     } else {
       return (metabolite)
     }
   } else if (type == 'r'){
-    return(paste0(metabolite,"[",compartment,"]"))
+    if (optimizedFor =='RAVEN'){
+      return(metabolite)
+    } else{
+      return(paste0(metabolite,"[",compartment,"]"))
+    }
   }
 }
