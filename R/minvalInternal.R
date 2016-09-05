@@ -105,7 +105,7 @@
   metabolite <- gsub("[[:punct:]]+","_",metabolite)
   metabolite <- gsub("^([[:digit:]][[:punct:]]*[[:digit:]]*)","R\\1",metabolite)
   if (type == 's'){
-    if(optimizedFor == 'sybil'){
+    if(optimizedFor == 'sybil' || optimizedFor =='RAVEN'){
       metabolite <- paste0(metabolite,"[",compartment,"]")
       return()
     } else {
