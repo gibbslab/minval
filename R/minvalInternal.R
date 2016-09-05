@@ -105,7 +105,7 @@
   }
   metabolite <- gsub("[[:blank:]]+","_",metabolite)
   metabolite <- gsub("[[:punct:]]+","_",metabolite)
-  metabolite <- gsub("^([[:graph:]]+)","M_\\1",metabolite)
+  metabolite <- paste0("M_",metabolite)
   if (type == 's'){
     if(optimizedFor == 'sybil'){
       metabolite <- paste0(metabolite,"[",compartment,"]")
@@ -119,5 +119,13 @@
     } else{
       return(paste0(metabolite,"[",compartment,"]"))
     }
+  }
+}
+
+.sbmlCompartment <- function(compartmentID, optimizedFor){
+  if(optimizedFor == 'RAVEN'){
+    return (paste0("C_",compartmentID))
+  } else {
+    return (compartmentID)
   }
 }

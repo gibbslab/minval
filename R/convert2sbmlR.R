@@ -68,7 +68,7 @@ convert2sbmlR <- function(data,optimizedFor){
   ## ID
   model$id <- "model"
   ## Compartments
-  model$compartments <- lapply(compartments(data[,"REACTION"]),function(compartment){list(id=compartment,name=compartment)})
+  model$compartments <- lapply(compartments(data[,"REACTION"]),function(compartment){list(id=.sbmlCompartment(compartment,optimizedFor),name=compartment)})
   ## Species
   model$species <- lapply(metabolites(data[,"REACTION"],uniques = TRUE),function(met){list(id=.sbmlCompatible(met,optimizedFor,'s'), name = metabolites(met,woCompartment = TRUE), compartment=compartments(met))})
   ## Reactions
