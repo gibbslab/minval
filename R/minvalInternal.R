@@ -107,7 +107,7 @@
   if (type == 's'){
     if(optimizedFor == 'sybil' || optimizedFor =='RAVEN'){
       metabolite <- paste0(metabolite,"[",compartment,"]")
-      return()
+      return(metabolite)
     } else {
       return (metabolite)
     }
