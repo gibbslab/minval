@@ -99,7 +99,7 @@
 }
 
 .sbmlCompatible <- function(metabolite,optimizedFor,type){
-  compartment <- compartments(metabolite)
+  compartment <- sapply(metabolite, compartments,USE.NAMES = FALSE)
   if(optimizedFor == 'sybil' || optimizedFor == 'COBRA'){
     metabolite <- metabolites(metabolite,woCompartment = TRUE) 
   } else {
@@ -110,7 +110,7 @@
   metabolite <- gsub("[[:punct:]]+","_",metabolite)
   if (type == 's'){
     if(optimizedFor == 'sybil'){
-      metabolite <- unlist(mapply(function(metabolite,compartment){paste0(metabolite,"[",compartment,"]")},metabolite=metabolite,compartment=compartment))
+      metabolite <- unlist(mapply(function(metabolite,compartment){paste0(metabolite,"[",compartment,"]")},metabolite=metabolite,compartment=compartment,USE.NAMES = FALSE))
       return(metabolite)
     } else {
       return (metabolite)
@@ -119,7 +119,8 @@
     if (optimizedFor =='RAVEN'){
       return(metabolite)
     } else{
-      return(unlist(mapply(function(metabolite,compartment){paste0(metabolite,"[",compartment,"]")},metabolite=metabolite,compartment=compartment)))
+      metabolite <- unlist(mapply(function(metabolite,compartment){paste0(metabolite,"[",compartment,"]")},metabolite=metabolite,compartment=compartment,USE.NAMES = FALSE))
+      return(metabolite)
     }
   }
 }
