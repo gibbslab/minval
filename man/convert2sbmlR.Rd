@@ -22,6 +22,8 @@ If not set, 1000 is used by default. (optional: column can be empty),
 }}
 
 \item{optimizedFor}{A character string specifying the toolbox for which the SBML file must be optimized; must be one of \code{'sybil'}, \code{'RAVEN'} or \code{'COBRA'}.}
+
+\item{boundary}{A character string specifying the compartment to be used as boundary}
 }
 \value{
 A SBML-like R list of lists core object of class SBMLR

@@ -20,6 +20,7 @@
 #' \item \code{"OBJECTIVE":} A list of numeric values containing objective values for each reaction (optional: column can be empty).
 #' }
 #' @param optimizedFor A character string specifying the toolbox for which the SBML file must be optimized; must be one of \code{'sybil'}, \code{'RAVEN'} or \code{'COBRA'}.
+#' @param boundary A character string specifying the compartment to be used as boundary
 #' @return A SBML-like R list of lists core object of class SBMLR
 convert2sbmlR <- function(data,optimizedFor, boundary="b"){
   # Import data.frame
