@@ -98,27 +98,28 @@
  write.table(x = react,file = paste0(prefix,"_react.tsv"),row.names = FALSE)
 }
 
-.sbmlCompatible <- function(metabolite, optimizedFor, type) {
+.sbmlCompatible <- function(metabolite,optimizedFor,type){
   compartment <- compartments(metabolite)
-  if (optimizedFor == 'sybil' || optimizedFor == 'COBRA') {
-    metabolite <- metabolites(metabolite, woCompartment = TRUE)
+  if(optimizedFor == 'sybil' || optimizedFor == 'COBRA'){
+    metabolite <- metabolites(metabolite,woCompartment = TRUE) 
   } else {
     metabolite <- metabolites(metabolite)
   }
-  metabolite <- gsub("[[:blank:]]+", "_", metabolite)
-  metabolite <- gsub("[[:punct:]]+", "_", metabolite)
-  metabolite <- paste0("M_", metabolite)
-  if (type == 's') {
-    if (optimizedFor == "sybil") {
-      return(paste0(metabolite, "[", compartment, "]"))
-    } else{
+  metabolite <- gsub("[[:blank:]]+","_",metabolite)
+  metabolite <- gsub("[[:punct:]]+","_",metabolite)
+  metabolite <- paste0("M_",metabolite)
+  if (type == 's'){
+    if(optimizedFor == 'sybil'){
+      metabolite <- paste0(metabolite,"[",compartment,"]")
+      return(metabolite)
+    } else {
       return (metabolite)
     }
-  } else if (type == 'r') {
-    if (optimizedFor == 'RAVEN') {
+  } else if (type == 'r'){
+    if (optimizedFor =='RAVEN'){
       return(metabolite)
     } else{
-      
+      return(paste0(metabolite,"[",compartment,"]"))
     }
   }
 }
