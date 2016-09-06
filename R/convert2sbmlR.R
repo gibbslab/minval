@@ -21,7 +21,7 @@
 #' }
 #' @param optimizedFor A character string specifying the toolbox for which the SBML file must be optimized; must be one of \code{'sybil'}, \code{'RAVEN'} or \code{'COBRA'}.
 #' @return A SBML-like R list of lists core object of class SBMLR
-convert2sbmlR <- function(data,optimizedFor){
+convert2sbmlR <- function(data,optimizedFor, boundary="b"){
   # Import data.frame
   data <- as.data.frame.array(data)
   # Validate colnames
@@ -84,7 +84,7 @@ convert2sbmlR <- function(data,optimizedFor){
                reversible=rev,
                reactants=list(reactants=.sbmlCompatible(left,optimizedFor,'r'),
                               stoichiometry=.coefficients(left)),
-               products=list(products=ifelse(is.na(right),gsub("\\[[[:graph:]]+\\]","\\[b\\]",.sbmlCompatible(left,optimizedFor,'r')),.sbmlCompatible(right,optimizedFor,"r")),stoichiometry=.coefficients(right)),
+               products=list(products=ifelse(is.na(right),gsub("\\[[[:graph:]]+\\]",paste0("\\[",boundary,"\\]"),.sbmlCompatible(left,optimizedFor,'r')),.sbmlCompatible(right,optimizedFor,"r")),stoichiometry=.coefficients(right)),
                parameters=c(LOWER_BOUND = LB,
                             UPPER_BOUND = UB,
                             OBJECTIVE_COEFFICIENT = ifelse(is.na(data[data[,"ID"]%in%rxnid,"OBJECTIVE"]),0,data[data[,"ID"]%in%rxnid,"OBJECTIVE"]),

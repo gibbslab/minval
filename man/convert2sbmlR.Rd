@@ -4,7 +4,7 @@
 \alias{convert2sbmlR}
 \title{Convert a data.frame data to a SBMLR object}
 \usage{
-convert2sbmlR(data, optimizedFor)
+convert2sbmlR(data, optimizedFor, boundary = "b")
 }
 \arguments{
 \item{data}{A data.frame with the following mandatory colnames: \itemize{

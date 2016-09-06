@@ -38,10 +38,10 @@
 #' @seealso Original 'saveSBML': https://www.bioconductor.org/packages/release/bioc/html/SBMLR.html
 #' @keywords Convert SBML Metabolic Reconstruction
 #'
-convert2sbml<-function(data,outfile,optimizedFor="sybil"){
+convert2sbml<-function(data,outfile,optimizedFor="sybil",boundary="b"){
   optimizedFor <- match.arg(optimizedFor,c("sybil","COBRA","RAVEN"),several.ok = FALSE)
   # Creating SBMLR model
-  model <- convert2sbmlR(data,optimizedFor)
+  model <- convert2sbmlR(data,optimizedFor,boundary)
   # Writing model
   # This function is a modified copy of saveSBML function included in SBMLR package.
   # Original 'saveSBML' function was writed by Tomas Radivoyevitch
@@ -84,7 +84,7 @@ convert2sbml<-function(data,outfile,optimizedFor="sybil"){
     }
     if(nSpecies>0){
       cat("<listOfSpecies>", file=fid, sep="\n")
-      sapply(1:nSpecies,function(i){cat(sprintf("   <species id=\"%s\" name=\"%s\" compartment=\"%s\" boundaryCondition=\"%s\"/>",species[[i]][["id"]],species[[i]][["name"]],species[[i]][["compartment"]],ifelse(grepl("b",species[[i]][["compartment"]]),"true","false")), file=fid, sep="\n")})
+      sapply(1:nSpecies,function(i){cat(sprintf("   <species id=\"%s\" name=\"%s\" compartment=\"%s\" boundaryCondition=\"%s\"/>",species[[i]][["id"]],species[[i]][["name"]],species[[i]][["compartment"]],ifelse(grepl(boundary,species[[i]][["compartment"]]),"true","false")), file=fid, sep="\n")})
       cat("</listOfSpecies>", file=fid, sep="\n")
     }
     cat("<listOfReactions>", file=fid, sep="\n")
