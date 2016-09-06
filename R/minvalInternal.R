@@ -109,6 +109,8 @@
   # Removiendo puntuaciones
   metabolite <- gsub("[[:blank:]]+","_",metabolite)
   metabolite <- paste0("M_",metabolite)
+  metabolite <- gsub("\\(|\\)","p",metabolite)
+  metabolite <- gsub("\\[|\\]","b",metabolite)
   metabolite <- gsub("[[:punct:]]+","_",metabolite)
   
   if (type == 's'){
