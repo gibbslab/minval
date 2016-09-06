@@ -113,7 +113,7 @@
   
   if (type == 's'){
     if(optimizedFor == 'sybil'){
-      metabolite <- unlist(mapply(function(metabolite,compartment){paste0(metabolite,"[",compartment,"]")},metabolite=metabolite,compartment=compartment,USE.NAMES = FALSE))
+      metabolite <- paste0(metabolite,"[",compartment,"]")
       return(metabolite)
     } else {
       return (metabolite)
@@ -122,7 +122,7 @@
     if (optimizedFor =='RAVEN'){
       return(metabolite)
     } else{
-      metabolite <- unlist(mapply(function(metabolite,compartment){paste0(metabolite,"[",compartment,"]")},metabolite=metabolite,compartment=compartment,USE.NAMES = FALSE))
+      metabolite <- paste0(metabolite,"[",compartment,"]")
       return(metabolite)
     }
   }
