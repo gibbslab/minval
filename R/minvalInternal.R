@@ -102,6 +102,8 @@
   compartment <- compartments(metabolite)
   if(optimizedFor == 'sybil' || optimizedFor == 'COBRA'){
     metabolite <- metabolites(metabolite,woCompartment = TRUE) 
+  } else {
+    metabolite <- metabolites(metabolite)
   }
   metabolite <- gsub("[[:blank:]]+","_",metabolite)
   metabolite <- gsub("[[:punct:]]+","_",metabolite)
