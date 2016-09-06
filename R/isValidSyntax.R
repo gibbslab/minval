@@ -32,7 +32,7 @@ isValidSyntax <- function(reactionList){
   valid.syntax <- c(valid.syntax,grepl("(\\([[:digit:]]+\\)[[:blank:]]+)",reactionList))
   # Directionality validation
   valid.syntax <- c(valid.syntax, (!grepl("[[:blank:]]+<?=>[[:blank:]]*",reactionList)))
-  valid.syntax <- c(valid.syntax,grepl("[[:blank:]](<?)-?-(>?)[[:blank:]]",reactionList))
+  valid.syntax <- c(valid.syntax,grepl("(<)?\\-(\\-)?>",reactionList))
   # Metabolite names validation
   valid.syntax <- c(valid.syntax,grepl("[[:alnum:]]+\\+[[:alnum:]]+",reactionList))
   # Blank spaces validation

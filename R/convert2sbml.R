@@ -84,7 +84,7 @@ convert2sbml<-function(data,outfile,optimizedFor="sybil"){
     }
     if(nSpecies>0){
       cat("<listOfSpecies>", file=fid, sep="\n")
-      sapply(1:nSpecies,function(i){cat(sprintf("   <species id=\"%s\"  name=\"%s\"  compartment=\"%s\"/>",species[[i]][["id"]],species[[i]][["name"]],species[[i]][["compartment"]]), file=fid, sep="\n")})
+      sapply(1:nSpecies,function(i){cat(sprintf("   <species id=\"%s\" name=\"%s\" compartment=\"%s\" boundaryCondition=\"%s\"/>",species[[i]][["id"]],species[[i]][["name"]],species[[i]][["compartment"]],ifelse(grepl("b",species[[i]][["compartment"]]),"true","false")), file=fid, sep="\n")})
       cat("</listOfSpecies>", file=fid, sep="\n")
     }
     cat("<listOfReactions>", file=fid, sep="\n")
