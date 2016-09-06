@@ -12,12 +12,19 @@
 #' @return A vector with the list of of unique compartments identified for the metabolites of a set of stoichiometric reactions.
 #' @examples
 #' # Using individual reactions
-#' compartments("H2O[c] + Urea-1-carboxylate[c] => 2 CO2[c] + 2 NH3[m]")
-#' compartments("L-Glutamate[c] <=> CO2[c] + 4-Aminobutanoate[c]")
+#' compartments(
+#'  reactionList = "H2O[c] + Urea-1-carboxylate[c] => 2 CO2[c] + 2 NH3[m]"
+#'  )
+#'  
+#' compartments(
+#'  reactionList = "L-Glutamate[c] <=> CO2[c] + 4-Aminobutanoate[c]"
+#'  )
 #' 
 #' # From a data.frame
 #' glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
-#' compartments(glycolysis$REACTION)
+#' compartments(
+#'  reactionList = glycolysis$REACTION
+#'  )
 #' @keywords Extract Unique Compartments Metabolic Reconstruction
 
 compartments <- function(reactionList){

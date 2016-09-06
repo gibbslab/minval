@@ -26,10 +26,19 @@ glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "
 head(glycolysis)
 
 # Mapping reactions
-mapReactions(reactionList = isValidSyntax(glycolysis$REACTION), referenceData = glycolysis, by = "bool")
+mapReactions(
+ reactionList = isValidSyntax(glycolysis$REACTION), 
+ referenceData = glycolysis, 
+ by = "bool"
+ )
 
 # Mapping inverse
-mapReactions(reactionList = isValidSyntax(glycolysis$REACTION), referenceData = glycolysis, by = "bool", inverse = TRUE)
+mapReactions(
+ reactionList = isValidSyntax(glycolysis$REACTION), 
+ referenceData = glycolysis, 
+ by = "bool", 
+ inverse = TRUE
+ )
 }
 \author{
 Daniel Camilo Osorio Hurtado <dcosorioh@unal.edu.co>

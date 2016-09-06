@@ -46,9 +46,29 @@ glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "
 head(glycolysis)
 
 # Writing SBML file
-convert2sbml(data = glycolysis, outfile = "glycolysis_sybil.xml", optimizedFor = 'sybil')
-convert2sbml(data = glycolysis, outfile = "glycolysis_cobra.xml", optimizedFor = 'COBRA')
-convert2sbml(data = glycolysis, outfile = "glycolysis_raven.xml", optimizedFor = 'RAVEN')
+## Optimized for the 'sybil' package
+convert2sbml(
+ data = glycolysis, 
+ outfile = "glycolysis_sybil.xml", 
+ optimizedFor = "sybil", 
+ boundary = "b"
+ )
+ 
+## Optimized for the 'COBRA' toolbox
+convert2sbml(
+ data = glycolysis, 
+ outfile = "glycolysis_cobra.xml", 
+ optimizedFor = "COBRA", 
+ boundary = "b"
+ )
+ 
+## Optimized for the 'RAVEN' toolbox
+convert2sbml(
+ data = glycolysis, 
+ outfile = "glycolysis_raven.xml", 
+ optimizedFor = "RAVEN", 
+ boundary = "b"
+ )
 }
 }
 \author{

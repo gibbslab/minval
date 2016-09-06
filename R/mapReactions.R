@@ -18,10 +18,19 @@
 #' head(glycolysis)
 #' 
 #' # Mapping reactions
-#' mapReactions(reactionList = isValidSyntax(glycolysis$REACTION), referenceData = glycolysis, by = "bool")
+#' mapReactions(
+#'  reactionList = isValidSyntax(glycolysis$REACTION), 
+#'  referenceData = glycolysis, 
+#'  by = "bool"
+#'  )
 #' 
 #' # Mapping inverse
-#' mapReactions(reactionList = isValidSyntax(glycolysis$REACTION), referenceData = glycolysis, by = "bool", inverse = TRUE)
+#' mapReactions(
+#'  reactionList = isValidSyntax(glycolysis$REACTION), 
+#'  referenceData = glycolysis, 
+#'  by = "bool", 
+#'  inverse = TRUE
+#'  )
 
 mapReactions <- function(reactionList, referenceData, by, inverse=FALSE ){
   if(!is.null(dim(referenceData)) && is.null(dim(reactionList))){

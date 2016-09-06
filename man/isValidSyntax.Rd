@@ -33,7 +33,9 @@ glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "
 head(glycolysis)
 
 # Evaluating syntax
-isValidSyntax(glycolysis$REACTION)
+isValidSyntax(
+ reactionList = glycolysis$REACTION
+)
 }
 \author{
 Daniel Camilo Osorio <dcosorioh@unal.edu.co>

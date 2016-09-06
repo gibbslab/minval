@@ -21,12 +21,19 @@ associated to each involved metabolite and return a vector with the list of uniq
 }
 \examples{
 # Using individual reactions
-compartments("H2O[c] + Urea-1-carboxylate[c] => 2 CO2[c] + 2 NH3[m]")
-compartments("L-Glutamate[c] <=> CO2[c] + 4-Aminobutanoate[c]")
+compartments(
+ reactionList = "H2O[c] + Urea-1-carboxylate[c] => 2 CO2[c] + 2 NH3[m]"
+ )
+ 
+compartments(
+ reactionList = "L-Glutamate[c] <=> CO2[c] + 4-Aminobutanoate[c]"
+ )
 
 # From a data.frame
 glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
-compartments(glycolysis$REACTION)
+compartments(
+ reactionList = glycolysis$REACTION
+ )
 }
 \author{
 Daniel Camilo Osorio <dcosorioh@unal.edu.co>

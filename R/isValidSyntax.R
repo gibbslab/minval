@@ -24,7 +24,9 @@
 #' head(glycolysis)
 #' 
 #' # Evaluating syntax
-#' isValidSyntax(glycolysis$REACTION)
+#' isValidSyntax(
+#'  reactionList = glycolysis$REACTION
+#' )
 isValidSyntax <- function(reactionList){
   valid.syntax <- NULL
   # Coefficient validation
