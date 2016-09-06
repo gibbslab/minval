@@ -2,13 +2,13 @@
 #' @author Daniel Camilo Osorio Hurtado <dcosorioh@unal.edu.co>
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
-#' @title Return reactions of a reference data by a selected column
-#' @description
+#' @title Return reactions from a reference data.frame by a selected column
+#' @description This function takes a set of values and return all associated data in a reference data.frame
 #' 
-#' @param reactionList 
-#' @param referenceData 
-#' @param by 
-#' @param inverse 
+#' @param reactionList A set of values to be mapped
+#' @param referenceData A data.frame to be used as reference
+#' @param by A data.frame column id or \code{'bool'}.
+#' @param inverse A boolean value to define if inverted selection must be returned
 #' 
 #' @examples 
 #' # Loading a CSV file

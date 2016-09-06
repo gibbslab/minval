@@ -2,21 +2,21 @@
 % Please edit documentation in R/mapReactions.R
 \name{mapReactions}
 \alias{mapReactions}
-\title{Return reactions of a reference data by a selected column}
+\title{Return reactions from a reference data.frame by a selected column}
 \usage{
 mapReactions(reactionList, referenceData, by, inverse = FALSE)
 }
 \arguments{
-\item{reactionList}{}
+\item{reactionList}{A set of values to be mapped}
 
-\item{referenceData}{}
+\item{referenceData}{A data.frame to be used as reference}
 
-\item{by}{}
+\item{by}{A data.frame column id or \code{'bool'}.}
 
-\item{inverse}{}
+\item{inverse}{A boolean value to define if inverted selection must be returned}
 }
 \description{
-
+This function takes a set of values and return all associated data in a reference data.frame
 }
 \examples{
 # Loading a CSV file

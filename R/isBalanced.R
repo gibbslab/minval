@@ -3,7 +3,7 @@
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 #' @title Evaluate the mass or charge balance for a set of stoichiometric reactions
-#' @description For a given set of stoichiometric reactions, this function evaluate the mass or charge balance based in a reference data. Return a boolean value \code{'TRUE'} if reaction is balanced. One of \code{mFormula}, \code{mWeight}, \code{mCharge} must be given.
+#' @description For a given set of stoichiometric reactions, this function evaluate the mass or charge balance based in a reference data. Return a boolean value \code{'TRUE'} if reaction is balanced. One of \code{'mFormula'}, \code{'mWeight'} or \code{'mCharge'} arguments must be given.
 #' @param reactionList A set of stoichiometric reaction with the following format: \code{"H2O[c] + Urea-1-carboxylate[c] <=> 2 CO2[c] + 2 NH3[c]"} Where arrows and plus signs are surrounded by a "space character".
 #' It is also expected that stoichiometry coefficients are surrounded by spaces, (nothe the "2" before the CO2[c] or the NH3[c]).
 #' It also expects arrows to be in the form "\code{=>}" or "\code{<=>}". 
@@ -13,6 +13,7 @@
 #' @param mFormula An optional id of molecular formula column in the referenceData
 #' @param mWeight An optional id of molecular weight column in the referenceData
 #' @param mCharge An optional id of net charge column in the referenceData
+#' @return This function returns a boolean value \code{'TRUE'} if reaction is balanced. Reactions without valid syntax are removed of the reactionList.
 #' @examples 
 #' # Using external chemical table
 #' chemicalData <- read.csv2(system.file("extdata", "chemData.csv", package = "minval"))
