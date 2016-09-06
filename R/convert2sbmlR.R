@@ -19,7 +19,7 @@
 #' If not set, 1000 is used by default. (optional: column can be empty),
 #' \item \code{"OBJECTIVE":} A list of numeric values containing objective values for each reaction (optional: column can be empty).
 #' }
-#' @param optimizedFor A character string specifying the toolbox for which the SBML file must be optimized; must be one of \code{'sybil'} or \code{'COBRA'}.
+#' @param optimizedFor A character string specifying the toolbox for which the SBML file must be optimized; must be one of \code{'sybil'}, \code{'RAVEN'} or \code{'COBRA'}.
 #' @return A SBML-like R list of lists core object of class SBMLR
 convert2sbmlR <- function(data,optimizedFor){
   # Import data.frame
@@ -80,7 +80,7 @@ convert2sbmlR <- function(data,optimizedFor){
     right <- .get.right(data[data[,"ID"]%in%rxnid,"REACTION"])
     gpr <- data[data[,"ID"]%in%rxnid,"GPR"]
     genes <- unlist(strsplit(gsub("[(and|or)]","",gpr),"[[:blank:]]+"))
-    reac<-list(id=as.vector(rxnid),
+    reac<-list(id=.sbmlReaction(as.vector(rxnid),optimizedFor),
                reversible=rev,
                reactants=list(reactants=.sbmlCompatible(left,optimizedFor,'r'),
                               stoichiometry=.coefficients(left)),

@@ -129,3 +129,11 @@
     return (compartmentID)
   }
 }
+
+.sbmlReaction <- function(reactionID, optimizedFor){
+  if(optimizedFor == 'RAVEN'){
+    return (paste0("R_",reactionID))
+  } else {
+    return (reactionID)
+  }
+}

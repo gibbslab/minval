@@ -26,7 +26,6 @@ compartments("L-Glutamate[c] <=> CO2[c] + 4-Aminobutanoate[c]")
 
 # From a data.frame
 glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
-head(glycolysis$REACTION)
 compartments(glycolysis$REACTION)
 }
 \author{
