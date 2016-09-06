@@ -7,11 +7,14 @@
 metabolites(reactionList, woCompartment = FALSE, uniques = TRUE)
 }
 \arguments{
-\item{reactionList}{}
+\item{reactionList}{A set of stoichiometric reaction with the following format: \code{"H2O[c] + Urea-1-carboxylate[c] <=> 2 CO2[c] + 2 NH3[c]"} Where arrows and plus signs are surrounded by a "space character".
+It is also expected that stoichiometry coefficients are surrounded by spaces, (nothe the "2" before the CO2[c] or the NH3[c]).
+It also expects arrows to be in the form "\code{=>}" or "\code{<=>}". 
+Meaning that arrows like "\code{==>}", "\code{<==>}", "\code{-->}" or "\code{->}" will not be parsed and will lead to errors.}
 
-\item{woCompartment}{}
+\item{woCompartment}{A boolean value \code{'TRUE'} or \code{'FALSE'} to indicate if compartment label should be removed}
 
-\item{uniques}{}
+\item{uniques}{A boolean value \code{'TRUE'} or \code{'FALSE'} to indicate if uniques must be returned}
 }
 \value{
 A list of metabolites for a set of stoichiometric reactions
@@ -22,6 +25,8 @@ This function identifies the list of metabolites for a set of stoichiometric rea
 \examples{
 # Loading data
 glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
+
+# Removing stoichiometric reactions without valid syntax
 glycolysis <- mapReactions(
                            reactionList = isValidSyntax(glycolysis$REACTION),
                            referenceData = glycolysis,
