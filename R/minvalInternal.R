@@ -110,7 +110,7 @@
   metabolite <- gsub("[[:punct:]]+","_",metabolite)
   if (type == 's'){
     if(optimizedFor == 'sybil'){
-      metabolite <- paste0(metabolite,"[",compartment,"]")
+      metabolite <- unlist(mapply(function(metabolite,compartment){paste0(metabolite,"[",compartment,"]")},metabolite=metabolite,compartment=compartment))
       return(metabolite)
     } else {
       return (metabolite)
@@ -119,7 +119,7 @@
     if (optimizedFor =='RAVEN'){
       return(metabolite)
     } else{
-      return(paste0(metabolite,"[",compartment,"]"))
+      return(unlist(mapply(function(metabolite,compartment){paste0(metabolite,"[",compartment,"]")},metabolite=metabolite,compartment=compartment)))
     }
   }
 }
