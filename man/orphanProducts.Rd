@@ -14,8 +14,27 @@ Meaning that arrows like "\code{==>}", "\code{<==>}", "\code{-->}" or "\code{->}
 
 \item{byCompartment}{A boolean value \code{'TRUE'} or \code{'FALSE'} to indicate if orphan products must be reported by compartment}
 }
+\value{
+If \code{byCompartment == FALSE}, a vector with orphan products is returned, in opposite case a list is returned.
+}
 \description{
 This function identifies the orphan products (products that are not consumed in any other reaction or just are involved in one reaction) for a set of stoichometric reactions.
+}
+\examples{
+# Loading data
+glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
+# Removing stoichiometric reactions without valid syntax
+glycolysis <- mapReactions(
+reactionList = isValidSyntax(glycolysis$REACTION),
+referenceData = glycolysis,
+by = "bool"
+)
+
+# Extracting orphan products
+orphanProducts(reactionList = glycolysis$REACTION, byCompartment = FALSE)
+
+# Extracting orphan by compartment
+orphanProducts(reactionList = glycolysis$REACTION, byCompartment = TRUE)
 }
 \author{
 Daniel Camilo Osorio <dcosorioh@unal.edu.co>

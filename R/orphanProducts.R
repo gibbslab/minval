@@ -9,6 +9,23 @@
 #' It also expects arrows to be in the form "\code{=>}" or "\code{<=>}". 
 #' Meaning that arrows like "\code{==>}", "\code{<==>}", "\code{-->}" or "\code{->}" will not be parsed and will lead to errors.
 #' @param byCompartment A boolean value \code{'TRUE'} or \code{'FALSE'} to indicate if orphan products must be reported by compartment
+#' @return If \code{byCompartment == FALSE}, a vector with orphan products is returned, in opposite case a list is returned.
+#' @examples 
+#' # Loading data
+#' glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
+
+#' # Removing stoichiometric reactions without valid syntax
+#' glycolysis <- mapReactions(
+#' reactionList = isValidSyntax(glycolysis$REACTION),
+#' referenceData = glycolysis,
+#' by = "bool"
+#' )
+#' 
+#' # Extracting orphan products
+#' orphanProducts(reactionList = glycolysis$REACTION, byCompartment = FALSE)
+#' 
+#' # Extracting orphan by compartment
+#' orphanProducts(reactionList = glycolysis$REACTION, byCompartment = TRUE)
 orphanProducts <- function(reactionList, byCompartment=FALSE){
   # Convert to a vector
   reactionList <- as.vector(reactionList)
