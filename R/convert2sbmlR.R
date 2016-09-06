@@ -73,6 +73,9 @@ convert2sbmlR <- function(data,optimizedFor, boundary="b"){
   ## Species
   model$species <- lapply(metabolites(data[,"REACTION"],uniques = TRUE),function(met){list(id=.sbmlCompatible(met,optimizedFor,'s'), name = metabolites(met,woCompartment = TRUE), compartment=.sbmlCompartment(compartments(met),optimizedFor))})
   ## Reactions
+  if (optimizedFor == "sybil"){
+    boundary <- "b"
+  }
   fillReactions <- function(rxnid,data){
     LB = ifelse(is.na(data[data[,"ID"]%in%rxnid,"LOWER.BOUND"]),ifelse(grepl("<=>",data[data[,"ID"]%in%rxnid,"REACTION"]),-1000,0),data[data[,"ID"]%in%rxnid,"LOWER.BOUND"])
     UB = ifelse(is.na(data[data[,"ID"]%in%rxnid,"UPPER.BOUND"]),1000,data[data[,"ID"]%in%rxnid,"UPPER.BOUND"])

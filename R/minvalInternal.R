@@ -109,13 +109,8 @@
   metabolite <- gsub("[[:punct:]]+","_",metabolite)
   metabolite <- paste0("M_",metabolite)
   if (type == 's'){
-    if(optimizedFor == 'sybil'){
-      metabolite <- paste0(metabolite,"[",compartment,"]")
-      return(metabolite)
-    } else {
       return (metabolite)
-    }
-  } else if (type == 'r'){
+    } else if (type == 'r'){
     if (optimizedFor =='RAVEN'){
       return(metabolite)
     } else{
