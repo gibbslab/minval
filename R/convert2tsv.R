@@ -1,4 +1,4 @@
-#' @aliases convert2tsv
+#' @export convert2tsv
 #' @author Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
@@ -18,7 +18,7 @@
 #' If not set, 1000 is used by default. (optional: column can be empty),
 #' \item \code{"OBJECTIVE":} A list of numeric values containing objective values for each reaction (optional: column can be empty). 
 #' }
-#' @param prefix A writable path and prefix for the output 'TSV' files to be generated.
+#' @param prefix A single character string in a writable path for three posible output '.TSV' files to be generated.
 #' @return A set of three 'TSV' files in a valid format to the 'sybil' R package.
 #' @examples  
 #' \dontrun{
@@ -29,7 +29,8 @@
 #' head(glycolysis)
 #' 
 #' # Writing TSV files
-#' convert2tsv(glycolysis,"glycolysis")}
+#' convert2tsv(glycolysis,"glycolysis")
+#' }
 #' @keywords Convert TSV Metabolic Reconstruction
 #' 
 convert2tsv <- function(data, prefix){

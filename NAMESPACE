@@ -2,7 +2,7 @@
 
 export(compartments)
 export(convert2sbml)
-export(convert2sbmlR)
+export(convert2tsv)
 export(getChEBI)
 export(isBalanced)
 export(isValidSyntax)

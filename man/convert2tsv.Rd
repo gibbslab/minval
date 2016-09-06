@@ -21,7 +21,7 @@ If not set, 1000 is used by default. (optional: column can be empty),
 \item \code{"OBJECTIVE":} A list of numeric values containing objective values for each reaction (optional: column can be empty). 
 }}
 
-\item{prefix}{A writable path and prefix for the output 'TSV' files to be generated.}
+\item{prefix}{A single character string in a writable path for three posible output '.TSV' files to be generated.}
 }
 \value{
 A set of three 'TSV' files in a valid format to the 'sybil' R package.
@@ -42,7 +42,8 @@ glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "
 head(glycolysis)
 
 # Writing TSV files
-convert2tsv(glycolysis,"glycolysis")}
+convert2tsv(glycolysis,"glycolysis")
+}
 }
 \author{
 Daniel Camilo Osorio <dcosorioh@unal.edu.co>
