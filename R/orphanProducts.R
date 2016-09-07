@@ -8,7 +8,7 @@
 #' It is also expected that stoichiometry coefficients are surrounded by spaces, (nothe the "2" before the CO2[c] or the NH3[c]).
 #' It also expects arrows to be in the form "\code{=>}" or "\code{<=>}". 
 #' Meaning that arrows like "\code{==>}", "\code{<==>}", "\code{-->}" or "\code{->}" will not be parsed and will lead to errors.
-#' @param byCompartment A boolean value \code{'TRUE'} or \code{'FALSE'} to indicate if orphan products must be reported by compartment
+#' @param byCompartment A boolean value \code{'TRUE'} or \code{'FALSE'} to indicate if orphan products should be reported by compartment
 #' @return If \code{byCompartment == FALSE}, a vector with orphan products is returned, in opposite case a list is returned.
 #' @examples 
 #' # Loading data

@@ -14,6 +14,7 @@
 #' @param mWeight An optional id of molecular weight column in the referenceData
 #' @param mCharge An optional id of net charge column in the referenceData
 #' @return This function returns a boolean value \code{'TRUE'} if reaction is balanced. Reactions without valid syntax are removed of the reactionList.
+#' @keywords check mass charge balance genome scale metabolic reconstruction
 #' @examples 
 #' # Using external chemical table
 #' chemicalData <- read.csv2(system.file("extdata", "chemData.csv", package = "minval"))

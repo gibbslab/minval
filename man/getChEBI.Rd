@@ -40,4 +40,10 @@ Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 \seealso{
 The ChEBI database webpage: https://www.ebi.ac.uk/chebi/
 }
+\keyword{ChEBI}
+\keyword{Download}
+\keyword{balance}
+\keyword{charge}
+\keyword{check}
+\keyword{mass}
 

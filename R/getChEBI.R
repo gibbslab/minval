@@ -25,6 +25,7 @@
 #'  )
 #'  }
 #' @seealso The ChEBI database webpage: https://www.ebi.ac.uk/chebi/
+#' @keywords Download ChEBI check mass charge balance
 getChEBI <- function(release="latest"){
   # Download folder
   chebi_download <- tempdir()

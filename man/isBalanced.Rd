@@ -56,4 +56,12 @@ isBalanced(
 \author{
 Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 }
+\keyword{balance}
+\keyword{charge}
+\keyword{check}
+\keyword{genome}
+\keyword{mass}
+\keyword{metabolic}
+\keyword{reconstruction}
+\keyword{scale}
 

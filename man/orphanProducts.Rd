@@ -12,7 +12,7 @@ It is also expected that stoichiometry coefficients are surrounded by spaces, (n
 It also expects arrows to be in the form "\code{=>}" or "\code{<=>}". 
 Meaning that arrows like "\code{==>}", "\code{<==>}", "\code{-->}" or "\code{->}" will not be parsed and will lead to errors.}
 
-\item{byCompartment}{A boolean value \code{'TRUE'} or \code{'FALSE'} to indicate if orphan products must be reported by compartment}
+\item{byCompartment}{A boolean value \code{'TRUE'} or \code{'FALSE'} to indicate if orphan products should be reported by compartment}
 }
 \value{
 If \code{byCompartment == FALSE}, a vector with orphan products is returned, in opposite case a list is returned.
