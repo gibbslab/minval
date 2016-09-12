@@ -1,4 +1,4 @@
-minval : MINimal VALidation of stoichiometric reactions
+minval : an R package for MINimal VALidation of stoichiometric reactions
 ======
 The **MINVAL** package was designed as a tool to identify orphan metabolites and evaluate the mass and charge balance of stoichometric reactions. **MINVAL** also includes functions to write TSV and SBML models, extract all reactants, products, metabolite names and compartments from a metabolic reconstruction. 
 
