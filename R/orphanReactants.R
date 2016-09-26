@@ -20,7 +20,7 @@
 #' by = "bool"
 #' )
 #' 
-#' # Extracting orphan products
+#' # Extracting orphan reactants
 #' orphanReactants(reactionList = glycolysis$REACTION, byCompartment = FALSE)
 #' 
 #' # Extracting orphan by compartment
