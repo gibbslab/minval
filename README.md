@@ -39,8 +39,8 @@ Available functions:
 |metabolites|Identify the list of metabolites for a set of stoichiometric reactions|
 |orphanProducts|Identify the orphan products of a set of stoichometric reactions|
 |orphanReactants|Identify the orphan reactants of a set of stoichometric reactions|
-|products|Identifies the reactants for a stoichometric reaction|
-|reactants|Identifies the reactants for a stoichometric reaction|
+|products|Identify the products of a stoichometric reaction|
+|reactants|Identify the reactants of a stoichometric reaction|
 |stoichiometricMatrix||
 |xls2sbml||
 |xls2tsv||
