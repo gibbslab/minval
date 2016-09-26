@@ -11,7 +11,11 @@
 #' \item Evaluates if the reaction contain metabolites name separated by a plus symbol between spaces
 #' \item Evaluates if the reaction contain substituents separated of the metabolite names
 #' }
-#' @param reactionList A set of stoichiometric reaction with the following format: \code{"H2O[c] + Urea-1-carboxylate[c] <=> 2 CO2[c] + 2 NH3[c]"} Where arrows and plus signs are surrounded by a "space character".
+#' @param reactionList A set of stoichiometric reaction with the following format: 
+#' 
+#' \code{"H2O[c] + Urea-1-carboxylate[c] <=> 2 CO2[c] + 2 NH3[c]"} 
+#' 
+#' Where arrows and plus signs are surrounded by a "space character".
 #' It is also expected that stoichiometry coefficients are surrounded by spaces, (nothe the "2" before the CO2[c] or the NH3[c]).
 #' It also expects arrows to be in the form "\code{=>}" or "\code{<=>}". 
 #' Meaning that arrows like "\code{==>}", "\code{<==>}", "\code{-->}" or "\code{->}" will not be parsed and will lead to errors.

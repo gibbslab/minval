@@ -3,15 +3,14 @@ Type: Package
 Title: MINimal VALidation for Stoichiometric Reactions
 Version: 0.5
 Date: 2016-08-31
-Author: Daniel Osorio [aut,cre], Janneth Gonzalez [aut], Andres Pinzon-Velasco
-    [aut].
+Author: Daniel Osorio [aut,cre], Janneth Gonzalez [aut], Andres Pinzon-Velasco [aut].
 Maintainer: Daniel Osorio <dcosorioh@unal.edu.co>
 Suggests:
     RUnit
 Description: For a given set of stoichiometric reactions, this package
     evaluates the mass and charge balance, extracts all reactants, products, orphan
     metabolites, metabolite names and compartments. Also are included some options
-    to write TSV and SBML models.
+    to write models in TSV and SBML formats.
 License: GPL-2
 LazyData: TRUE
 NeedsCompilation: no
