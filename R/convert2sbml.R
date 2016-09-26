@@ -2,7 +2,7 @@
 #' @author  Created by: Tomas Radivoyevitch - Modified and Maintained by: Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
-#' @title Write a SBML file.
+#' @title Write a model in a SBML format.
 #' @description This function converts a data.frame to a valid SBML file. The Systems Biology Markup Language (SBML) is a representation format, based on XML, for communicating and storing computational models of biological processes.
 #' More Info: Encyclopedia of Systems Biology Dubitzky, W., Wolkenhauer, O., Yokota, H., Cho, K.-H. (Eds.) SBML, pp2057-2062 Springer 2013.
 #' @details This function takes a data.frame as input and convert it to a valid sbmlR object, then the object is written into the SBML output file.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/convert2sbml.R
 \name{convert2sbml}
 \alias{convert2sbml}
-\title{Write a SBML file.}
+\title{Write a model in a SBML format.}
 \usage{
 convert2sbml(data, outfile, optimizedFor = "sybil", boundary = "b")
 }
