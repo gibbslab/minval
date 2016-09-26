@@ -33,7 +33,7 @@ by = "bool"
 )
 
 # Extracting products
-products(reactionList = "D-Glyceraldehyde 3-phosphate[c] + Orthophosphate[c] + NAD+[c] => 3-Phospho-D-glyceroyl phosphate[c] + NADH[c] + H+[c]")
+products(reactionList = "ADP[c] + Phosphoenolpyruvate[c] => Pyruvate[c] + ATP[c]")
 products(reactionList = glycolysis$REACTION)
 }
 \author{
