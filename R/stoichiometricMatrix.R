@@ -3,7 +3,7 @@
 #' @author Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 # Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 # Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
-#' @description  
+#' @description  A set of stoichiometric reactions are often represented in a more compact form called the stoichiometry matrix. If a reaction network has n reactions and m participating metabolites then the stoichiometry matrix will have correspondingly m rows and n columns.
 #' @param reactionList A set of stoichiometric reaction with the following format: 
 #' 
 #' \code{"H2O[c] + Urea-1-carboxylate[c] <=> 2 CO2[c] + 2 NH3[c]"} 
@@ -12,8 +12,18 @@
 #' It is also expected that stoichiometry coefficients are surrounded by spaces, (nothe the "2" before the CO2[c] or the NH3[c]).
 #' It also expects arrows to be in the form "\code{=>}" or "\code{<=>}". 
 #' Meaning that arrows like "\code{==>}", "\code{<==>}", "\code{-->}" or "\code{->}" will not be parsed and will lead to errors.
-#' @return 
+#' @return The stoichiometric matrix for a given set of stoichiometric reactions
 #' @examples 
+#' # Loading data
+#' glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
+#' 
+#' # Removing stoichiometric reactions without valid syntax
+#' glycolysis <- mapReactions(
+#'                            reactionList = isValidSyntax(glycolysis$REACTION),
+#'                            referenceData = glycolysis,
+#'                            by = "bool"
+#'                            )
+#' # Building the Stoichiometric-Matrix 
 #' stoichiometricMatrix(glycolysis$REACTION)
 #' 
 #' @keywords Stoichiometric Matrix Reactions Metabolic Reconstruction

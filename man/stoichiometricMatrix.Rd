@@ -16,10 +16,23 @@ It is also expected that stoichiometry coefficients are surrounded by spaces, (n
 It also expects arrows to be in the form "\code{=>}" or "\code{<=>}". 
 Meaning that arrows like "\code{==>}", "\code{<==>}", "\code{-->}" or "\code{->}" will not be parsed and will lead to errors.}
 }
+\value{
+The stoichiometric matrix for a given set of stoichiometric reactions
+}
 \description{
-
+A set of stoichiometric reactions are often represented in a more compact form called the stoichiometry matrix. If a reaction network has n reactions and m participating metabolites then the stoichiometry matrix will have correspondingly m rows and n columns.
 }
 \examples{
+# Loading data
+glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
+
+# Removing stoichiometric reactions without valid syntax
+glycolysis <- mapReactions(
+                           reactionList = isValidSyntax(glycolysis$REACTION),
+                           referenceData = glycolysis,
+                           by = "bool"
+                           )
+# Building the Stoichiometric-Matrix 
 stoichiometricMatrix(glycolysis$REACTION)
 
 }
