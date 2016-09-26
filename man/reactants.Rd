@@ -2,7 +2,7 @@
 % Please edit documentation in R/reactants.R
 \name{reactants}
 \alias{reactants}
-\title{Identifies the reactants for a stoichometric reaction}
+\title{Identify the reactants of a stoichometric reaction}
 \usage{
 reactants(reactionList)
 }

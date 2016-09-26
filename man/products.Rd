@@ -2,7 +2,7 @@
 % Please edit documentation in R/products.R
 \name{products}
 \alias{products}
-\title{Identifies the reactants for a stoichometric reaction}
+\title{Identify the reactants of a stoichometric reaction}
 \usage{
 products(reactionList)
 }
