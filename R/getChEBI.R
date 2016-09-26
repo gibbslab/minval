@@ -20,9 +20,7 @@
 #'  }
 #' @examples 
 #' \dontrun{
-#' ChEBI <- getChEBI(
-#'  release = "142"
-#'  )
+#' ChEBI <- getChEBI(release = "142")
 #'  }
 #' @seealso The ChEBI database webpage: https://www.ebi.ac.uk/chebi/
 #' @keywords Download ChEBI check mass charge balance

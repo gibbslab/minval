@@ -29,9 +29,7 @@ The ChEBI database (Chemical Entities of Biological Interest), is a database and
 }
 \examples{
 \dontrun{
-ChEBI <- getChEBI(
- release = "142"
- )
+ChEBI <- getChEBI(release = "142")
  }
 }
 \author{
