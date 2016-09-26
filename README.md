@@ -36,9 +36,9 @@ Available functions:
 |isBalanced|Evaluate the mass or charge balance for a set of stoichiometric reactions|
 |isValidSyntax|Evaluate if a stoichiometric reaction has a valid syntax|
 |mapReactions|Return reactions of a reference data by a selected column|
-|metabolites||
-|orphanProducts||
-|orphanReactants||
+|metabolites|Identify the list of metabolites for a set of stoichiometric reactions|
+|orphanProducts|Identify the orphan products of a set of stoichometric reactions|
+|orphanReactants|Identify the orphan reactants of a set of stoichometric reactions|
 |products|Identifies the reactants for a stoichometric reaction|
 |reactants|Identifies the reactants for a stoichometric reaction|
 |stoichiometricMatrix||
