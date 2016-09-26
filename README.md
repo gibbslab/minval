@@ -41,7 +41,7 @@ Available functions:
 |orphanReactants|Identify the orphan reactants of a set of stoichometric reactions|
 |products|Identify the products of a stoichometric reaction|
 |reactants|Identify the reactants of a stoichometric reaction|
-|stoichiometricMatrix||
+|stoichiometricMatrix|Return the stoichiometric matrix for a set of stoichiometric reactions|
 |xls2sbml||
 |xls2tsv||
 
