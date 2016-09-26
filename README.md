@@ -29,9 +29,9 @@ Available functions:
 |Function | Description |
 |:--------|:------------|
 |compartments|Extract the list of unique compartments for the metabolites of a set of stoichiometric reactions.|
-|convert2sbml|Write a SBML file.|
+|convert2sbml|Write a model in a SBML format.|
 |convert2sbmlR|Convert a data.frame data to a SBMLR object|
-|convert2tsv|Write a TSV model for the 'sybil' R package.|
+|convert2tsv|Write a model in a TSV format for the 'sybil' R package.|
 |getChEBI|Download the ChEBI database|
 |isBalanced|Evaluate the mass or charge balance for a set of stoichiometric reactions|
 |isValidSyntax|Evaluate if a stoichiometric reaction has a valid syntax|
