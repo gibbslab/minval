@@ -43,7 +43,20 @@ This function takes a XLS spreadsheet as input and convert it to a valid sbmlR o
 glycolysis <- system.file("extdata", "glycolysisKEGG.xlsx", package = "minval")
 
 # Convert2SBML
-
+xls2sbml(infile = glycolysis,
+         outfile = "glycolysis_sybil.xml",
+         optimizedFor = "sybil",
+         boundary = "b")
+         
+xls2sbml(infile = glycolysis,
+         outfile = "glycolysis_RAVEN.xml",
+         optimizedFor = "RAVEN",
+         boundary = "b")
+         
+xls2sbml(infile = glycolysis,
+         outfile = "glycolysis_COBRA.xml",
+         optimizedFor = "COBRA",
+         boundary = "b")
 }
 }
 \author{
