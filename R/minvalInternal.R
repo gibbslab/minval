@@ -101,11 +101,7 @@
 .sbmlCompatible <- function(metabolite,optimizedFor,type){
   compartment <- sapply(metabolite, compartments,USE.NAMES = FALSE)
   # Generando el ID
-  if(optimizedFor == 'sybil' || optimizedFor == 'COBRA'){
-    metabolite <- metabolites(metabolite,woCompartment = TRUE) 
-  } else {
-    metabolite <- metabolites(metabolite)
-  }
+  metabolite <- metabolites(metabolite,woCompartment = TRUE) 
   # Removiendo puntuaciones
   metabolite <- gsub("\\+","_ChargedP",metabolite)
   metabolite <- gsub("[[:blank:]]+","_",metabolite)
@@ -119,6 +115,7 @@
       metabolite <- paste0(metabolite,"[",compartment,"]")
       return(metabolite)
     } else {
+      metabolite <- paste0(metabolite,"_",compartment)
       return (metabolite)
     }
   } else if (type == 'r'){
