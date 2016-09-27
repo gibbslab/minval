@@ -1,8 +1,8 @@
 #' @export xls2sbml
-# Daniel Camilo Osorio
-# Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
-# Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
-
+#' @author  Created by: Tomas Radivoyevitch - Modified and Maintained by: Daniel Camilo Osorio <dcosorioh@unal.edu.co>
+#  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
+#  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
+#' @title Write a model in SBML format from a XLS spreadsheet
 xls2sbml<-function(infile,outfile){
   # Reading data
   data <- gdata::read.xls(infile,sheet = 1)
