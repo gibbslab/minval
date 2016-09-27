@@ -26,35 +26,10 @@
 #' @examples
 #' \dontrun{
 #' # Loading a CSV file
-#' glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
-#'
-#' # Data structure
-#' head(glycolysis)
-#'
-#' # Writing SBML file
-#' ## Optimized for the 'sybil' package
-#' convert2sbml(
-#'  data = glycolysis, 
-#'  outfile = "glycolysis_sybil.xml", 
-#'  optimizedFor = "sybil", 
-#'  boundary = "b"
-#'  )
-#'  
-#' ## Optimized for the 'COBRA' toolbox
-#' convert2sbml(
-#'  data = glycolysis, 
-#'  outfile = "glycolysis_cobra.xml", 
-#'  optimizedFor = "COBRA", 
-#'  boundary = "b"
-#'  )
-#'  
-#' ## Optimized for the 'RAVEN' toolbox
-#' convert2sbml(
-#'  data = glycolysis, 
-#'  outfile = "glycolysis_raven.xml", 
-#'  optimizedFor = "RAVEN", 
-#'  boundary = "b"
-#'  )
+#' glycolysis <- system.file("extdata", "glycolysisKEGG.xlsx", package = "minval")
+#' 
+#' # Convert2SBML
+#' 
 #' }
 #' @seealso Original 'saveSBML': https://www.bioconductor.org/packages/release/bioc/html/SBMLR.html
 #' @keywords Convert SBML Metabolic Reconstruction

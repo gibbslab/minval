@@ -107,6 +107,7 @@
     metabolite <- metabolites(metabolite)
   }
   # Removiendo puntuaciones
+  metabolite <- gsub("\\+","Charged",metabolite)
   metabolite <- gsub("[[:blank:]]+","_",metabolite)
   metabolite <- paste0("M_",metabolite)
   metabolite <- gsub("\\(|\\)","p",metabolite)
