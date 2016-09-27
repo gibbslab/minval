@@ -3,11 +3,11 @@
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 #' @title Write a model in SBML format from a XLS spreadsheet
-xls2sbml<-function(infile,outfile){
+xls2sbml<-function(infile,outfile,optimizedFor,boundary){
   # Reading data
   data <- gdata::read.xls(infile,sheet = 1)
   # Creating SBMLR model
-  model <- convert2sbmlR(data)
+  model <- convert2sbmlR(data,optimizedFor,boundary)
   # Writing model
   # This function is a modified copy of saveSBML function included in SBMLR package.
   # Original 'saveSBML' function was writed by Tomas Radivoyevitch
@@ -50,13 +50,13 @@ xls2sbml<-function(infile,outfile){
     }
     if(nSpecies>0){
       cat("<listOfSpecies>", file=fid, sep="\n")
-      sapply(1:nSpecies,function(i){cat(sprintf("   <species id=\"%s\"  name=\"%s\"  compartment=\"%s\"/>",species[[i]][["id"]],species[[i]][["name"]],species[[i]][["compartment"]]), file=fid, sep="\n")})
+      sapply(1:nSpecies,function(i){cat(sprintf("   <species id=\"%s\" name=\"%s\" compartment=\"%s\" boundaryCondition=\"%s\"/>",species[[i]][["id"]],species[[i]][["name"]],species[[i]][["compartment"]],ifelse(grepl(boundary,species[[i]][["compartment"]]),"true","false")), file=fid, sep="\n")})
       cat("</listOfSpecies>", file=fid, sep="\n")
     }
     cat("<listOfReactions>", file=fid, sep="\n")
     sapply(1:nReactions, function(i){
       if (is.null(reactions[[i]][["reversible"]])){ print("Internal SBMLR object should have reverse flag set")} else{
-        cat(sprintf("  <reaction id=\"%s\"  reversible=\"%s\">",reactions[[i]][["id"]], ifelse(reactions[[i]][["reversible"]],"true","false")), file=fid, sep="\n") 
+        cat(sprintf("  <reaction id=\"%s\"  reversible=\"%s\">",reactions[[i]][["id"]], ifelse(reactions[[i]][["reversible"]],"true","false")), file=fid, sep="\n")
       }
       gpr = reactions[[i]][["notes"]]
       if(!is.na(gpr[["GPR"]])){
@@ -76,7 +76,7 @@ xls2sbml<-function(infile,outfile){
       if (!is.null(products[[1]])) {
         cat("    <listOfProducts>", file=fid, sep="\n")
         sapply(1:length(products[["products"]]), function(j){ cat(sprintf("      <speciesReference species=\"%s\" stoichiometry=\"%s\"/>", products[["products"]][[j]],products[["stoichiometry"]][[j]]), file=fid, sep="\n")})
-        cat("    </listOfProducts>", file=fid, sep="\n")     
+        cat("    </listOfProducts>", file=fid, sep="\n")
       }
       
       cat("  <kineticLaw>", file=fid, sep="\n")
