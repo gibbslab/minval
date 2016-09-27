@@ -34,7 +34,7 @@
 #' @seealso Original 'saveSBML': https://www.bioconductor.org/packages/release/bioc/html/SBMLR.html
 #' @keywords Convert SBML Metabolic Reconstruction
 #'
-xls2sbml<-function(infile,outfile,optimizedFor,boundary){
+xls2sbml<-function(infile,outfile,optimizedFor = "sybil",boundary){
   # Reading data
   data <- gdata::read.xls(infile,sheet = 1)
   # Creating SBMLR model

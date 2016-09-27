@@ -4,7 +4,7 @@
 \alias{xls2sbml}
 \title{Write a model in SBML format from a XLS spreadsheet}
 \usage{
-xls2sbml(infile, outfile, optimizedFor, boundary)
+xls2sbml(infile, outfile, optimizedFor = "sybil", boundary)
 }
 \arguments{
 \item{infile}{A XLS spreadsheet with the following mandatory colnames: \itemize{
