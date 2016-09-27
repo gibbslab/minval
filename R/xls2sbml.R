@@ -1,5 +1,5 @@
 #' @export xls2sbml
-#' @author  Created by: Tomas Radivoyevitch - Modified and Maintained by: Daniel Camilo Osorio <dcosorioh@unal.edu.co>
+#' @author Created by: Tomas Radivoyevitch - Modified and Maintained by: Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 #' @title Write a model in SBML format from a XLS spreadsheet

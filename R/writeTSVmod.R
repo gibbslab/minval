@@ -1,4 +1,4 @@
-#' @export convert2tsv
+#' @export writeTSVmod
 #' @author Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
@@ -29,11 +29,11 @@
 #' head(glycolysis)
 #' 
 #' # Writing TSV files
-#' convert2tsv(glycolysis,"glycolysis")
+#' writeTSVmod(glycolysis,"glycolysis")
 #' }
 #' @keywords Convert TSV Metabolic Reconstruction
 #' 
-convert2tsv <- function(data, prefix){
+writeTSVmod <- function(data, prefix){
   # Creating SBMLR model
   model <- convert2sbmlR(data,optimizedFor='sybil')
   # Function to write files

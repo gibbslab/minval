@@ -31,7 +31,7 @@ Available functions:
 |compartments|Extract the list of unique compartments for the metabolites of a set of stoichiometric reactions.|
 |convert2sbml|Write a model in a SBML format.|
 |convert2sbmlR|Convert a data.frame data to a SBMLR object|
-|convert2tsv|Write a model in a TSV format for the 'sybil' R package.|
+|writeTSVmod|Write a model in a TSV format for the 'sybil' R package.|
 |getChEBI|Download the ChEBI database|
 |isBalanced|Evaluate the mass or charge balance for a set of stoichiometric reactions|
 |isValidSyntax|Evaluate if a stoichiometric reaction has a valid syntax|
@@ -42,8 +42,7 @@ Available functions:
 |products|Identify the products of a stoichometric reaction|
 |reactants|Identify the reactants of a stoichometric reaction|
 |stoichiometricMatrix|Return the stoichiometric matrix for a set of stoichiometric reactions|
-|xls2sbml||
-|xls2tsv||
+|xls2sbml|Write a model in SBML format from a XLS spreadsheet|
 
 Citation
 --------
