@@ -1,0 +1,18 @@
+---
+title: "**MINVAL** - **MIN**imal **VAL**idation for Stoichiometric Reactions"
+author: "Daniel Osorio, Janneth Gonzalez and Andres Pinzon-Velasco"
+date: "`r Sys.Date()`"
+output:
+  pdf_document:
+  #toc: true
+---
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{MINVAL - MINimal VALidation for Stoichiometric Reactions}
+-->
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Introduction to MINVAL
+The **MINVAL** package was designed as a tool to identify orphan metabolites and evaluate the mass and charge balance of stoichometric reactions. MINVAL also includes functions to write models in TSV and SBML formats, extract all reactants, products, metabolite names and compartments from a metabolic reconstruction.
+## Getting started
