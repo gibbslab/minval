@@ -1,0 +1,73 @@
+---
+title: "**MINVAL** - **MIN**imal **VAL**idation for Stoichiometric Reactions"
+author: "Daniel Osorio, Janneth Gonzalez and Andres Pinzon-Velasco"
+date: "`r Sys.Date()`"
+output:
+  pdf_document:
+  toc: true
+  geometry: margin=1in
+---
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{MINVAL - MINimal VALidation for Stoichiometric Reactions}
+-->
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Introduction to MINVAL
+The **MINVAL** package was designed as a tool to identify orphan metabolites and evaluate the mass and charge balance of stoichometric reactions. MINVAL also includes functions to write models in TSV and SBML formats, extract all reactants, products, metabolite names and compartments from a metabolic reconstruction.
+
+## Getting started
+```{r message=FALSE}
+library(minval)
+library(sybilSBML)
+```
+```{r}
+glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
+dim(glycolysis)
+colnames(glycolysis)
+````
+```{r}
+head(glycolysis$REACTION)
+```
+```{r}
+valid <- isValidSyntax(glycolysis$REACTION)
+valid
+```
+```{r}
+glycolysisValidated <- mapReactions(reactionList = valid,
+                                    referenceData = glycolysis,
+                                    by = "bool",
+                                    inverse = TRUE)
+glycolysisValidated
+```
+```{r message=FALSE}
+convert2sbml(glycolysisValidated,"glycolysisValidated.xml")
+glycoModel <- readSBMLmod("glycolysisValidated.xml")
+glycoModel
+optimizeProb(glycoModel)
+```
+```{r}
+chemicalData <- read.csv2(system.file("extdata", "chemData.csv", package = "minval"))
+head(chemicalData)
+```
+```{r}
+balanced <- isBalanced(reactionList = glycolysisValidated$REACTION,
+                       referenceData = chemicalData,
+                       ids = "NAME",
+                       mFormula = "FORMULA")
+balanced
+```
+```{r}
+glycolysisBalanced <- mapReactions(reactionList = balanced,
+                                   referenceData = glycolysisValidated,
+                                   by = "bool",
+                                   inverse = FALSE)
+dim(glycolysisBalanced)
+```
+```{r message=FALSE}
+convert2sbml(glycolysisBalanced,"glycolysisBalanced.xml")
+glycoModel <- readSBMLmod("glycolysisBalanced.xml")
+glycoModel
+optimizeProb(glycoModel)
+```
