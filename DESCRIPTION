@@ -2,7 +2,7 @@ Package: minval
 Type: Package
 Title: MINimal VALidation for Stoichiometric Reactions
 Version: 0.5
-Date: 2016-08-31
+Date: 2016-10-04
 Author: Daniel Osorio [aut,cre], Janneth Gonzalez [aut], Andres Pinzon-Velasco [aut].
 Maintainer: Daniel Osorio <dcosorioh@unal.edu.co>
 Suggests:
