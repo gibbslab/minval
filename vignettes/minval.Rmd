@@ -46,8 +46,8 @@ mapReactions(reactionList = valid,
 ```
 
 ```{r}
-glycolysis$REACTION[16] <- "2-Phospho-D-glycerate[c] <=> 3-Phospho-D-glycerate[c]"
-glycolysis$REACTION[17] <- "alpha-D-Glucose[c] + Orthophosphate[c] => alpha-D-Glucose 6-phosphate[c] + H2O[c]"
+glycolysis$REACTION[12] <- "alpha-D-Glucose[c] <=> alpha-D-Glucose[b]"
+glycolysis$REACTION[4]  <- "D-Glyceraldehyde 3-phosphate[c] <=> Glycerone phosphate[c]"
 isValidSyntax(glycolysis$REACTION)
 ```
 
@@ -69,7 +69,6 @@ balanced <- isBalanced(reactionList = glycolysis$REACTION,
                        ids = "NAME",
                        mFormula = "FORMULA")
 balanced
-
 ```
 
 ```{r}
@@ -80,8 +79,9 @@ mapReactions(reactionList = balanced,
 ```
 
 ```{r}
-glycolysis$REACTION[13] <- "D-Glyceraldehyde 3-phosphate[c] + Orthophosphate[c] + NAD+[c] => 3-Phospho-D-glyceroyl phosphate[c] + NADH[c] + H+[c]"
-glycolysis$REACTION[17] <- "alpha-D-Glucose[c] + Orthophosphate[c] => alpha-D-Glucose 6-phosphate[c] + H2O[c]"
+glycolysis$REACTION[10] <- "ADP[c] + Phosphoenolpyruvate[c] => Pyruvate[c] + ATP[c]"
+glycolysis$REACTION[11] <- "2-Phospho-D-glycerate[c] <=> Phosphoenolpyruvate[c] + H2O[c]"
+glycolysis$REACTION[16] <- "2-Phospho-D-glycerate[c] <=> 3-Phospho-D-glycerate[c]"
 isBalanced(reactionList = glycolysis$REACTION,
                        referenceData = chemicalData,
                        ids = "NAME",
