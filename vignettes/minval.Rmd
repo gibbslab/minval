@@ -46,8 +46,8 @@ mapReactions(reactionList = valid,
 ```
 
 ```{r}
-glycolysis$REACTION[12] <- "D-Glyceraldehyde 3-phosphate[c] <=> Glycerone phosphate[c]"
 glycolysis$REACTION[16] <- "2-Phospho-D-glycerate[c] <=> 3-Phospho-D-glycerate[c]"
+glycolysis$REACTION[17] <- "alpha-D-Glucose[c] + Orthophosphate[c] => alpha-D-Glucose 6-phosphate[c] + H2O[c]"
 isValidSyntax(glycolysis$REACTION)
 ```
 
