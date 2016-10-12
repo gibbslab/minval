@@ -19,8 +19,8 @@ The **MINVAL** package was designed as a tool to identify orphan metabolites and
 
 ## Getting started
 ```{r message=FALSE}
-library(minval)
-library(sybilSBML)
+library("minval")
+library("sybilSBML")
 ```
 
 ```{r}
