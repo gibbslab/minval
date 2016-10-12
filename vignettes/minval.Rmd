@@ -1,6 +1,6 @@
 ---
 title: "**MINVAL** - **MIN**imal **VAL**idation for Stoichiometric Reactions"
-author: "Daniel Osorio, Janneth Gonzalez and Andres Pinzon-Velasco"
+author: "Daniel Osorio, Janneth Gonzalez PhD. and Andrés Pinzón-Velasco PhD."
 date: "`r Sys.Date()`"
 output:
   pdf_document:
@@ -22,52 +22,74 @@ The **MINVAL** package was designed as a tool to identify orphan metabolites and
 library(minval)
 library(sybilSBML)
 ```
+
 ```{r}
-glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
-dim(glycolysis)
+glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"),
+                        stringsAsFactors = FALSE)
 colnames(glycolysis)
-````
+```
+
 ```{r}
 head(glycolysis$REACTION)
 ```
+
 ```{r}
 valid <- isValidSyntax(glycolysis$REACTION)
 valid
 ```
+
 ```{r}
-glycolysisValidated <- mapReactions(reactionList = valid,
-                                    referenceData = glycolysis,
-                                    by = "bool",
-                                    inverse = TRUE)
-glycolysisValidated
+mapReactions(reactionList = valid,
+             referenceData = glycolysis,
+             by = "bool",
+             inverse = TRUE)
 ```
+
+```{r}
+glycolysis$REACTION[12] <- "D-Glyceraldehyde 3-phosphate[c] <=> Glycerone phosphate[c]"
+glycolysis$REACTION[16] <- "2-Phospho-D-glycerate[c] <=> 3-Phospho-D-glycerate[c]"
+isValidSyntax(glycolysis$REACTION)
+```
+
 ```{r message=FALSE}
-convert2sbml(glycolysisValidated,"glycolysisValidated.xml")
-glycoModel <- readSBMLmod("glycolysisValidated.xml")
+convert2sbml(glycolysis,"glycolysis.xml")
+glycoModel <- readSBMLmod("glycolysis.xml")
 glycoModel
 optimizeProb(glycoModel)
 ```
+
 ```{r}
 chemicalData <- read.csv2(system.file("extdata", "chemData.csv", package = "minval"))
 head(chemicalData)
 ```
+
 ```{r}
-balanced <- isBalanced(reactionList = glycolysisValidated$REACTION,
+balanced <- isBalanced(reactionList = glycolysis$REACTION,
                        referenceData = chemicalData,
                        ids = "NAME",
                        mFormula = "FORMULA")
 balanced
+
 ```
+
 ```{r}
-glycolysisBalanced <- mapReactions(reactionList = balanced,
-                                   referenceData = glycolysisValidated,
-                                   by = "bool",
-                                   inverse = FALSE)
-dim(glycolysisBalanced)
+mapReactions(reactionList = balanced,
+             referenceData = glycolysis,
+             by = "bool",
+             inverse = TRUE)
+```
+
+```{r}
+glycolysis$REACTION[13] <- "D-Glyceraldehyde 3-phosphate[c] + Orthophosphate[c] + NAD+[c] => 3-Phospho-D-glyceroyl phosphate[c] + NADH[c] + H+[c]"
+glycolysis$REACTION[17] <- "alpha-D-Glucose[c] + Orthophosphate[c] => alpha-D-Glucose 6-phosphate[c] + H2O[c]"
+isBalanced(reactionList = glycolysis$REACTION,
+                       referenceData = chemicalData,
+                       ids = "NAME",
+                       mFormula = "FORMULA")
 ```
 ```{r message=FALSE}
-convert2sbml(glycolysisBalanced,"glycolysisBalanced.xml")
-glycoModel <- readSBMLmod("glycolysisBalanced.xml")
+convert2sbml(glycolysis,"glycolysisCurated.xml")
+glycoModel <- readSBMLmod("glycolysisCurated.xml")
 glycoModel
 optimizeProb(glycoModel)
 ```
