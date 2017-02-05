@@ -37,12 +37,10 @@ orphanReactants <- function(reactionList, byCompartment = FALSE) {
   reactionList <- reactionList[isValidSyntax(reactionList)]
   # Extract all reactants
   reactant <- unique(unlist(reactants(reactionList)))
-  # Extract all products
-  product <- unique(unlist(products(reactionList)))
   # Possible candidates to be introduced into the system by exchange reactions or by adding more internal reactions.
   met <- table(metabolites(reactionList, uniques = FALSE))
   orphan <- names(met)[met == 1]
-  orphan <- unique(c(orphan,reactant[!reactant%in%product]))
+  orphan <- orphan[orphan %in% reactant]
   if (length(orphan) == 0) {
     return (NA)
   } else {
