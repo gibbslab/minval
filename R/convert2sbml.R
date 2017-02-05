@@ -144,7 +144,7 @@ convert2sbml<-function(data,outfile,optimizedFor="sybil",boundary="b"){
       nlocalParameters = length(parameters)
       if(nlocalParameters > 0){
         cat("    <listOfParameters>", file=fid, sep="\n")
-        sapply(1:nlocalParameters,function(j){ cat(sprintf("      <parameter id=\"%s\" value=\"%g\"/>", names(parameters)[j],parameters[[j]]), file=fid, sep="\n")})
+        sapply(1:nlocalParameters,function(j){ cat(sprintf("      <parameter id=\"%s\" value=\"%s\"/>", names(parameters)[j],parameters[[j]]), file=fid, sep="\n")})
         cat("    </listOfParameters>", file=fid, sep="\n")
         cat("    </kineticLaw>", file=fid, sep="\n")
         cat("  </reaction>", file=fid, sep="\n")}})
