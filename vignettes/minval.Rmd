@@ -1,16 +1,13 @@
 ---
 title: "**MINVAL** - **MIN**imal **VAL**idation for Stoichiometric Reactions"
-author: "Daniel Osorio, Janneth Gonzalez PhD. and Andrés Pinzón-Velasco PhD."
-date: "`r Sys.Date()`"
-output:
-  pdf_document:
-  toc: true
-  geometry: margin=1in
+author: "Daniel Osorio, Janneth Gonzalez and Andrés Pinzón-Velasco."
+#date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Plotting Random Effects of Mixed Models}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
-<!--
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{MINVAL - MINimal VALidation for Stoichiometric Reactions}
--->
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -30,66 +27,61 @@ colnames(glycolysis)
 ```
 
 ```{r}
-head(glycolysis$REACTION)
+glycolysis$REACTION
 ```
 
 ```{r}
-valid <- isValidSyntax(glycolysis$REACTION)
-valid
+isValidSyntax(reactionList = glycolysis$REACTION)
 ```
 
 ```{r}
-mapReactions(reactionList = valid,
-             referenceData = glycolysis,
-             by = "bool",
-             inverse = TRUE)
+glycolysis$REACTION[2]
+glycolysis$REACTION[2] <- "D-Glyceraldehyde 3-phosphate[c] <=> 3 Glycerone phosphate[c]"
 ```
 
 ```{r}
-glycolysis$REACTION[12] <- "alpha-D-Glucose[c] <=> alpha-D-Glucose[b]"
-glycolysis$REACTION[4]  <- "D-Glyceraldehyde 3-phosphate[c] <=> Glycerone phosphate[c]"
-isValidSyntax(glycolysis$REACTION)
+glycolysis$REACTION[6]
+glycolysis$REACTION[6] <- "2-Phospho-D-glycerate[c] <=> 3-Phospho-D-glycerate[c]"
 ```
-
-```{r message=FALSE}
-convert2sbml(glycolysis,"glycolysis.xml")
-glycoModel <- readSBMLmod("glycolysis.xml")
-glycoModel
-optimizeProb(glycoModel)
+```{r}
+isValidSyntax(reactionList = glycolysis$REACTION)
 ```
 
 ```{r}
 chemicalData <- read.csv2(system.file("extdata", "chemData.csv", package = "minval"))
-head(chemicalData)
+isBalanced(reactionList = glycolysis$REACTION,referenceData = chemicalData,ids = "NAME",mFormula = "FORMULA")
+glycolysis$REACTION[2]
+glycolysis$REACTION[2] <- "D-Glyceraldehyde 3-phosphate[c] <=> Glycerone phosphate[c]"
+glycolysis$REACTION[8] <- "alpha-D-Glucose 6-phosphate[c] <=> beta-D-Fructose 6-phosphate[c]"
+isBalanced(reactionList = glycolysis$REACTION,referenceData = chemicalData,ids = "NAME",mFormula = "FORMULA")
 ```
 
 ```{r}
-balanced <- isBalanced(reactionList = glycolysis$REACTION,
-                       referenceData = chemicalData,
-                       ids = "NAME",
-                       mFormula = "FORMULA")
-balanced
+addExchangeReactions <- function(reconstruction){
+  reconstruction <- as.data.frame.array(reconstruction)
+  if(all(names(reconstruction)%in%c("ID","DESCRIPTION","REACTION","GPR","LOWER.BOUND","UPPER.BOUND","OBJECTIVE"))){
+    orphans <- table(c(orphanReactants(reconstruction[["REACTION"]]),orphanProducts(reconstruction[["REACTION"]])))
+    new <- cbind(sapply(names(orphans), function(metabolite){paste0("EX_",metabolites(metabolite,woCompartment = TRUE),"(",compartments(metabolite),")")},USE.NAMES = FALSE),
+          sapply(names(orphans), function(metabolite){paste0("Exchange of ", metabolites(metabolite,woCompartment = TRUE))},USE.NAMES = FALSE),
+          sapply(names(orphans), function(metabolite){paste0(metabolite," <=>")},USE.NAMES = FALSE),
+          sapply(names(orphans), function(metabolite){""},USE.NAMES = FALSE),
+          ifelse(names(orphans)%in%orphanReactants(reconstruction[["REACTION"]]),-1000,0),
+          ifelse(names(orphans)%in%orphanProducts(reconstruction[["REACTION"]]),1000,0),
+          sapply(names(orphans), function(metabolite){0},USE.NAMES = FALSE))
+    colnames(new) <- colnames(reconstruction)
+    new <- as.data.frame(rbind(reconstruction,new),row.names=NULL)
+    return(new)
+  } else {
+    return(FALSE)
+  }
+}
+g <- addExchangeReactions(glycolysis)
+convert2sbml(g,"o.sbml")
 ```
-
+```{r,warning=FALSE,message=FALSE}
+a <- readSBMLmod("o.sbml")
+```
 ```{r}
-mapReactions(reactionList = balanced,
-             referenceData = glycolysis,
-             by = "bool",
-             inverse = TRUE)
-```
-
-```{r}
-glycolysis$REACTION[10] <- "ADP[c] + Phosphoenolpyruvate[c] => Pyruvate[c] + ATP[c]"
-glycolysis$REACTION[11] <- "2-Phospho-D-glycerate[c] <=> Phosphoenolpyruvate[c] + H2O[c]"
-glycolysis$REACTION[16] <- "2-Phospho-D-glycerate[c] <=> 3-Phospho-D-glycerate[c]"
-isBalanced(reactionList = glycolysis$REACTION,
-                       referenceData = chemicalData,
-                       ids = "NAME",
-                       mFormula = "FORMULA")
-```
-```{r message=FALSE}
-convert2sbml(glycolysis,"glycolysisCurated.xml")
-glycoModel <- readSBMLmod("glycolysisCurated.xml")
-glycoModel
-optimizeProb(glycoModel)
+lowbnd(a)[a@react_id=="EX_alpha_D_Glucose(c)"] <- -1
+optimizeProb(a)
 ```
