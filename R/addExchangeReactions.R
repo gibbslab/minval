@@ -1,3 +1,7 @@
+#' @export addExchangeReactions
+#' @author Daniel Camilo Osorio <dcosorioh@unal.edu.co>
+#  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
+#  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 addExchangeReactions <- function(reconstruction){
   reconstruction <- as.data.frame.array(reconstruction)
   if(all(names(reconstruction)%in%c("ID","DESCRIPTION","REACTION","GPR","LOWER.BOUND","UPPER.BOUND","OBJECTIVE"))){
