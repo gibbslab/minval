@@ -1,6 +1,6 @@
 ---
 title: "**MINVAL** - **MIN**imal **VAL**idation for Stoichiometric Reactions"
-author: "Daniel Osorio, Janneth Gonzalez and Andrés Pinzón-Velasco."
+author: "Daniel Osorio, Janneth Gonzalez and Andrés Pinzon"
 #date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -9,12 +9,12 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(collapse = TRUE, dev = "png", fig.width = 7, fig.height = 5, message = FALSE, warning = FALSE)
 ```
-# Introduction to MINVAL
+## Introduction to MINVAL
 The **MINVAL** package was designed as a tool to identify orphan metabolites and evaluate the mass and charge balance of stoichometric reactions. MINVAL also includes functions to write models in TSV and SBML formats, extract all reactants, products, metabolite names and compartments from a metabolic reconstruction.
 
-## Getting started
+## Syntax and Mass-Charge Evaluation
 ```{r message=FALSE}
 library("minval")
 library("sybilSBML")
@@ -23,6 +23,8 @@ library("sybilSBML")
 ```{r}
 glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"),
                         stringsAsFactors = FALSE)
+```
+```{r}
 colnames(glycolysis)
 ```
 
@@ -49,12 +51,23 @@ isValidSyntax(reactionList = glycolysis$REACTION)
 
 ```{r}
 chemicalData <- read.csv2(system.file("extdata", "chemData.csv", package = "minval"))
-isBalanced(reactionList = glycolysis$REACTION,referenceData = chemicalData,ids = "NAME",mFormula = "FORMULA")
-glycolysis$REACTION[2]
-glycolysis$REACTION[2] <- "D-Glyceraldehyde 3-phosphate[c] <=> Glycerone phosphate[c]"
-glycolysis$REACTION[8] <- "alpha-D-Glucose 6-phosphate[c] <=> beta-D-Fructose 6-phosphate[c]"
+```
+```{r}
 isBalanced(reactionList = glycolysis$REACTION,referenceData = chemicalData,ids = "NAME",mFormula = "FORMULA")
 ```
+```{r}
+glycolysis$REACTION[2]
+glycolysis$REACTION[2] <- "D-Glyceraldehyde 3-phosphate[c] <=> Glycerone phosphate[c]"
+```
+```{r}
+glycolysis$REACTION[8]
+glycolysis$REACTION[8] <- "alpha-D-Glucose 6-phosphate[c] <=> beta-D-Fructose 6-phosphate[c]"
+```
+```{r}
+isBalanced(reactionList = glycolysis$REACTION,referenceData = chemicalData,ids = "NAME",mFormula = "FORMULA")
+```
+
+
 
 ```{r}
 addExchangeReactions <- function(reconstruction){
@@ -62,12 +75,12 @@ addExchangeReactions <- function(reconstruction){
   if(all(names(reconstruction)%in%c("ID","DESCRIPTION","REACTION","GPR","LOWER.BOUND","UPPER.BOUND","OBJECTIVE"))){
     orphans <- table(c(orphanReactants(reconstruction[["REACTION"]]),orphanProducts(reconstruction[["REACTION"]])))
     new <- cbind(sapply(names(orphans), function(metabolite){paste0("EX_",metabolites(metabolite,woCompartment = TRUE),"(",compartments(metabolite),")")},USE.NAMES = FALSE),
-          sapply(names(orphans), function(metabolite){paste0("Exchange of ", metabolites(metabolite,woCompartment = TRUE))},USE.NAMES = FALSE),
-          sapply(names(orphans), function(metabolite){paste0(metabolite," <=>")},USE.NAMES = FALSE),
-          sapply(names(orphans), function(metabolite){""},USE.NAMES = FALSE),
-          ifelse(names(orphans)%in%orphanReactants(reconstruction[["REACTION"]]),-1000,0),
-          ifelse(names(orphans)%in%orphanProducts(reconstruction[["REACTION"]]),1000,0),
-          sapply(names(orphans), function(metabolite){0},USE.NAMES = FALSE))
+                 sapply(names(orphans), function(metabolite){paste0("Exchange of ", metabolites(metabolite,woCompartment = TRUE))},USE.NAMES = FALSE),
+                 sapply(names(orphans), function(metabolite){paste0(metabolite," <=>")},USE.NAMES = FALSE),
+                 sapply(names(orphans), function(metabolite){""},USE.NAMES = FALSE),
+                 ifelse(names(orphans)%in%orphanReactants(reconstruction[["REACTION"]]),-1000,0),
+                 ifelse(names(orphans)%in%orphanProducts(reconstruction[["REACTION"]]),1000,0),
+                 sapply(names(orphans), function(metabolite){0},USE.NAMES = FALSE))
     colnames(new) <- colnames(reconstruction)
     new <- as.data.frame(rbind(reconstruction,new),row.names=NULL)
     return(new)
