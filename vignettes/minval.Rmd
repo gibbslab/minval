@@ -14,7 +14,7 @@ knitr::opts_chunk$set(collapse = TRUE, dev = "png", fig.width = 7, fig.height = 
 ## Introduction to MINVAL
 The **MINVAL** package was designed as a tool to identify orphan metabolites and evaluate the mass and charge balance of stoichometric reactions. MINVAL also includes functions to write models in TSV and SBML formats, extract all reactants, products, metabolite names and compartments from a metabolic reconstruction.
 
-![Glycolysis Pathway](glycolysis.png "Glycolysis")
+![**Glycolysis Pathway:** A metabolic pathways that converts glucose into pyruvate through nine biochemical reactions](glycolysis.png "Glycolysis")
 
 ## Syntax and Mass-Charge Evaluation
 ```{r message=FALSE}
