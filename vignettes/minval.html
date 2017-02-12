@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Daniel Osorio, Janneth Gonzalez and Andrés Pinzon" />
+
+
+<title>MINVAL - MINimal VALidation for Stoichiometric Reactions</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore"><strong>MINVAL</strong> - <strong>MIN</strong>imal <strong>VAL</strong>idation for Stoichiometric Reactions</h1>
+<h4 class="author"><em>Daniel Osorio, Janneth Gonzalez and Andrés Pinzon</em></h4>
+
+
+
+<div id="introduction-to-minval" class="section level2">
+<h2>Introduction to MINVAL</h2>
+<p>The <strong>MINVAL</strong> package was designed as a tool to identify orphan metabolites and evaluate the mass and charge balance of stoichometric reactions. MINVAL also includes functions to write models in TSV and SBML formats, extract all reactants, products, metabolite names and compartments from a metabolic reconstruction.</p>
+<div class="figure">
+<img src="data:image/png;base64,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" title="Glycolysis" alt="Glycolysis Pathway" />
+<p class="caption">Glycolysis Pathway</p>
+</div>
+</div>
+<div id="syntax-and-mass-charge-evaluation" class="section level2">
+<h2>Syntax and Mass-Charge Evaluation</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;minval&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;sybilSBML&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glycolysis &lt;-<span class="st"> </span><span class="kw">read.csv2</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;glycolysisKEGG.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;minval&quot;</span>),
+                        <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(glycolysis)
+## [1] &quot;ID&quot;          &quot;DESCRIPTION&quot; &quot;REACTION&quot;    &quot;GPR&quot;         &quot;LOWER.BOUND&quot;
+## [6] &quot;UPPER.BOUND&quot; &quot;OBJECTIVE&quot;</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glycolysis<span class="op">$</span>REACTION
+## [1] &quot;2-Phospho-D-glycerate[c] &lt;=&gt; Phosphoenolpyruvate[c] + H2O[c]&quot;                                                         
+## [2] &quot;D-Glyceraldehyde 3-phosphate[c] &lt;=&gt; 3 3 Glycerone phosphate[c]&quot;                                                       
+## [3] &quot;D-Glyceraldehyde 3-phosphate[c] + Orthophosphate[c] + NAD+[c] =&gt; 3-Phospho-D-glyceroyl phosphate[c] + NADH[c] + H+[c]&quot;
+## [4] &quot;beta-D-Fructose 1,6-bisphosphate[c] &lt;=&gt; Glycerone phosphate[c] + D-Glyceraldehyde 3-phosphate[c]&quot;                     
+## [5] &quot;ATP[c] + 3-Phospho-D-glycerate[c] &lt;=&gt; ADP[c] + 3-Phospho-D-glyceroyl phosphate[c]&quot;                                    
+## [6] &quot;2-Phospho-D-glycerate[c] &lt;--&gt; 3-Phospho-D-glycerate[c]&quot;                                                               
+## [7] &quot;ATP[c] + alpha-D-Glucose[c] =&gt; ADP[c] + alpha-D-Glucose 6-phosphate[c]&quot;                                               
+## [8] &quot;alpha-D-Glucose 6-phosphate[c] &lt;=&gt; 5 beta-D-Fructose 6-phosphate[c]&quot;                                                  
+## [9] &quot;ATP[c] + beta-D-Fructose 6-phosphate[c] =&gt; ADP[c] + beta-D-Fructose 1,6-bisphosphate[c]&quot;</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">isValidSyntax</span>(<span class="dt">reactionList =</span> glycolysis<span class="op">$</span>REACTION)
+## [1]  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glycolysis<span class="op">$</span>REACTION[<span class="dv">2</span>]
+## [1] &quot;D-Glyceraldehyde 3-phosphate[c] &lt;=&gt; 3 3 Glycerone phosphate[c]&quot;
+glycolysis<span class="op">$</span>REACTION[<span class="dv">2</span>] &lt;-<span class="st"> &quot;D-Glyceraldehyde 3-phosphate[c] &lt;=&gt; 3 Glycerone phosphate[c]&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glycolysis<span class="op">$</span>REACTION[<span class="dv">6</span>]
+## [1] &quot;2-Phospho-D-glycerate[c] &lt;--&gt; 3-Phospho-D-glycerate[c]&quot;
+glycolysis<span class="op">$</span>REACTION[<span class="dv">6</span>] &lt;-<span class="st"> &quot;2-Phospho-D-glycerate[c] &lt;=&gt; 3-Phospho-D-glycerate[c]&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">isValidSyntax</span>(<span class="dt">reactionList =</span> glycolysis<span class="op">$</span>REACTION)
+## [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">chemicalData &lt;-<span class="st"> </span><span class="kw">read.csv2</span>(<span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;chemData.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;minval&quot;</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">isBalanced</span>(<span class="dt">reactionList =</span> glycolysis<span class="op">$</span>REACTION,<span class="dt">referenceData =</span> chemicalData,<span class="dt">ids =</span> <span class="st">&quot;NAME&quot;</span>,<span class="dt">mFormula =</span> <span class="st">&quot;FORMULA&quot;</span>)
+## [1]  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glycolysis<span class="op">$</span>REACTION[<span class="dv">2</span>]
+## [1] &quot;D-Glyceraldehyde 3-phosphate[c] &lt;=&gt; 3 Glycerone phosphate[c]&quot;
+glycolysis<span class="op">$</span>REACTION[<span class="dv">2</span>] &lt;-<span class="st"> &quot;D-Glyceraldehyde 3-phosphate[c] &lt;=&gt; Glycerone phosphate[c]&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glycolysis<span class="op">$</span>REACTION[<span class="dv">8</span>]
+## [1] &quot;alpha-D-Glucose 6-phosphate[c] &lt;=&gt; 5 beta-D-Fructose 6-phosphate[c]&quot;
+glycolysis<span class="op">$</span>REACTION[<span class="dv">8</span>] &lt;-<span class="st"> &quot;alpha-D-Glucose 6-phosphate[c] &lt;=&gt; beta-D-Fructose 6-phosphate[c]&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">isBalanced</span>(<span class="dt">reactionList =</span> glycolysis<span class="op">$</span>REACTION,<span class="dt">referenceData =</span> chemicalData,<span class="dt">ids =</span> <span class="st">&quot;NAME&quot;</span>,<span class="dt">mFormula =</span> <span class="st">&quot;FORMULA&quot;</span>)
+## [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glycolysis &lt;-<span class="st"> </span><span class="kw">addExchangeReactions</span>(glycolysis)
+<span class="kw">convert2sbml</span>(glycolysis,<span class="st">&quot;glycolysis.sbml&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glycolysis &lt;-<span class="st"> </span><span class="kw">readSBMLmod</span>(<span class="st">&quot;glycolysis.sbml&quot;</span>)
+glycolysis
+## model name:             model 
+## number of compartments  1 
+##                         c 
+## number of reactions:    16 
+## number of metabolites:  17 
+## number of unique genes: 22 
+## objective function:     +1 R00658</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">lowbnd</span>(glycolysis)[glycolysis<span class="op">@</span>react_id<span class="op">==</span><span class="st">&quot;EX_alpha_D_Glucose(c)&quot;</span>] &lt;-<span class="st"> </span><span class="op">-</span><span class="dv">1</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">optimizeProb</span>(glycolysis)
+## solver:                                   glpkAPI
+## method:                                   simplex
+## algorithm:                                fba
+## number of variables:                      16
+## number of constraints:                    17
+## return value of solver:                   solution process was successful
+## solution status:                          solution is optimal
+## value of objective function (fba):        2.000000
+## value of objective function (model):      2.000000</code></pre></div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
