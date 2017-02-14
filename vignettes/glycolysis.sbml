@@ -27,6 +27,7 @@
    <species id="M_alpha_D_Glucose[c]" name="alpha-D-Glucose" compartment="c" boundaryCondition="false"/>
    <species id="M_alpha_D_Glucose_6_phosphate[c]" name="alpha-D-Glucose 6-phosphate" compartment="c" boundaryCondition="false"/>
    <species id="M_beta_D_Fructose_6_phosphate[c]" name="beta-D-Fructose 6-phosphate" compartment="c" boundaryCondition="false"/>
+   <species id="M_Pyruvate[c]" name="Pyruvate" compartment="c" boundaryCondition="false"/>
 </listOfSpecies>
 <listOfReactions>
   <reaction id="R00658"  reversible="true">
@@ -47,7 +48,7 @@
     <listOfParameters>
       <parameter id="LOWER_BOUND" value="-1000"/>
       <parameter id="UPPER_BOUND" value="1000"/>
-      <parameter id="OBJECTIVE_COEFFICIENT" value="1"/>
+      <parameter id="OBJECTIVE_COEFFICIENT" value="0"/>
       <parameter id="FLUX_VALUE" value="0"/>
     </listOfParameters>
     </kineticLaw>
@@ -239,6 +240,30 @@
     </listOfParameters>
     </kineticLaw>
   </reaction>
+  <reaction id="R00200"  reversible="false">
+    <notes>
+      <html xmlns="http://www.w3.org/1999/xhtml"><p>GENE_ASSOCIATION: ( 5315 ) or ( 5313 )</p></html>
+    </notes>
+    <listOfReactants>
+      <speciesReference species="M_ADP[c]" stoichiometry="1"/>
+      <speciesReference species="M_Phosphoenolpyruvate[c]" stoichiometry="1"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="M_ATP[c]" stoichiometry="1"/>
+      <speciesReference species="M_Pyruvate[c]" stoichiometry="1"/>
+    </listOfProducts>
+  <kineticLaw>
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+<ci>FLUX_VALUE</ci>
+    </math>
+    <listOfParameters>
+      <parameter id="LOWER_BOUND" value="0"/>
+      <parameter id="UPPER_BOUND" value="1000"/>
+      <parameter id="OBJECTIVE_COEFFICIENT" value="1"/>
+      <parameter id="FLUX_VALUE" value="0"/>
+    </listOfParameters>
+    </kineticLaw>
+  </reaction>
   <reaction id="EX_alpha-D-Glucose(c)"  reversible="true">
     <notes>
       <html xmlns="http://www.w3.org/1999/xhtml"><p>GENE_ASSOCIATION: </p></html>
@@ -371,22 +396,22 @@
     </listOfParameters>
     </kineticLaw>
   </reaction>
-  <reaction id="EX_Phosphoenolpyruvate(c)"  reversible="true">
+  <reaction id="EX_Pyruvate(c)"  reversible="true">
     <notes>
       <html xmlns="http://www.w3.org/1999/xhtml"><p>GENE_ASSOCIATION: </p></html>
     </notes>
     <listOfReactants>
-      <speciesReference species="M_Phosphoenolpyruvate[c]" stoichiometry="1"/>
+      <speciesReference species="M_Pyruvate[c]" stoichiometry="1"/>
     </listOfReactants>
     <listOfProducts>
-      <speciesReference species="M_Phosphoenolpyruvate[b]" stoichiometry="1"/>
+      <speciesReference species="M_Pyruvate[b]" stoichiometry="1"/>
     </listOfProducts>
   <kineticLaw>
     <math xmlns="http://www.w3.org/1998/Math/MathML">
 <ci>FLUX_VALUE</ci>
     </math>
     <listOfParameters>
-      <parameter id="LOWER_BOUND" value="-1000"/>
+      <parameter id="LOWER_BOUND" value="0"/>
       <parameter id="UPPER_BOUND" value="1000"/>
       <parameter id="OBJECTIVE_COEFFICIENT" value="0"/>
       <parameter id="FLUX_VALUE" value="0"/>
