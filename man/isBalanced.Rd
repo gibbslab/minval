@@ -68,4 +68,3 @@ Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 \keyword{metabolic}
 \keyword{reconstruction}
 \keyword{scale}
-

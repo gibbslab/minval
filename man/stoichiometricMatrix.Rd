@@ -44,4 +44,3 @@ Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 \keyword{Reactions}
 \keyword{Reconstruction}
 \keyword{Stoichiometric}
-

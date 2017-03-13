@@ -54,4 +54,3 @@ metabolites(reactionList = glycolysis$REACTION,
 \author{
 Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 }
-

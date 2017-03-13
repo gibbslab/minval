@@ -32,11 +32,11 @@ The ChEBI database (Chemical Entities of Biological Interest), is a database and
 ChEBI <- getChEBI(release = "142")
  }
 }
-\author{
-Daniel Camilo Osorio <dcosorioh@unal.edu.co>
-}
 \seealso{
 The ChEBI database webpage: https://www.ebi.ac.uk/chebi/
+}
+\author{
+Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 }
 \keyword{ChEBI}
 \keyword{Download}
@@ -44,4 +44,3 @@ The ChEBI database webpage: https://www.ebi.ac.uk/chebi/
 \keyword{charge}
 \keyword{check}
 \keyword{mass}
-

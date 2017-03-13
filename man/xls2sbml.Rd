@@ -59,14 +59,13 @@ xls2sbml(infile = glycolysis,
          boundary = "b")
 }
 }
-\author{
-Created by: Tomas Radivoyevitch - Modified and Maintained by: Daniel Camilo Osorio <dcosorioh@unal.edu.co>
-}
 \seealso{
 Original 'saveSBML': https://www.bioconductor.org/packages/release/bioc/html/SBMLR.html
+}
+\author{
+Created by: Tomas Radivoyevitch - Modified and Maintained by: Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 }
 \keyword{Convert}
 \keyword{Metabolic}
 \keyword{Reconstruction}
 \keyword{SBML}
-

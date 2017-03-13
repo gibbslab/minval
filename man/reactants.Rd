@@ -46,4 +46,3 @@ Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 \keyword{Reactants}
 \keyword{Reactions}
 \keyword{Reconstruction}
-

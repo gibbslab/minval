@@ -43,4 +43,3 @@ mapReactions(
 \author{
 Daniel Camilo Osorio Hurtado <dcosorioh@unal.edu.co>
 }
-

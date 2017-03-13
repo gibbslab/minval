@@ -43,4 +43,3 @@ orphanProducts(reactionList = glycolysis$REACTION, byCompartment = TRUE)
 \author{
 Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 }
-
