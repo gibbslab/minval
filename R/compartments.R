@@ -34,7 +34,13 @@
 
 compartments <- function(reactionList, uniques = TRUE) {
   # Extract metabolites of a set of stoichiometric reactions
-  metabolites <- metabolites(reactionList)
+  if (uniques == TRUE) {
+    metabolites <-
+      metabolites(reactionList = reactionList, uniques = TRUE)
+  } else {
+    metabolites <-
+      metabolites(reactionList = reactionList, uniques = FALSE)
+  }
   # Extract compartments using a regular expression
   compartments <-
     unlist(regmatches(
