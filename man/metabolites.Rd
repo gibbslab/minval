@@ -28,25 +28,18 @@ This function identifies the list of metabolites for a set of stoichiometric rea
 }
 \examples{
 # Loading data
-glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
-
-# Removing stoichiometric reactions without valid syntax
-glycolysis <- mapReactions(
-                           reactionList = isValidSyntax(glycolysis$REACTION),
-                           referenceData = glycolysis,
-                           by = "bool"
-                           )
+glycolysisKEGG <- read.csv(system.file("extdata", "glycolysisKEGG.csv", package = "minval"), sep = "\\t")
 
 # Extracting metabolites
-metabolites(reactionList = glycolysis$REACTION)
+metabolites(reactionList = glycolysisKEGG$REACTION)
 
 # Extracting metabolites without compartments
-metabolites(reactionList = glycolysis$REACTION, 
+metabolites(reactionList = glycolysisKEGG$REACTION, 
             woCompartment = TRUE
             )
 
 # Extracting redundant list of metabolites
-metabolites(reactionList = glycolysis$REACTION, 
+metabolites(reactionList = glycolysisKEGG$REACTION, 
             woCompartment = FALSE,
             uniques = FALSE
             )
