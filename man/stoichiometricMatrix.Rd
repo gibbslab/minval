@@ -24,16 +24,10 @@ A set of stoichiometric reactions are often represented in a more compact form c
 }
 \examples{
 # Loading data
-glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
+glycolysisKEGG <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"), sep = '\\t')
 
-# Removing stoichiometric reactions without valid syntax
-glycolysis <- mapReactions(
-                           reactionList = isValidSyntax(glycolysis$REACTION),
-                           referenceData = glycolysis,
-                           by = "bool"
-                           )
 # Building the Stoichiometric-Matrix 
-stoichiometricMatrix(glycolysis$REACTION)
+stoichiometricMatrix(glycolysisKEGG$REACTION)
 
 }
 \author{

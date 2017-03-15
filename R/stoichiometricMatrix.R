@@ -15,16 +15,10 @@
 #' @return The stoichiometric matrix for a given set of stoichiometric reactions
 #' @examples 
 #' # Loading data
-#' glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
+#' glycolysisKEGG <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"), sep = '\t')
 #' 
-#' # Removing stoichiometric reactions without valid syntax
-#' glycolysis <- mapReactions(
-#'                            reactionList = isValidSyntax(glycolysis$REACTION),
-#'                            referenceData = glycolysis,
-#'                            by = "bool"
-#'                            )
 #' # Building the Stoichiometric-Matrix 
-#' stoichiometricMatrix(glycolysis$REACTION)
+#' stoichiometricMatrix(glycolysisKEGG$REACTION)
 #' 
 #' @keywords Stoichiometric Matrix Reactions Metabolic Reconstruction
 stoichiometricMatrix <- function(reactionList){
@@ -38,10 +32,10 @@ stoichiometricMatrix <- function(reactionList){
   s <- matrix(0,nrow = length(reactionList),ncol=length(mets),dimnames = list(reactions=paste0("R",formatC(1:length(reactionList),digits = (nchar(length(reactionList))-1),flag = 0)),metabolites=mets))
   # Fill
   for (reaction in seq_along(reactionList)){
-    r_met <- .get.left(reactionList[reaction])
-    r_coe <- .coefficients(r_met)
-    p_met <- .get.right(reactionList[reaction])
-    p_coe <- .coefficients(p_met)
+    r_met <- getLeft(reactionList[reaction])
+    r_coe <- coefficients(r_met)
+    p_met <- getRight(reactionList[reaction])
+    p_coe <- coefficients(p_met)
     r_met <- metabolites(r_met)
     p_met <- metabolites(p_met)
     if(any(r_met%in%p_met|p_met%in%r_met)){
