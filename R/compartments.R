@@ -30,7 +30,6 @@
 #' compartments(
 #'  reactionList = glycolysis$REACTION
 #'  )
-#' @keywords Extract Unique Compartments Metabolic Reconstruction
 
 compartments <- function(reactionList, uniques = TRUE) {
   # Extract metabolites of a set of stoichiometric reactions

@@ -44,8 +44,3 @@ compartments(
 \author{
 Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 }
-\keyword{Compartments}
-\keyword{Extract}
-\keyword{Metabolic}
-\keyword{Reconstruction}
-\keyword{Unique}
