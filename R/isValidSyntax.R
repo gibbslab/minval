@@ -32,19 +32,20 @@
 #'  reactionList = glycolysis$REACTION
 #' )
 isValidSyntax <- function(reactionList){
+  # Empty vector
   valid.syntax <- NULL
   # Coefficient validation
-  valid.syntax <- c(valid.syntax,grepl("([[:digit:]][[:blank:]][[:digit:]][[:blank:]])+",reactionList))
-  valid.syntax <- c(valid.syntax,grepl("(\\([[:digit:]]+\\)[[:blank:]]+)",reactionList))
+  valid.syntax <- c(valid.syntax,grepl(pattern = "([[:digit:]][[:blank:]][[:digit:]][[:blank:]])+",x = reactionList))
+  valid.syntax <- c(valid.syntax,grepl(pattern = "(\\([[:digit:]]+\\)[[:blank:]]+)",x = reactionList))
   # Directionality validation
-  valid.syntax <- c(valid.syntax, (!grepl("[[:blank:]]+<?=>[[:blank:]]*",reactionList)))
-  valid.syntax <- c(valid.syntax,grepl("(<)?\\-(\\-)?>",reactionList))
+  valid.syntax <- c(valid.syntax, (!grepl(pattern = "[[:blank:]]+<?=>[[:blank:]]*",x = reactionList)))
+  valid.syntax <- c(valid.syntax,grepl(pattern = "(<)?\\-(\\-)?>",x = reactionList))
   # Metabolite names validation
-  valid.syntax <- c(valid.syntax,grepl("[[:alnum:]]+\\+[[:alnum:]]+",reactionList))
+  valid.syntax <- c(valid.syntax,grepl(pattern = "[[:alnum:]]+\\+[[:alnum:]]+",x = reactionList))
   # Blank spaces validation
-  valid.syntax <- c(valid.syntax, (!grepl("[[:blank:]]",reactionList)))
+  valid.syntax <- c(valid.syntax, (!grepl(pattern = "[[:blank:]]",x = reactionList)))
   # Validating metabolite name
-  valid.syntax <- c(valid.syntax, grepl("[[:blank:]]\\-[[:alnum:]]",reactionList))
+  valid.syntax <- c(valid.syntax, grepl(pattern = "[[:blank:]]\\-[[:alnum:]]",x = reactionList))
   # Warnings!
   valid.syntax <- matrix(valid.syntax,ncol = 7)
   sapply(which(valid.syntax[,1]==TRUE),function(x){warning(paste0("Reaction ",x,": Invalid coefficients. Metabolites should have just one coefficient."),call. = FALSE)})

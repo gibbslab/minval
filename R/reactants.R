@@ -15,35 +15,29 @@
 #' @return A vector with the identified reactants in the reaction, or a list if a set of stoichiometric reactions was given.
 #' @examples
 #' #' # Loading data
-#' glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
-#'
-#' # Removing stoichiometric reactions without valid syntax
-#' glycolysis <- mapReactions(
-#' reactionList = isValidSyntax(glycolysis$REACTION),
-#' referenceData = glycolysis,
-#' by = "bool"
-#' )
+#' glycolysisKEGG <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
 #' 
-#' # Extracting reactants
+#' # Extracting reactants for a single reaction
 #' reactants(reactionList = "ADP[c] + Phosphoenolpyruvate[c] => Pyruvate[c] + ATP[c]")
-#' reactants(reactionList = glycolysis$REACTION)
 #' 
-#' @keywords Extract Reactants Reactions Metabolic Reconstruction
+#' # Extracting reactants for a set of stoichiometric reactions
+#' reactants(reactionList = glycolysisKEGG$REACTION)
+#' 
 reactants <- function(reactionList){
   # Convert to a vector
   reactionList <- as.vector(reactionList)
   # Remove reaction with invalid syntax
   reactionList <- reactionList[isValidSyntax(reactionList)]
   # Extract reactants for irreversible reactions
-  reaction <- unlist(lapply(strsplit(reactionList,"[[:blank:]]+=>[[:blank:]]+"),function(reactionList){reactionList[[1]]}))
+  reaction <- unlist(lapply(strsplit(reactionList,"[[:space:]]+=>[[:space:]]+"),function(reactionList){reactionList[[1]]}))
   # Extract metabolites for reversible reactions
-  reaction <- strsplit(reaction, "[[:blank:]]+<=>[[:blank:]]+")
+  reaction <- strsplit(reaction, "[[:space:]]+<=>[[:space:]]+")
   # Split independient reactants
-  reaction <- lapply(reaction, function(reaction){strsplit(reaction," \\+ ")})
+  reaction <- lapply(reaction, function(reaction){strsplit(reaction,"[[:space:]]+\\+[[:space:]]+")})
   # Remove spaces and report uniques
-  reaction <- lapply(reaction, function(reaction){unique(.remove.spaces(unlist(reaction)))})
+  reaction <- lapply(reaction, function(reaction){unique(removeSpaces(unlist(reaction)))})
   # Use a regex to extract stoichiometric coefficients and separate the metabolite name
-  reactants <- lapply(reaction, function(reaction){unique(.remove.coefficients(reaction))})
+  reactants <- lapply(reaction, function(reaction){unique(removeCoefficients(reaction))})
   if (length(reactants)==1){
     return(unlist(reactants))
   } else {

@@ -15,20 +15,14 @@
 #' @return A vector with the identified products in the reaction, or a list if a set of stoichiometric reactions was given.
 #' @examples
 #' #' # Loading data
-#' glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
+#' glycolysisKEGG <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
 #'
-#' # Removing stoichiometric reactions without valid syntax
-#' glycolysis <- mapReactions(
-#' reactionList = isValidSyntax(glycolysis$REACTION),
-#' referenceData = glycolysis,
-#' by = "bool"
-#' )
-#' 
-#' # Extracting products
+#' # Extracting products for a single reaction
 #' products(reactionList = "ADP[c] + Phosphoenolpyruvate[c] => Pyruvate[c] + ATP[c]")
-#' products(reactionList = glycolysis$REACTION)
 #' 
-#' @keywords Extract Products Reactions Metabolic Reconstruction
+#' # Extracting products for a set of stoichiometric reactions
+#' products(reactionList = glycolysisKEGG$REACTION)
+#' 
 products <- function(reactionList){
   # Convert to a vector
   reactionList <- as.vector(reactionList)
