@@ -28,7 +28,7 @@ Available functions:
 -------------------
 |Function | Description |
 |:--------|:------------|
-|compartments|Extract the list of unique compartments for the metabolites of a set of stoichiometric reactions.|
+|compartments|Extract the compartments associated to metabolites of a set of stoichiometric reactions|
 |downloadChEBI|Download the ChEBI database|
 |metabolites|Identify the list of metabolites for a set of stoichiometric reactions|
 |products|Identify the products of a stoichometric reaction|
