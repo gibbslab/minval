@@ -1,4 +1,4 @@
-#' @export isValidSyntax
+#' @export validateSyntax
 #' @author Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 # Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 # Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
@@ -28,10 +28,10 @@
 #' head(glycolysis)
 #' 
 #' # Evaluating syntax
-#' isValidSyntax(
+#' validateSyntax(
 #'  reactionList = glycolysis$REACTION
 #' )
-isValidSyntax <- function(reactionList){
+validateSyntax <- function(reactionList){
   # Empty vector
   valid.syntax <- NULL
   # Coefficient validation

@@ -2,8 +2,8 @@
 
 export(compartments)
 export(downloadChEBI)
-export(isValidSyntax)
 export(metabolites)
 export(products)
 export(reactants)
 export(stoichiometricMatrix)
+export(validateSyntax)
