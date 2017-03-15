@@ -24,25 +24,15 @@ This function identifies the products for a set of stoichometric reactions.
 }
 \examples{
 #' # Loading data
-glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
+glycolysisKEGG <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
 
-# Removing stoichiometric reactions without valid syntax
-glycolysis <- mapReactions(
-reactionList = isValidSyntax(glycolysis$REACTION),
-referenceData = glycolysis,
-by = "bool"
-)
-
-# Extracting products
+# Extracting products for a single reaction
 products(reactionList = "ADP[c] + Phosphoenolpyruvate[c] => Pyruvate[c] + ATP[c]")
-products(reactionList = glycolysis$REACTION)
+
+# Extracting products for a set of stoichiometric reactions
+products(reactionList = glycolysisKEGG$REACTION)
 
 }
 \author{
 Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 }
-\keyword{Extract}
-\keyword{Metabolic}
-\keyword{Products}
-\keyword{Reactions}
-\keyword{Reconstruction}

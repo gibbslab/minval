@@ -28,22 +28,8 @@ Available functions:
 -------------------
 |Function | Description |
 |:--------|:------------|
-|compartments|Extract the list of unique compartments for the metabolites of a set of stoichiometric reactions.|
-|convert2sbml|Write a model in a SBML format.|
-|convert2sbmlR|Convert a data.frame data to a SBMLR object|
-|writeTSVmod|Write a model in a TSV format for the 'sybil' R package.|
-|getChEBI|Download the ChEBI database|
-|isBalanced|Evaluate the mass or charge balance for a set of stoichiometric reactions|
-|isValidSyntax|Evaluate if a stoichiometric reaction has a valid syntax|
-|mapReactions|Return reactions of a reference data by a selected column|
-|metabolites|Identify the list of metabolites for a set of stoichiometric reactions|
-|orphanProducts|Identify the orphan products of a set of stoichometric reactions|
-|orphanReactants|Identify the orphan reactants of a set of stoichometric reactions|
-|products|Identify the products of a stoichometric reaction|
-|reactants|Identify the reactants of a stoichometric reaction|
-|stoichiometricMatrix|Return the stoichiometric matrix for a set of stoichiometric reactions|
-|xls2sbml|Write a model in SBML format from a XLS spreadsheet|
+
 
 Citation
 --------
-Daniel Osorio, Janneth Gonzalez and Andres Pinzon-Velasco (2016). **minval: MINimal VALidation for Stoichiometric Reactions**. R package version 0.5. https://CRAN.R-project.org/package=minval
+Daniel Osorio, Janneth Gonzalez and Andres Pinzon-Velasco (2016). **minval: MINimal VALidation for Stoichiometric Reactions**. R package version 1.0. https://CRAN.R-project.org/package=minval

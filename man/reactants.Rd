@@ -24,25 +24,15 @@ This function identifies the reactants for a set of stoichometric reactions.
 }
 \examples{
 #' # Loading data
-glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
+glycolysisKEGG <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
 
-# Removing stoichiometric reactions without valid syntax
-glycolysis <- mapReactions(
-reactionList = isValidSyntax(glycolysis$REACTION),
-referenceData = glycolysis,
-by = "bool"
-)
-
-# Extracting reactants
+# Extracting reactants for a single reaction
 reactants(reactionList = "ADP[c] + Phosphoenolpyruvate[c] => Pyruvate[c] + ATP[c]")
-reactants(reactionList = glycolysis$REACTION)
+
+# Extracting reactants for a set of stoichiometric reactions
+reactants(reactionList = glycolysisKEGG$REACTION)
 
 }
 \author{
 Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 }
-\keyword{Extract}
-\keyword{Metabolic}
-\keyword{Reactants}
-\keyword{Reactions}
-\keyword{Reconstruction}
