@@ -28,7 +28,13 @@ Available functions:
 -------------------
 |Function | Description |
 |:--------|:------------|
-
+|compartments|Extract the list of unique compartments for the metabolites of a set of stoichiometric reactions.|
+|downloadChEBI|Download the ChEBI database|
+|metabolites|Identify the list of metabolites for a set of stoichiometric reactions|
+|products|Identify the products of a stoichometric reaction|
+|reactants|Identify the reactants of a stoichometric reaction|
+|stoichiometricMatrix|Build the stoichiometric matrix for a set of stoichiometric reactions|
+|validateSyntax|Evaluate if a stoichiometric reaction has a valid syntax|
 
 Citation
 --------
