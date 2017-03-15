@@ -2,7 +2,7 @@
 % Please edit documentation in R/stoichiometricMatrix.R
 \name{stoichiometricMatrix}
 \alias{stoichiometricMatrix}
-\title{Return the stoichiometric matrix for a set of stoichiometric reactions}
+\title{Build the stoichiometric matrix for a set of stoichiometric reactions}
 \usage{
 stoichiometricMatrix(reactionList)
 }
