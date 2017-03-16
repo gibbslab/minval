@@ -3,6 +3,7 @@
 export(compartments)
 export(downloadChEBI)
 export(metabolites)
+export(orphanMetabolites)
 export(products)
 export(reactants)
 export(stoichiometricMatrix)
