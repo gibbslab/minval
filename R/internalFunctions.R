@@ -46,16 +46,30 @@ coefficients <- function(metabolite) {
 }
 
 # Extract metabolites of the left side in a  biochemical reaction
-getLeft <- function(reaction) {
-  sides <- unlist(strsplit(x = reaction,split = "[[:space:]]*<?=>[[:space:]]*"))
-  metabolites <- removeSpaces(unlist(strsplit(x = sides[1],split = "[[:space:]]+\\+[[:space:]]+")))
+getLeft <- function(reactionList) {
+  sides <-
+    strsplit(x = reactionList, split = "[[:space:]]*<?=>[[:space:]]*")
+  metabolites <-
+    lapply(sides, function(sides) {
+      removeSpaces(unlist(strsplit(x = sides[1], split = "[[:space:]]+\\+[[:space:]]+")))
+    })
+  if (length(reactionList) == 1) {
+    metabolites <- unlist(metabolites)
+  }
   return(metabolites)
 }
 
 # Extract metabolites of the right side in a  biochemical reaction
-getRight <- function(reaction) {
-  sides <- unlist(strsplit(x = reaction,split = "[[:space:]]*<?=>[[:space:]]*"))
-  metabolites <- removeSpaces(unlist(strsplit(x = sides[2],split = "[[:space:]]+\\+[[:space:]]+")))
+getRight <- function(reactionList) {
+  sides <-
+    strsplit(x = reactionList, split = "[[:space:]]*<?=>[[:space:]]*")
+  metabolites <-
+    lapply(sides, function(sides) {
+      removeSpaces(unlist(strsplit(x = sides[2], split = "[[:space:]]+\\+[[:space:]]+")))
+    })
+  if (length(reactionList) == 1) {
+    metabolites <- unlist(metabolites)
+  }
   return(metabolites)
 }
 
