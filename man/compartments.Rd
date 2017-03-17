@@ -27,13 +27,13 @@ associated to each involved metabolite and return a vector with the list of uniq
 }
 \examples{
 # Loading a set of stoichiometric reactions
-glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep="\\t")
+glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep='\\t')
 
 # Extract unique compartments
-compartments(glycolysis$REACTION)
+compartments(reactionList = glycolysis$REACTION)
 
 # Extract all compartments
-compartments(glycolysis$REACTION, unique = FALSE)
+compartments(reactionList = glycolysis$REACTION, unique = FALSE)
 }
 \author{
 Daniel Camilo Osorio <dcosorioh@unal.edu.co>

@@ -17,7 +17,7 @@
 #' @return A vector with the list of of unique compartments identified for the metabolites of a set of stoichiometric reactions.
 #' @examples 
 #' # Loading a set of stoichiometric reactions
-#' glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep="\t")
+#' glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep='\t')
 #' 
 #' # Extract unique compartments
 #' compartments(reactionList = glycolysis$REACTION)
