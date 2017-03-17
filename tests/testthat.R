@@ -1,4 +1,4 @@
 library(testthat)
-library(Peptides)
+library(minval)
 
-test_check("Peptides")
+test_check("minval")
