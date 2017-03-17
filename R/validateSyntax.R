@@ -20,17 +20,7 @@
 #' It also expects arrows to be in the form "\code{=>}" or "\code{<=>}". 
 #' Meaning that arrows like "\code{==>}", "\code{<==>}", "\code{-->}" or "\code{->}" will not be parsed and will lead to errors.
 #' @return  A boolean value 'TRUE' if reaction has a valid syntax.
-#' @examples 
-#' # Loading a CSV file
-#' glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
-#'
-#' # Data structure
-#' head(glycolysis)
-#' 
-#' # Evaluating syntax
-#' validateSyntax(
-#'  reactionList = glycolysis$REACTION
-#' )
+
 validateSyntax <- function(reactionList){
   # Empty vector
   valid.syntax <- NULL

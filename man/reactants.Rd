@@ -22,17 +22,6 @@ A vector with the identified reactants in the reaction, or a list if a set of st
 \description{
 This function identifies the reactants for a set of stoichometric reactions.
 }
-\examples{
-#' # Loading data
-glycolysisKEGG <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
-
-# Extracting reactants for a single reaction
-reactants(reactionList = "ADP[c] + Phosphoenolpyruvate[c] => Pyruvate[c] + ATP[c]")
-
-# Extracting reactants for a set of stoichiometric reactions
-reactants(reactionList = glycolysisKEGG$REACTION)
-
-}
 \author{
 Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 }

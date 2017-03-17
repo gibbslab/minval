@@ -26,24 +26,6 @@ A list of metabolites for a set of stoichiometric reactions
 \description{
 This function identifies the list of metabolites for a set of stoichiometric reactions. If \code{'woCompartment'} is \code{'TRUE'} compartment label is removed. If \code{'uniques'} is \code{'TRUE'}, list of uniques is returned.
 }
-\examples{
-# Loading data
-glycolysisKEGG <- read.csv(system.file("extdata", "glycolysisKEGG.csv", package = "minval"), sep = "\\t")
-
-# Extracting metabolites
-metabolites(reactionList = glycolysisKEGG$REACTION)
-
-# Extracting metabolites without compartments
-metabolites(reactionList = glycolysisKEGG$REACTION, 
-            woCompartment = TRUE
-            )
-
-# Extracting redundant list of metabolites
-metabolites(reactionList = glycolysisKEGG$REACTION, 
-            woCompartment = FALSE,
-            uniques = FALSE
-            )
-}
 \author{
 Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 }

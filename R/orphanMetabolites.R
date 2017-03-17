@@ -15,45 +15,60 @@
 #' @param actingAs A text string that specifies the type of metabolite to be returned; only \code{'reactant'} and \code{'product'} are supported.
 #' @param byCompartment A boolean value \code{'TRUE'} or \code{'FALSE'} to indicate if orphan reactants should be reported by compartment
 #' @return If \code{byCompartment == FALSE}, a vector with orphan reactants is returned, in opposite case a list is returned.
-#' 
-#' If \code{actingAs == 'reactant'}, metabolites not produced in any other reaction or just are involved in one reaction are returned.
-#' 
-#' If \code{actingAs == 'products'}, metabolites not consumed in any other reaction or just are involved in one reaction are returned.
-#' @examples
-#' # Loading data
-#' glycolysisKEGG <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"), sep = "\t")
-#' 
-#' # Extracting orphan reactants
-#' orphanMetabolites(reactionList = glycolysis$REACTION, actingAs = "reactant")
 #'
-#' # Extracting orphan products by compartment
-#' orphanMetabolites(reactionList = glycolysis$REACTION, actingAs = "product", byCompartment = TRUE)
+#' If \code{actingAs == 'reactant'}, metabolites not produced in any other reaction or just are involved in one reaction are returned.
+#'
+#' If \code{actingAs == 'products'}, metabolites not consumed in any other reaction or just are involved in one reaction are returned.
 
 
-orphanMetabolites <- function(reactionList, actingAs = NULL, byCompartment = FALSE){
-  # Convert to a vector
-  reactionList <- as.vector(x = reactionList)
-  # Remove reaction with invalid syntax
-  reactionList <- reactionList[validateSyntax(reactionList = reactionList)]
-  # Extract all reactants and products
-  reactant <- unique(unlist(reactants(reactionList = reactionList)))
-  product <- unique(unlist(products(reactionList = reactionList)))
-  # Identify metabolites with frequency equal to 1
-  met <- table(metabolites(reactionList = reactionList, uniques = FALSE))
-  met <- names(met)[met==1]
-  # Identify orphans
-  if (is.null(actingAs)){
-    orphan <- unique(c(reactant[!reactant %in% product], product[!product %in% reactant], met))
-  } else if (actingAs == "reactant"){
-    orphan <- unique(c(reactant[!reactant %in% product], met[met %in% reactant]))
-  } else if (actingAs == "product"){
-    orphan <- unique(c(product[!product %in% reactant], met[met %in% product]))
-  } else {
-    stop("actingAs should be one of: 'reactant' or 'product'")
+
+orphanMetabolites <-
+  function(reactionList,
+           actingAs = NULL,
+           byCompartment = FALSE) {
+    # Convert to a vector
+    reactionList <- as.vector(x = reactionList)
+    # Remove reaction with invalid syntax
+    reactionList <-
+      reactionList[validateSyntax(reactionList = reactionList)]
+    # Extract all reactants and products
+    reactant <- unique(unlist(reactants(reactionList = reactionList)))
+    product <- unique(unlist(products(reactionList = reactionList)))
+    # Identify metabolites with frequency equal to 1
+    met <-
+      table(metabolites(reactionList = reactionList, uniques = FALSE))
+    met <- names(met)[met == 1]
+    # Identify orphans
+    if (is.null(actingAs)) {
+      orphan <-
+        unique(c(reactant[!reactant %in% product], product[!product %in% reactant], met))
+    } else if (actingAs == "reactant") {
+      orphan <-
+        unique(c(reactant[!reactant %in% product], met[met %in% reactant]))
+    } else if (actingAs == "product") {
+      orphan <-
+        unique(c(product[!product %in% reactant], met[met %in% product]))
+    } else {
+      stop("actingAs should be one of: 'reactant' or 'product'")
+    }
+    # Return
+    if (byCompartment == TRUE) {
+      orphan <-
+        sapply(compartments(orphan), function(compartment) {
+          orphan[grep(paste0("\\[", compartment, "\\]"), orphan)]
+        }, simplify = FALSE)
+    }
+    return(orphan)
   }
-  # Return
-  if (byCompartment == TRUE) {
-    orphan <- sapply(compartments(orphan), function(compartment){orphan[grep(paste0("\\[", compartment, "\\]"), orphan)]}, simplify = FALSE)
-  }
-  return(orphan)
+
+#' @describeIn orphanMetabolites Identify the orphan reactants of a set of stoichometric reactions
+#' @export orphanReactants
+orphanReactants <- function(reactionList, byCompartment = FALSE) {
+  orphanMetabolites(reactionList, actingAs = "reactant", byCompartment)
+}
+
+#' @describeIn orphanMetabolites Identify the orphan products of a set of stoichometric reactions
+#' @export orphanProducts
+orphanProducts <- function(reactionList, byCompartment = FALSE) {
+  orphanMetabolites(reactionList, actingAs = "product", byCompartment)
 }

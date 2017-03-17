@@ -22,19 +22,6 @@ The stoichiometric matrix for a given set of stoichiometric reactions
 \description{
 A set of stoichiometric reactions are often represented in a more compact form called the stoichiometry matrix. If a reaction network has n reactions and m participating metabolites then the stoichiometry matrix will have correspondingly m rows and n columns.
 }
-\examples{
-# Loading data
-glycolysisKEGG <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"), sep = '\\t')
-
-# Building the Stoichiometric-Matrix 
-stoichiometricMatrix(glycolysisKEGG$REACTION)
-
-}
 \author{
 Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 }
-\keyword{Matrix}
-\keyword{Metabolic}
-\keyword{Reactions}
-\keyword{Reconstruction}
-\keyword{Stoichiometric}

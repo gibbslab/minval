@@ -2,9 +2,15 @@
 % Please edit documentation in R/orphanMetabolites.R
 \name{orphanMetabolites}
 \alias{orphanMetabolites}
+\alias{orphanReactants}
+\alias{orphanProducts}
 \title{Identify the orphan metabolites of a set of stoichiometric reactions}
 \usage{
 orphanMetabolites(reactionList, actingAs = NULL, byCompartment = FALSE)
+
+orphanReactants(reactionList, byCompartment = FALSE)
+
+orphanProducts(reactionList, byCompartment = FALSE)
 }
 \arguments{
 \item{reactionList}{A set of stoichiometric reaction with the following format:
@@ -30,16 +36,13 @@ If \code{actingAs == 'products'}, metabolites not consumed in any other reaction
 \description{
 This function identifies the orphan metabolites (metabolites not produced or not consumed in any other reaction or just involved in one reaction) for a set of stoichometric reactions.
 }
-\examples{
-# Loading data
-glycolysisKEGG <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"), sep = "\\t")
+\section{Functions}{
+\itemize{
+\item \code{orphanReactants}: Identify the orphan reactants of a set of stoichometric reactions
 
-# Extracting orphan reactants
-orphanMetabolites(reactionList = glycolysis$REACTION, actingAs = "reactant")
+\item \code{orphanProducts}: Identify the orphan products of a set of stoichometric reactions
+}}
 
-# Extracting orphan products by compartment
-orphanMetabolites(reactionList = glycolysis$REACTION, actingAs = "product", byCompartment = TRUE)
-}
 \author{
 Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 }

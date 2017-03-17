@@ -29,18 +29,6 @@ For a set of given stoichiometric reactions, this function makes the following s
 \item Evaluates if the reaction contain substituents separated of the metabolite names
 }
 }
-\examples{
-# Loading a CSV file
-glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
-
-# Data structure
-head(glycolysis)
-
-# Evaluating syntax
-validateSyntax(
- reactionList = glycolysis$REACTION
-)
-}
 \author{
 Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 }

@@ -15,22 +15,6 @@
 #' Meaning that arrows like "\code{==>}", "\code{<==>}", "\code{-->}" or "\code{->}" will not be parsed and will lead to errors.
 #' @param uniques A boolean value \code{'TRUE/FALSE'} if uniques must be returned
 #' @return A vector with the list of of unique compartments identified for the metabolites of a set of stoichiometric reactions.
-#' @examples
-#' # Using individual reactions
-#' compartments(
-#'  reactionList = "H2O[c] + Urea-1-carboxylate[c] => 2 CO2[c] + 2 NH3[m]"
-#'  )
-#'
-#' compartments(
-#'  reactionList = "L-Glutamate[c] <=> CO2[c] + 4-Aminobutanoate[c]"
-#'  )
-#'
-#' # From a data.frame
-#' glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
-#' compartments(
-#'  reactionList = glycolysis$REACTION
-#'  )
-
 compartments <- function(reactionList, uniques = TRUE) {
   # Extract metabolites of a set of stoichiometric reactions
   if (uniques == TRUE) {

@@ -22,17 +22,6 @@ A vector with the identified products in the reaction, or a list if a set of sto
 \description{
 This function identifies the products for a set of stoichometric reactions.
 }
-\examples{
-#' # Loading data
-glycolysisKEGG <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
-
-# Extracting products for a single reaction
-products(reactionList = "ADP[c] + Phosphoenolpyruvate[c] => Pyruvate[c] + ATP[c]")
-
-# Extracting products for a set of stoichiometric reactions
-products(reactionList = glycolysisKEGG$REACTION)
-
-}
 \author{
 Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 }

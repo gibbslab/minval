@@ -13,16 +13,7 @@
 #' It also expects arrows to be in the form "\code{=>}" or "\code{<=>}". 
 #' Meaning that arrows like "\code{==>}", "\code{<==>}", "\code{-->}" or "\code{->}" will not be parsed and will lead to errors.
 #' @return A vector with the identified reactants in the reaction, or a list if a set of stoichiometric reactions was given.
-#' @examples
-#' #' # Loading data
-#' glycolysisKEGG <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
-#' 
-#' # Extracting reactants for a single reaction
-#' reactants(reactionList = "ADP[c] + Phosphoenolpyruvate[c] => Pyruvate[c] + ATP[c]")
-#' 
-#' # Extracting reactants for a set of stoichiometric reactions
-#' reactants(reactionList = glycolysisKEGG$REACTION)
-#' 
+
 reactants <- function(reactionList){
   # Convert to a vector
   reactionList <- as.vector(reactionList)

@@ -13,14 +13,7 @@
 #' It also expects arrows to be in the form "\code{=>}" or "\code{<=>}". 
 #' Meaning that arrows like "\code{==>}", "\code{<==>}", "\code{-->}" or "\code{->}" will not be parsed and will lead to errors.
 #' @return The stoichiometric matrix for a given set of stoichiometric reactions
-#' @examples 
-#' # Loading data
-#' glycolysisKEGG <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"), sep = '\t')
-#' 
-#' # Building the Stoichiometric-Matrix 
-#' stoichiometricMatrix(glycolysisKEGG$REACTION)
-#' 
-#' @keywords Stoichiometric Matrix Reactions Metabolic Reconstruction
+
 stoichiometricMatrix <- function(reactionList){
   # Convert to a vector
   reactionList <- as.vector(reactionList)
