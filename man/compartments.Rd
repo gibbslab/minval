@@ -25,6 +25,16 @@ A vector with the list of of unique compartments identified for the metabolites 
 For a given set of stoichiometric reactions, this function identifies the compartments
 associated to each involved metabolite and return a vector with the list of unique compartments identified.
 }
+\examples{
+# Loading a set of stoichiometric reactions
+glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep="\\t")
+
+# Extract unique compartments
+compartments(glycolysis$REACTION)
+
+# Extract all compartments
+compartments(glycolysis$REACTION, unique = FALSE)
+}
 \author{
 Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 }
