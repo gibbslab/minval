@@ -15,7 +15,18 @@
 #' @param woCompartment A boolean value \code{'TRUE'} or \code{'FALSE'} to indicate if compartment label should be removed
 #' @param uniques A boolean value \code{'TRUE'} or \code{'FALSE'} to indicate if uniques must be returned
 #' @return A list of metabolites for a set of stoichiometric reactions
-
+#' @examples 
+#' # Loading a set of stoichiometric reactions
+#' glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep='\t')
+#' 
+#' # Extract unique metabolites
+#' metabolites(reactionList = glycolysis$REACTION)
+#' 
+#' #' # Extract unique metabolites without compartments
+#' metabolites(reactionList = glycolysis$REACTION, woCompartment = TRUE)
+#' 
+#' # Extract all metabolites
+#' metabolites(reactionList = glycolysis$REACTION, uniques = FALSE)
 metabolites <- function(reactionList, woCompartment = FALSE, uniques=TRUE){
   # Split reactions by arrow symbol
   reaction <- strsplit(as.vector(reactionList),"[[:blank:]]+<?=>[[:blank:]]*")

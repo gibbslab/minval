@@ -26,6 +26,19 @@ A list of metabolites for a set of stoichiometric reactions
 \description{
 This function identifies the list of metabolites for a set of stoichiometric reactions. If \code{'woCompartment'} is \code{'TRUE'} compartment label is removed. If \code{'uniques'} is \code{'TRUE'}, list of uniques is returned.
 }
+\examples{
+# Loading a set of stoichiometric reactions
+glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep='\\t')
+
+# Extract unique metabolites
+metabolites(reactionList = glycolysis$REACTION)
+
+#' # Extract unique metabolites without compartments
+metabolites(reactionList = glycolysis$REACTION, woCompartment = TRUE)
+
+# Extract all metabolites
+metabolites(reactionList = glycolysis$REACTION, uniques = FALSE)
+}
 \author{
 Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 }
