@@ -27,6 +27,9 @@ A list of metabolites for a set of stoichiometric reactions
 This function identifies the list of metabolites for a set of stoichiometric reactions. If \code{'woCompartment'} is \code{'TRUE'} compartment label is removed. If \code{'uniques'} is \code{'TRUE'}, list of uniques is returned.
 }
 \examples{
+# Extract metabolites of a stoichiometric reaction
+metabolites(reactionList = "ADP[c] + Phosphoenolpyruvate[c] => ATP[c] + Pyruvate[c]")
+
 # Loading a set of stoichiometric reactions
 glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep='\\t')
 

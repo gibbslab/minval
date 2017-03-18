@@ -16,6 +16,9 @@
 #' @param uniques A boolean value \code{'TRUE'} or \code{'FALSE'} to indicate if uniques must be returned
 #' @return A list of metabolites for a set of stoichiometric reactions
 #' @examples 
+#' # Extract metabolites of a stoichiometric reaction
+#' metabolites(reactionList = "ADP[c] + Phosphoenolpyruvate[c] => ATP[c] + Pyruvate[c]")
+#' 
 #' # Loading a set of stoichiometric reactions
 #' glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep='\t')
 #' 
