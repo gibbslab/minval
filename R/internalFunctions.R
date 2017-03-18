@@ -73,7 +73,7 @@ getRight <- function(reactionList) {
 splitFormula <- function(chemicalFormula) {
   splitAtoms <-
     unlist(regmatches(
-      formula,
+      chemicalFormula,
       gregexpr("([A-Z]{1}[a-z]?)([0-9]*)", chemicalFormula)
     ))
   atoms <- sub("([A-Z]{1}[a-z]?)([0-9]*)", '\\1', splitAtoms)
