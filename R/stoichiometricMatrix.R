@@ -25,9 +25,9 @@ stoichiometricMatrix <- function(reactionList){
   s <- matrix(0,nrow = length(reactionList),ncol=length(mets),dimnames = list(reactions=paste0("R",formatC(1:length(reactionList),digits = (nchar(length(reactionList))-1),flag = 0)),metabolites=mets))
   # Fill
   for (reaction in seq_along(reactionList)){
-    r_met <- getLeft(reactionList[reaction])
+    r_met <- unlist(getLeft(reactionList[reaction]))
     r_coe <- coefficients(r_met)
-    p_met <- getRight(reactionList[reaction])
+    p_met <- unlist(getRight(reactionList[reaction]))
     p_coe <- coefficients(p_met)
     r_met <- metabolites(r_met)
     p_met <- metabolites(p_met)
