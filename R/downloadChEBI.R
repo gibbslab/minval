@@ -163,11 +163,11 @@ downloadChEBI <- function(release="latest", woAssociations = FALSE){
   DB <- unique(DB[complete.cases(DB[,c("ID","ChEBI","FORMULA.x","MASS.x","MONOISOTOPIC.x","CHARGE.x")]),])
   colnames(DB) <- c("ID","ChEBI","KEGG","IUPAC","MetaCyc","ChEMBL","FORMULA","MASS","MONOISOTOPIC","CHARGE")
   if (woAssociations == TRUE){
-    compounds <- unique(rbind(setNames(DB[,c("ChEBI","FORMULA","MASS","MONOISOTOPIC","CHARGE")],c("COMPOUND","FORMULA","MASS","MONOISOTOPIC","CHARGE")),
-                              setNames(DB[,c("KEGG","FORMULA","MASS","MONOISOTOPIC","CHARGE")],c("COMPOUND","FORMULA","MASS","MONOISOTOPIC","CHARGE")),
-                              setNames(DB[,c("IUPAC","FORMULA","MASS","MONOISOTOPIC","CHARGE")],c("COMPOUND","FORMULA","MASS","MONOISOTOPIC","CHARGE")),
-                              setNames(DB[,c("MetaCyc","FORMULA","MASS","MONOISOTOPIC","CHARGE")],c("COMPOUND","FORMULA","MASS","MONOISOTOPIC","CHARGE")),
-                              setNames(DB[,c("ChEMBL","FORMULA","MASS","MONOISOTOPIC","CHARGE")],c("COMPOUND","FORMULA","MASS","MONOISOTOPIC","CHARGE"))))
+    compounds <- unique(rbind(setNames(DB[,c("ChEBI","FORMULA","MASS","MONOISOTOPIC","CHARGE")],c("NAME","FORMULA","MASS","MONOISOTOPIC","CHARGE")),
+                              setNames(DB[,c("KEGG","FORMULA","MASS","MONOISOTOPIC","CHARGE")],c("NAME","FORMULA","MASS","MONOISOTOPIC","CHARGE")),
+                              setNames(DB[,c("IUPAC","FORMULA","MASS","MONOISOTOPIC","CHARGE")],c("NAME","FORMULA","MASS","MONOISOTOPIC","CHARGE")),
+                              setNames(DB[,c("MetaCyc","FORMULA","MASS","MONOISOTOPIC","CHARGE")],c("NAME","FORMULA","MASS","MONOISOTOPIC","CHARGE")),
+                              setNames(DB[,c("ChEMBL","FORMULA","MASS","MONOISOTOPIC","CHARGE")],c("NAME","FORMULA","MASS","MONOISOTOPIC","CHARGE"))))
     compounds <- compounds[complete.cases(compounds),]
     return(compounds)
   } else {
