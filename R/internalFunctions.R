@@ -73,3 +73,11 @@ getRight <- function(reactionList) {
   return(metabolites)
 }
 
+# Split chemical formula
+splitFormula <- function(chemicalFormula) {
+  splitAtoms <- unlist(regmatches(formula, gregexpr("([A-Z]{1}[a-z]?)([0-9]*)", chemicalFormula)))
+  atoms <- sub("([A-Z]{1}[a-z]?)([0-9]*)", '\\1', splitAtoms)
+  atomsNumber <- as.numeric(regmatches(x = splitAtoms, m = gregexpr('[0-9]+', splitAtoms)))
+  atomsNumber[is.na(atomsNumber)] <- 1
+  tapply(atomsNumber, atoms, sum)
+}
