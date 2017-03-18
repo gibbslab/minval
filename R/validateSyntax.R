@@ -25,18 +25,19 @@ validateSyntax <- function(reactionList){
   # Empty vector
   valid.syntax <- NULL
   # Coefficient validation
-  valid.syntax <- c(valid.syntax,grepl(pattern = "([[:digit:]][[:blank:]][[:digit:]][[:blank:]])+",x = reactionList))
-  valid.syntax <- c(valid.syntax,grepl(pattern = "(\\([[:digit:]]+\\)[[:blank:]]+)",x = reactionList))
+  valid.syntax <- c(valid.syntax,grepl(pattern = "([[:digit:]][[:space:]][[:digit:]][[:space:]])+",x = reactionList))
+  valid.syntax <- c(valid.syntax,grepl(pattern = "(\\([[:digit:]]+\\)[[:space:]]+)",x = reactionList))
   # Directionality validation
   valid.syntax <- c(valid.syntax, (!grepl(pattern = "<?=>?",x = reactionList)))
   valid.syntax <- c(valid.syntax, (!grepl(pattern = "[[:graph:]]+[[:space:]]+<?=>[[:print:]]*",x = reactionList)))
-  valid.syntax <- c(valid.syntax,grepl(pattern = "(<)?\\-(\\-)?(>)?",x = reactionList))
+  valid.syntax <- c(valid.syntax,grepl(pattern = "(<)?\\-(\\-)?>",x = reactionList))
+  valid.syntax <- c(valid.syntax,(grepl(pattern = "<-(>)?",x = reactionList) | grepl(pattern = "<=[[:space:]]+",x = reactionList)))
   # Metabolite names validation
   valid.syntax <- c(valid.syntax,grepl(pattern = "[[:alnum:]]+\\+[[:alnum:]]+",x = reactionList))
   # Blank spaces validation
-  valid.syntax <- c(valid.syntax, (!grepl(pattern = "[[:blank:]]",x = reactionList)))
+  valid.syntax <- c(valid.syntax, (!grepl(pattern = "[[:space:]]",x = reactionList)))
   # Validating metabolite name
-  valid.syntax <- c(valid.syntax, grepl(pattern = "[[:blank:]]\\-[[:alnum:]]",x = reactionList))
+  valid.syntax <- c(valid.syntax, grepl(pattern = "[[:space:]]\\-[[:alnum:]]",x = reactionList))
   # Metabolite composition
   nMetabolites <- lengths(lapply(reactionList,function(reaction){metabolites(reaction)}))
   valid.syntax <- c(valid.syntax, (nMetabolites < 1))
@@ -52,20 +53,21 @@ validateSyntax <- function(reactionList){
     }
   })))
   # Warnings!
-  valid.syntax <- matrix(valid.syntax,ncol = 10)
+  valid.syntax <- matrix(valid.syntax,ncol = 11)
   sapply(which(valid.syntax[,1]==TRUE),function(x){warning(paste0("Reaction ",x,": Invalid coefficients. Metabolites should have just one coefficient."),call. = FALSE)})
   sapply(which(valid.syntax[,2]==TRUE),function(x){warning(paste0("Reaction ",x,": Invalid coefficients. Coefficients should have not parentheses."),call. = FALSE)})
   sapply(which(valid.syntax[,3]==TRUE),function(x){warning(paste0("Reaction ",x,": Invalid directionality symbols. Not arrow detected."),call. = FALSE)})
   sapply(which(valid.syntax[,4]==TRUE),function(x){warning(paste0("Reaction ",x,": Invalid directionality symbols. Arrow symbols should be separated of metabolites by a blank space."),call. = FALSE)})
   sapply(which(valid.syntax[,5]==TRUE),function(x){warning(paste0("Reaction ",x,": Invalid directionality symbols. Please use <=> or => instead of <-> or -> or -->."),call. = FALSE)})
-  sapply(which(valid.syntax[,6]==TRUE),function(x){warning(paste0("Reaction ",x,": Metabolites names should be separated by a plus symbol between spaces."),call. = FALSE)})
-  sapply(which(valid.syntax[,7]==TRUE),function(x){warning(paste0("Reaction ",x,": No blank spaces detected between metabolites."),call. = FALSE)})
-  sapply(which(valid.syntax[,8]==TRUE),function(x){warning(paste0("Reaction ",x,": Invalid metabolite name. Substituent should not be separated of the metabolite name."),call. = FALSE)})
-  sapply(which(valid.syntax[,9]==TRUE),function(x){warning(paste0("Reaction ",x,": Invalid metabolite composition. There is not metabolites."),call. = FALSE)})
-  sapply(which(valid.syntax[,10]==TRUE),function(x){warning(paste0("Reaction ",x,": Not valid syntax. Exchange reactions should have only one metabolite before arrow symbol"),call. = FALSE)})
+  sapply(which(valid.syntax[,6]==TRUE),function(x){warning(paste0("Reaction ",x,": Invalid directionality symbols. Reverse symbols <= or <- are not allowed"),call. = FALSE)})
+  sapply(which(valid.syntax[,7]==TRUE),function(x){warning(paste0("Reaction ",x,": Metabolites names should be separated by a plus symbol between spaces."),call. = FALSE)})
+  sapply(which(valid.syntax[,8]==TRUE),function(x){warning(paste0("Reaction ",x,": No blank spaces detected between metabolites."),call. = FALSE)})
+  sapply(which(valid.syntax[,9]==TRUE),function(x){warning(paste0("Reaction ",x,": Invalid metabolite name. Substituent should not be separated of the metabolite name."),call. = FALSE)})
+  sapply(which(valid.syntax[,10]==TRUE),function(x){warning(paste0("Reaction ",x,": Invalid metabolite composition. There is not metabolites."),call. = FALSE)})
+  sapply(which(valid.syntax[,11]==TRUE),function(x){warning(paste0("Reaction ",x,": Not valid syntax. Exchange reactions should have only one metabolite before arrow symbol"),call. = FALSE)})
   # Return
   if(any(valid.syntax == TRUE)){
-    stop("Please check that:\n· Arrows and plus signs are surrounded by a 'space character'\n· Stoichiometric coefficients are surrounded by spaces\n· Arrows to be in the form '=>' or '<=>'\n· Exchange reactions have only one metabolite before arrow symbol",call. = FALSE)
+    stop("Please check that:\n* Arrows and plus signs are surrounded by a 'space character'\n* Stoichiometric coefficients are surrounded by spaces\n* Arrows to be in the form '=>' or '<=>'\n* Exchange reactions have only one metabolite before arrow symbol",call. = FALSE)
   } else {
     return(sapply(seq_along(reactionList), function(reaction){all(valid.syntax[reaction,]==FALSE)}))
   }
