@@ -32,7 +32,7 @@
 #' metabolites(reactionList = glycolysis$REACTION, uniques = FALSE)
 metabolites <- function(reactionList, woCompartment = FALSE, uniques=TRUE){
   # Split reactions by arrow symbol
-  reaction <- strsplit(as.vector(reactionList),"[[:blank:]]+<?=>[[:blank:]]*")
+  reaction <- strsplit(as.vector(reactionList),"[[:blank:]]*<?=>[[:blank:]]*")
   # Split sections by plus symbol
   reaction <- lapply(reaction, function(reaction){strsplit(unlist(reaction),"[[:blank:]]+\\+[[:blank:]]+")})
   # Remove extra spaces around metabolite names
