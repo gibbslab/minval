@@ -19,8 +19,21 @@
 #' If \code{actingAs == 'reactant'}, metabolites not produced in any other reaction or just are involved in one reaction are returned.
 #'
 #' If \code{actingAs == 'products'}, metabolites not consumed in any other reaction or just are involved in one reaction are returned.
-
-
+#' @examples 
+#' # Loading a set of stoichiometric reactions
+#' glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep="\t")
+#' 
+#' # Identify orphan metabolites
+#' orphanMetabolites(reactionList = glycolysis$REACTION)
+#' 
+#' # Identify orphan reactants
+#' orphanReactants(reactionList = glycolysis$REACTION)
+#' 
+#' # Identify orphan products
+#' orphanProducts(reactionList = glycolysis$REACTION)
+#' 
+#' # Identify orphan metabolites by compartment
+#' orphanMetabolites(reactionList = glycolysis$REACTION, byCompartment = TRUE)
 
 orphanMetabolites <-
   function(reactionList,
