@@ -8,23 +8,21 @@ This package required R version 2.10 or higher. If you are using an older versio
 
 The official release of minval is available on CRAN. To install from CRAN, use the following command:
 ```{r}
-install.packages("minval", dependencies=TRUE)
+install.packages("minval", dependencies = TRUE)
 ```
 If you have devtools installed, install the latest stable version this package directly from GitHub:
 
 ```{r}
-# Install 'devtools' R package
-install.packages("devtools")
-
 # Install 'minval' package
 devtools::install_github("gibbslab/minval")
-library("minval"")
+library("minval")
 ```
 
 Available functions:
 -------------------
 |Function | Description |
 |:--------|:------------|
+|checkBalance|Evaluate the mass or charge balance for a set of stoichiometric reactions|
 |compartments|Extract the compartments associated to metabolites of a set of stoichiometric reactions|
 |downloadChEBI|Download the ChEBI database|
 |metabolites|Identify the list of metabolites for a set of stoichiometric reactions|
