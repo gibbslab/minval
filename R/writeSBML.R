@@ -6,12 +6,13 @@ writeSBML <- function(modelData, modelID = "model", outputFile, boundary = "b") 
     modelData <- removeComments(modelData = modelData)
     # Validate stoichiometric syntax
     modelData <- modelData[validateSyntax(modelData[["REACTION"]]),]
-    # Convert model to a list
-    modelData <- extractData(inputData = modelData)  
+  } else if (class(modelData) == "modelorg"){
+    modelData <- convertData(model = modelData)
   } else {
     stop("Input format not supported.")
   }
-  
+  # Convert model to a list
+  modelData <- extractData(inputData = modelData)  
   # Write SBML model
   header <- c(
     '<?xml version=\"1.0\" encoding=\"UTF-8\"?>',
@@ -132,6 +133,6 @@ writeSBML <- function(modelData, modelID = "model", outputFile, boundary = "b") 
     })))
   react <- c(react, '\t\t</listOfReactions>')
   end <- c('\t</model>', '</sbml>')
-  model <- c(header, comp, mets, react, end)
+  model <- as.vector(c(header, comp, mets, react, end))
   writeLines(text = model, con = outputFile, sep = "\n")
 }
