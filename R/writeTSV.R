@@ -1,4 +1,5 @@
 #' @export writeTSV
+#' @importFrom utils write.table
 #' @author Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
