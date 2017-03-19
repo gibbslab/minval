@@ -23,7 +23,7 @@ If not set, 1000 is used by default. (optional: column can be empty),
 
 \item{modelID}{A single character string giving the modelID}
 
-\item{outputFile}{A writable path for the output 'SBML' file to be generated}
+\item{outputFile}{A writable path for the output 'SBML' file to be generate}
 
 \item{boundary}{A single character string specifying the compartment to be used as boundary}
 }

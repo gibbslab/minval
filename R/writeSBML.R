@@ -18,7 +18,7 @@
 #' \item \code{"OBJECTIVE":} A list of numeric values containing objective values for each reaction (optional: column can be empty).
 #' }
 #' @param modelID A single character string giving the modelID
-#' @param outputFile A writable path for the output 'SBML' file to be generated
+#' @param outputFile A writable path for the output 'SBML' file to be generate
 #' @param boundary A single character string specifying the compartment to be used as boundary
 #' @return A SBML file
 writeSBML <- function(modelData, modelID = "model", outputFile, boundary = "b") {
