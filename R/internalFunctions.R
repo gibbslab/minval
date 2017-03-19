@@ -148,7 +148,7 @@ validateData <- function(modelData) {
 removeComments <- function(modelData) {
   comments <- grepl("^#", modelData[, 1])
   if (any(comments)) {
-    modelData <- modelData[!comments, ]
+    modelData <- modelData[!comments,]
   }
   return (modelData)
 }
@@ -204,4 +204,39 @@ extractData <- function(inputData, boundary = "b") {
       )
     })
   return(data)
+}
+
+# rearmReactions Rearm the reactions from a stoichiometric matrix
+rearmReactions <- function(S, reversible) {
+  unlist(lapply(seq_len(dim(S)[2]), function(reaction) {
+    met = S[, reaction] < 0
+    reactants = paste0(abs(S[which(met == TRUE), reaction]), " ", rownames(S)[which(met ==
+                                                                                      TRUE)], collapse = " + ")
+    met = S[, reaction] > 0
+    produts = paste0(abs(S[which(met == TRUE), reaction]), " ", rownames(S)[which(met ==
+                                                                                    TRUE)], collapse = " + ")
+    paste(reactants,
+          produts,
+          sep = ifelse(
+            test = reversible[reaction],
+            yes = " <=> ",
+            no = " => "
+          ))
+  }))
+}
+
+# ConvertData
+convertData <- function(model){
+  data <- NULL
+  data$ID <- model@react_id
+  data$DESCRIPTION <- rep(x = "",model@react_num)
+  S <- as.matrix(model@S)
+  rownames(S) <- model@met_id
+  data$REACTION <- rearmReactions(S = S, reversible = model@react_rev)
+  data$GPR <- model@gpr
+  data$LOWER.BOUND <- model@lowbnd
+  data$UPPER.BOUND <- model@uppbnd
+  data$OBJECTIVE <- model@obj_coef
+  data <- data.frame(data)
+  return(as.data.frame.array(data))
 }
