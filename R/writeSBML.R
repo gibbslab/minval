@@ -1,3 +1,9 @@
+#' @export writeSBML
+#' @author  Daniel Camilo Osorio <dcosorioh@unal.edu.co>
+#  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
+#  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
+#' @title Write a model in SBML format.
+#' @description This function converts a data.frame or a modelOrg model to a valid SBML file. The Systems Biology Markup Language (SBML) is a representation format, based on XML, for communicating and storing computational models of biological processes.
 writeSBML <- function(modelData, modelID = "model", outputFile, boundary = "b") {
   if(class(modelData) == "data.frame"){
     # Check valid structure, column names and valid ID's
