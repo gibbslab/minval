@@ -27,31 +27,21 @@ A list of metabolites for a set of stoichiometric reactions
 This function identifies the list of metabolites for a set of stoichiometric reactions. If \code{'woCompartment'} is \code{'TRUE'} compartment label is removed. If \code{'uniques'} is \code{'TRUE'}, list of uniques is returned.
 }
 \examples{
-# Loading data
-glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
+# Extract metabolites of a stoichiometric reaction
+metabolites(reactionList = "ADP[c] + Phosphoenolpyruvate[c] => ATP[c] + Pyruvate[c]")
 
-# Removing stoichiometric reactions without valid syntax
-glycolysis <- mapReactions(
-                           reactionList = isValidSyntax(glycolysis$REACTION),
-                           referenceData = glycolysis,
-                           by = "bool"
-                           )
+# Loading a set of stoichiometric reactions
+glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep='\\t')
 
-# Extracting metabolites
+# Extract unique metabolites
 metabolites(reactionList = glycolysis$REACTION)
 
-# Extracting metabolites without compartments
-metabolites(reactionList = glycolysis$REACTION, 
-            woCompartment = TRUE
-            )
+#' # Extract unique metabolites without compartments
+metabolites(reactionList = glycolysis$REACTION, woCompartment = TRUE)
 
-# Extracting redundant list of metabolites
-metabolites(reactionList = glycolysis$REACTION, 
-            woCompartment = FALSE,
-            uniques = FALSE
-            )
+# Extract all metabolites
+metabolites(reactionList = glycolysis$REACTION, uniques = FALSE)
 }
 \author{
 Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 }
-

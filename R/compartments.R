@@ -2,7 +2,7 @@
 #' @author Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
-#' @title  Extract the list of unique compartments for the metabolites of a set of stoichiometric reactions.
+#' @title  Extract the compartments associated to metabolites of a set of stoichiometric reactions.
 #' @description For a given set of stoichiometric reactions, this function identifies the compartments
 #' associated to each involved metabolite and return a vector with the list of unique compartments identified.
 #' @param reactionList A set of stoichiometric reaction with the following format:
@@ -15,26 +15,24 @@
 #' Meaning that arrows like "\code{==>}", "\code{<==>}", "\code{-->}" or "\code{->}" will not be parsed and will lead to errors.
 #' @param uniques A boolean value \code{'TRUE/FALSE'} if uniques must be returned
 #' @return A vector with the list of of unique compartments identified for the metabolites of a set of stoichiometric reactions.
-#' @examples
-#' # Using individual reactions
-#' compartments(
-#'  reactionList = "H2O[c] + Urea-1-carboxylate[c] => 2 CO2[c] + 2 NH3[m]"
-#'  )
-#'
-#' compartments(
-#'  reactionList = "L-Glutamate[c] <=> CO2[c] + 4-Aminobutanoate[c]"
-#'  )
-#'
-#' # From a data.frame
-#' glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
-#' compartments(
-#'  reactionList = glycolysis$REACTION
-#'  )
-#' @keywords Extract Unique Compartments Metabolic Reconstruction
-
+#' @examples 
+#' # Loading a set of stoichiometric reactions
+#' glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep='\t')
+#' 
+#' # Extract unique compartments
+#' compartments(reactionList = glycolysis$REACTION)
+#' 
+#' # Extract all compartments
+#' compartments(reactionList = glycolysis$REACTION, unique = FALSE)
 compartments <- function(reactionList, uniques = TRUE) {
   # Extract metabolites of a set of stoichiometric reactions
-  metabolites <- metabolites(reactionList)
+  if (uniques == TRUE) {
+    metabolites <-
+      metabolites(reactionList = reactionList, uniques = TRUE)
+  } else {
+    metabolites <-
+      metabolites(reactionList = reactionList, uniques = FALSE)
+  }
   # Extract compartments using a regular expression
   compartments <-
     unlist(regmatches(

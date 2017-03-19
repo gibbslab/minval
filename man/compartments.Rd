@@ -2,7 +2,7 @@
 % Please edit documentation in R/compartments.R
 \name{compartments}
 \alias{compartments}
-\title{Extract the list of unique compartments for the metabolites of a set of stoichiometric reactions.}
+\title{Extract the compartments associated to metabolites of a set of stoichiometric reactions.}
 \usage{
 compartments(reactionList, uniques = TRUE)
 }
@@ -26,27 +26,15 @@ For a given set of stoichiometric reactions, this function identifies the compar
 associated to each involved metabolite and return a vector with the list of unique compartments identified.
 }
 \examples{
-# Using individual reactions
-compartments(
- reactionList = "H2O[c] + Urea-1-carboxylate[c] => 2 CO2[c] + 2 NH3[m]"
- )
+# Loading a set of stoichiometric reactions
+glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep='\\t')
 
-compartments(
- reactionList = "L-Glutamate[c] <=> CO2[c] + 4-Aminobutanoate[c]"
- )
+# Extract unique compartments
+compartments(reactionList = glycolysis$REACTION)
 
-# From a data.frame
-glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
-compartments(
- reactionList = glycolysis$REACTION
- )
+# Extract all compartments
+compartments(reactionList = glycolysis$REACTION, unique = FALSE)
 }
 \author{
 Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 }
-\keyword{Compartments}
-\keyword{Extract}
-\keyword{Metabolic}
-\keyword{Reconstruction}
-\keyword{Unique}
-

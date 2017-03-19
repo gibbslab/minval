@@ -16,42 +16,39 @@
 #' @param uniques A boolean value \code{'TRUE'} or \code{'FALSE'} to indicate if uniques must be returned
 #' @return A list of metabolites for a set of stoichiometric reactions
 #' @examples 
-#' # Loading data
-#' glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
+#' # Extract metabolites of a stoichiometric reaction
+#' metabolites(reactionList = "ADP[c] + Phosphoenolpyruvate[c] => ATP[c] + Pyruvate[c]")
 #' 
-#' # Removing stoichiometric reactions without valid syntax
-#' glycolysis <- mapReactions(
-#'                            reactionList = isValidSyntax(glycolysis$REACTION),
-#'                            referenceData = glycolysis,
-#'                            by = "bool"
-#'                            )
+#' # Loading a set of stoichiometric reactions
+#' glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep='\t')
 #' 
-#' # Extracting metabolites
+#' # Extract unique metabolites
 #' metabolites(reactionList = glycolysis$REACTION)
 #' 
-#' # Extracting metabolites without compartments
-#' metabolites(reactionList = glycolysis$REACTION, 
-#'             woCompartment = TRUE
-#'             )
+#' #' # Extract unique metabolites without compartments
+#' metabolites(reactionList = glycolysis$REACTION, woCompartment = TRUE)
 #' 
-#' # Extracting redundant list of metabolites
-#' metabolites(reactionList = glycolysis$REACTION, 
-#'             woCompartment = FALSE,
-#'             uniques = FALSE
-#'             )
-
-
+#' # Extract all metabolites
+#' metabolites(reactionList = glycolysis$REACTION, uniques = FALSE)
 metabolites <- function(reactionList, woCompartment = FALSE, uniques=TRUE){
+  # Split reactions by arrow symbol
   reaction <- strsplit(as.vector(reactionList),"[[:blank:]]+<?=>[[:blank:]]*")
+  # Split sections by plus symbol
   reaction <- lapply(reaction, function(reaction){strsplit(unlist(reaction),"[[:blank:]]+\\+[[:blank:]]+")})
-  reaction <- lapply(reaction, function(reaction){.remove.spaces(unlist(reaction))})
-  reaction <- lapply(reaction, function(reaction){.remove.coefficients(reaction)})
+  # Remove extra spaces around metabolite names
+  reaction <- lapply(reaction, function(reaction){removeSpaces(unlist(reaction))})
+  # Remove coefficients
+  reaction <- lapply(reaction, function(reaction){removeCoefficients(reaction)})
+  # Convert metabolite list to a vector
   metabolites <- unlist(reaction)
+  # Option to remove compartments
   if (woCompartment == TRUE) {
-    metabolites <- .remove.compartment(metabolites)
+    metabolites <- removeCompartment(metabolites)
   }
+  # Option to return uniques
   if (uniques == TRUE) {
     metabolites <- unique(metabolites)
   }
+  # Return a metabolite list
   return(metabolites)
 }

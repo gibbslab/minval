@@ -13,27 +13,12 @@
 #' It also expects arrows to be in the form "\code{=>}" or "\code{<=>}". 
 #' Meaning that arrows like "\code{==>}", "\code{<==>}", "\code{-->}" or "\code{->}" will not be parsed and will lead to errors.
 #' @return A vector with the identified products in the reaction, or a list if a set of stoichiometric reactions was given.
-#' @examples
-#' #' # Loading data
-#' glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
-#'
-#' # Removing stoichiometric reactions without valid syntax
-#' glycolysis <- mapReactions(
-#' reactionList = isValidSyntax(glycolysis$REACTION),
-#' referenceData = glycolysis,
-#' by = "bool"
-#' )
-#' 
-#' # Extracting products
-#' products(reactionList = "ADP[c] + Phosphoenolpyruvate[c] => Pyruvate[c] + ATP[c]")
-#' products(reactionList = glycolysis$REACTION)
-#' 
-#' @keywords Extract Products Reactions Metabolic Reconstruction
+
 products <- function(reactionList){
   # Convert to a vector
   reactionList <- as.vector(reactionList)
   # Remove reaction with invalid syntax
-  reactionList <- reactionList[isValidSyntax(reactionList)]
+  reactionList <- reactionList[validateSyntax(reactionList)]
   # Extract reactants for irreversible reactions
   reaction <- strsplit(reactionList,"[[:blank:]]+=>[[:blank:]]+")
   reaction[lengths(reaction)>1] <- lapply(reaction[lengths(reaction)>1],function(reaction){reaction[[2]]})
@@ -42,9 +27,9 @@ products <- function(reactionList){
   # Split independient reactants
   reaction <- lapply(reaction, function(reaction){strsplit(reaction,"[[:blank:]]+\\+[[:blank:]]+")})
   # Remove spaces and report uniques
-  reaction <- lapply(reaction, function(reaction){unique(.remove.spaces(unlist(reaction)))})
+  reaction <- lapply(reaction, function(reaction){unique(removeSpaces(unlist(reaction)))})
   # Use a regex to extract stoichiometric coefficients and separate the metabolite name
-  products <- lapply(reaction, function(reaction){unique(.remove.coefficients(reaction))})
+  products <- lapply(reaction, function(reaction){unique(removeCoefficients(reaction))})
   if (length(products)==1){
     return(unlist(products))
   } else {

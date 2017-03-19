@@ -2,7 +2,7 @@
 % Please edit documentation in R/stoichiometricMatrix.R
 \name{stoichiometricMatrix}
 \alias{stoichiometricMatrix}
-\title{Return the stoichiometric matrix for a set of stoichiometric reactions}
+\title{Build the stoichiometric matrix for a set of stoichiometric reactions}
 \usage{
 stoichiometricMatrix(reactionList)
 }
@@ -22,26 +22,6 @@ The stoichiometric matrix for a given set of stoichiometric reactions
 \description{
 A set of stoichiometric reactions are often represented in a more compact form called the stoichiometry matrix. If a reaction network has n reactions and m participating metabolites then the stoichiometry matrix will have correspondingly m rows and n columns.
 }
-\examples{
-# Loading data
-glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"))
-
-# Removing stoichiometric reactions without valid syntax
-glycolysis <- mapReactions(
-                           reactionList = isValidSyntax(glycolysis$REACTION),
-                           referenceData = glycolysis,
-                           by = "bool"
-                           )
-# Building the Stoichiometric-Matrix 
-stoichiometricMatrix(glycolysis$REACTION)
-
-}
 \author{
 Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 }
-\keyword{Matrix}
-\keyword{Metabolic}
-\keyword{Reactions}
-\keyword{Reconstruction}
-\keyword{Stoichiometric}
-
