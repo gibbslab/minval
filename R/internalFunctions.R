@@ -116,3 +116,130 @@ reactionType <- function(reactionList) {
     }
   })
 }
+
+# writeSBML
+# Write SBML files from a modelData list
+# Daniel Osorio <dcosorioh@unal.edu.co>
+writeSBML <- function(modelData, modelID, outputFile, boundary = "b") {
+  header <- c(
+    '<?xml version=\"1.0\" encoding=\"UTF-8\"?>',
+    '<sbml xmlns=\"http://www.sbml.org/sbml/level2\" level=\"2\" version=\"1\">',
+    paste0(
+      '\t<model id="',
+      paste(modelID, date(), sep = " - "),
+      '" name="',
+      modelID,
+      '">'
+    ),
+    '\t\t<notes>',
+    '\t\t\t<body xmlns="http://www.w3.org/1999/xhtml">',
+    '\t\t\t<p> Generated with MINVAL: an R package for MINimal VALidation of stoichiometric reactions </p>',
+    '\t\t\t</body>',
+    '\t\t</notes>'
+  )
+  comp <- '\t\t<listOfCompartments>'
+  comp <-
+    c(comp, sapply(modelData$compartments, function(compartment) {
+      paste0('\t\t\t<compartment id="',
+             compartment,
+             '" name="',
+             compartment,
+             '"/>')
+    }))
+  comp <- c(comp, '\t\t</listOfCompartments>')
+  mets <- '\t\t<listOfSpecies>'
+  mets <-
+    c(mets, sapply(modelData$metabolites, function(metabolite) {
+      paste0(
+        '\t\t\t<species id="M_',
+        metabolite,
+        '" name="',
+        metabolites(metabolite, woCompartment = TRUE),
+        '" compartment="',
+        compartments(metabolite),
+        '" boundaryCondition="',
+        ifelse(
+          test = compartments(metabolite) == boundary,
+          yes = "true",
+          no = "false"
+        ),
+        '"/>'
+      )
+    }))
+  mets <- c(mets, '\t\t</listOfSpecies>')
+  react <- '\t\t<listOfReactions>'
+  react <-
+    c(react, unlist(sapply(seq_along(modelData$reaction), function(reaction) {
+      c(
+        paste0(
+          '\t\t\t<reaction id="R_',
+          modelData$reaction[[reaction]]$id,
+          '"  reversible="',
+          modelData$reaction[[reaction]]$reversible,
+          '">'
+        ),
+        paste0('\t\t\t\t<notes>'),
+        paste0(
+          '\t\t\t\t\t<html xmlns="http://www.w3.org/1999/xhtml">',
+          if (modelData$reaction[[reaction]]$gpr != "") {
+            paste0('<p>GENE_ASSOCIATION: ',
+                   modelData$reaction[[reaction]]$gpr,
+                   '</p>')
+          }
+          ,'</html>'),
+        paste0('\t\t\t\t</notes>'),
+        paste0('\t\t\t\t<listOfReactants>'),
+        sapply(modelData$reaction[[reaction]]$reactants, function(metabolite) {
+          paste0(
+            '\t\t\t\t\t<speciesReference species="M_',
+            metabolites(metabolite),
+            '" stoichiometry="',
+            coefficients(metabolite),
+            '"/>'
+          )
+        }),
+        paste0('\t\t\t\t</listOfReactants>'),
+        paste0('\t\t\t\t<listOfProducts>'),
+        sapply(modelData$reaction[[reaction]]$products, function(metabolite) {
+          paste0(
+            '\t\t\t\t\t<speciesReference species="M_',
+            metabolites(metabolite),
+            '" stoichiometry="',
+            coefficients(metabolite),
+            '"/>'
+          )
+        }),
+        paste0('\t\t\t\t</listOfProducts>'),
+        paste0('\t\t\t\t<kineticLaw>'),
+        paste0(
+          '\t\t\t\t\t<math xmlns="http://www.w3.org/1998/Math/MathML">'
+        ),
+        paste0('\t\t\t\t\t\t<ci>FLUX_VALUE</ci>'),
+        paste0('\t\t\t\t\t</math>'),
+        paste0('\t\t\t\t\t<listOfParameters>'),
+        paste0(
+          '\t\t\t\t\t\t<parameter id="LOWER_BOUND" value="',
+          modelData$reaction[[reaction]]$lowbnd,
+          '"/>'
+        ),
+        paste0(
+          '\t\t\t\t\t\t<parameter id="UPPER_BOUND" value="',
+          modelData$reaction[[reaction]]$upbnd,
+          '"/>'
+        ),
+        paste0(
+          '\t\t\t\t\t\t<parameter id="OBJECTIVE_COEFFICIENT" value="',
+          modelData$reaction[[reaction]]$objective,
+          '"/>'
+        ),
+        paste0('\t\t\t\t\t\t<parameter id="FLUX_VALUE" value="0"/>'),
+        paste0('\t\t\t\t\t</listOfParameters>'),
+        paste0('\t\t\t\t</kineticLaw>'),
+        paste0('\t\t\t</reaction>')
+      )
+    })))
+  react <- c(react, '\t\t</listOfReactions>')
+  end <- c('\t</model>', '</sbml>')
+  model <- c(header, comp, mets, react, end)
+  writeLines(text = model, con = outputFile, sep = "\n")
+}
