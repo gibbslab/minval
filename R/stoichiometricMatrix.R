@@ -58,7 +58,7 @@ stoichiometricMatrix <- function(reactionList) {
     p_coe <- coefficients(p_met)
     r_met <- metabolites(r_met)
     p_met <- metabolites(p_met)
-    if (any(r_met %in% p_met | p_met %in% r_met)) {
+    if ((any(r_met %in% p_met) | any(p_met %in% r_met))) {
       for (balanced in unique(c(r_met[r_met %in% p_met], p_met[p_met %in% r_met]))) {
         if (r_coe[which(r_met == balanced)] > p_coe[which(p_met == balanced)]) {
           r_coe[which(r_met == balanced)] <-
