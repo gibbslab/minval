@@ -1,5 +1,5 @@
 ---
-title: "**MINVAL** - **MIN**imal **VAL**idation for Stoichiometric Reactions"
+title: "MINVAL - **MIN**imal **VAL**idation for Stoichiometric Reactions"
 author: "Daniel Osorio, Janneth Gonzalez and Andrés Pinzon"
 #date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -14,71 +14,104 @@ knitr::opts_chunk$set(collapse = TRUE, dev = "png", fig.width = 7, fig.height = 
 ## Introduction to MINVAL
 The **MINVAL** package was designed as a tool to identify orphan metabolites and evaluate the mass and charge balance of stoichometric reactions. MINVAL also includes functions to write models in TSV and SBML formats, extract all reactants, products, metabolite names and compartments from a metabolic reconstruction.
 
-![**Glycolysis Pathway:** A metabolic pathways that converts glucose into pyruvate through nine biochemical reactions](glycolysis.png "Glycolysis")
-
-## Syntax and Mass-Charge Evaluation
+## Syntax Evaluation
 ```{r message=FALSE}
 library("minval")
 library("sybilSBML")
 ```
 
 ```{r}
-glycolysis <- read.csv2(system.file("extdata", "glycolysisKEGG.csv", package = "minval"),
-                        stringsAsFactors = FALSE)
+glycolysis <- read.csv(file = system.file("extdata", "glycolysisModel.csv",
+                                          package = "minval"), 
+                        stringsAsFactors = FALSE,
+                        sep = '\t'
+                        )
 ```
 ```{r}
 colnames(glycolysis)
 ```
-
 ```{r}
-glycolysis$REACTION
+validateSyntax(reactionList = glycolysis$REACTION)
 ```
 
-```{r}
-isValidSyntax(reactionList = glycolysis$REACTION)
+## Mass-Charge Balance
+```{r, eval = FALSE}
+ChEBI <- downloadChEBI(release = "latest",
+                       woAssociations = TRUE
+                       )
 ```
 
-```{r}
-glycolysis$REACTION[2]
-glycolysis$REACTION[2] <- "D-Glyceraldehyde 3-phosphate[c] <=> 3 Glycerone phosphate[c]"
-```
-
-```{r}
-glycolysis$REACTION[6]
-glycolysis$REACTION[6] <- "2-Phospho-D-glycerate[c] <=> 3-Phospho-D-glycerate[c]"
-```
-```{r}
-isValidSyntax(reactionList = glycolysis$REACTION)
+```{r,}
+chemicalData <- read.csv2(file = system.file("extdata", "chemData.csv", 
+                                             package = "minval")
+                          )
 ```
 
 ```{r}
-chemicalData <- read.csv2(system.file("extdata", "chemData.csv", package = "minval"))
+head(chemicalData)
+```
+
+```{r}
+checkBalance(reactionList = glycolysis$REACTION,
+             referenceData = chemicalData,
+             ids = "NAME",
+             mFormula = "FORMULA"
+             )
+
+checkBalance(reactionList = glycolysis$REACTION,
+             referenceData = chemicalData,
+             ids = "NAME",
+             mFormula = "MASS"
+             )
 ```
 ```{r}
-isBalanced(reactionList = glycolysis$REACTION,referenceData = chemicalData,ids = "NAME",mFormula = "FORMULA")
+checkBalance(reactionList = glycolysis$REACTION,
+             referenceData = chemicalData,
+             ids = "NAME",
+             mFormula = "CHARGE"
+             )
+```
+## Characterize model
+### Stoichiometric matrix
+```{r}
+stoichiometricMatrix(reactionList = glycolysis$REACTION)
+```
+### Metabolites
+```{r}
+metabolites(reactionList = glycolysis$REACTION)
 ```
 ```{r}
-glycolysis$REACTION[2]
-glycolysis$REACTION[2] <- "D-Glyceraldehyde 3-phosphate[c] <=> Glycerone phosphate[c]"
+metabolites(reactionList = glycolysis$REACTION,
+            woCompartment = TRUE)
+```
+### Compartments
+```{r}
+compartments(reactionList = glycolysis$REACTION)
+```
+### OrphanMetabolites
+```{r}
+orphanMetabolites(reactionList = glycolysis$REACTION)
 ```
 ```{r}
-glycolysis$REACTION[8]
-glycolysis$REACTION[8] <- "alpha-D-Glucose 6-phosphate[c] <=> beta-D-Fructose 6-phosphate[c]"
+orphanReactants(reactionList = glycolysis$REACTION)
+orphanProducts(reactionList = glycolysis$REACTION)
+
 ```
+## Output files
 ```{r}
-isBalanced(reactionList = glycolysis$REACTION,referenceData = chemicalData,ids = "NAME",mFormula = "FORMULA")
+writeSBML(modelData = glycolysis,
+          modelID = "Glycolysis",
+          outputFile = "glycolysis.xml"
+          )
+
+sybilSBML::readSBMLmod("glycolysis.xml")
 ```
+
 ```{r}
-glycolysis <- addExchangeReactions(glycolysis)
-convert2sbml(glycolysis,"glycolysis.sbml")
-```
-```{r,warning=FALSE,message=FALSE}
-glycolysis <- readSBMLmod("glycolysis.sbml")
-glycolysis
-```
-```{r}
-lowbnd(glycolysis)[glycolysis@react_id=="EX_alpha_D_Glucose(c)"] <- -1
-```
-```{r}
-optimizeProb(glycolysis)
+writeTSV(modelData = glycolysis,
+          modelID = "Glycolysis",
+          outputFile = "glycolysis"
+          )
+
+sybil::readTSVmod(prefix = "glycolysis",quoteChar = "\"")
 ```

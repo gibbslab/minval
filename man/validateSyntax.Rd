@@ -7,17 +7,23 @@
 validateSyntax(reactionList)
 }
 \arguments{
-\item{reactionList}{A set of stoichiometric reaction with the following format: 
-
-\code{"H2O[c] + Urea-1-carboxylate[c] <=> 2 CO2[c] + 2 NH3[c]"} 
-
-Where arrows and plus signs are surrounded by a "space character".
-It is also expected that stoichiometric coefficients are surrounded by spaces, (nothe the "2" before the CO2[c] or the NH3[c]).
-It also expects arrows to be in the form "\code{=>}" or "\code{<=>}". 
-Meaning that arrows like "\code{==>}", "\code{<==>}", "\code{-->}" or "\code{->}" will not be parsed and will lead to errors.}
+\item{reactionList}{A set of stoichiometric reaction with the following characteristics: \itemize{
+\item Arrows symbols must be given in the form \code{'=>'} or \code{'<=>'}
+\item Inverse arrow symbols \code{'<='} or other types as: \code{'-->'}, \code{'<==>'}, \code{'->'} will not be parsed and will lead to errors.
+\item Arrow symbols and plus signs (\code{+}) must be surrounded by a space character
+\item Stoichiometric coefficients must be surrounded by a space character and not by parentheses.
+\item Each metabolite must have only one stoichiometric coefficient, substituents must be joined to metabolite name by a hyphen (\code{-}) symbol.
+\item Exchange reactions have only one metabolite before arrow symbol
+\item Compartments must be given between square brackets ([compartment]) joined at the end of metabolite name
+}
+Some examples of valid stoichiometric reactions are: \itemize{
+\item \code{H2O[c] + Urea-1-Carboxylate[c] <=> 2 CO2[c] + 2 NH3[c]}
+\item \code{ADP[c] + Phosphoenolpyruvate[c] => ATP[c] + Pyruvate[c]}
+\item \code{CO2[c] <=> }
+}}
 }
 \value{
-A boolean value 'TRUE' if reaction has a valid syntax.
+A boolean value \code{'TRUE'} if reaction has a valid syntax.
 }
 \description{
 For a set of given stoichiometric reactions, this function makes the following syntactic evaluations for each reaction: \itemize{
@@ -28,6 +34,16 @@ For a set of given stoichiometric reactions, this function makes the following s
 \item Evaluates if the reaction contain metabolites name separated by a plus symbol between spaces
 \item Evaluates if the reaction contain substituents separated of the metabolite names
 }
+}
+\examples{
+# Evaluate the syntaxis for a single reaction
+validateSyntax(reactionList = "ADP[c] + Phosphoenolpyruvate[c] => ATP[c] + Pyruvate[c]")
+
+# Loading a set of stoichiometric reactions
+glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep='\\t')
+
+# Evaluating the syntaxis for a set of stoichiometric reactions
+validateSyntax(reactionList = glycolysis$REACTION)
 }
 \author{
 Daniel Camilo Osorio <dcosorioh@unal.edu.co>

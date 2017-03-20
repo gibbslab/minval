@@ -251,7 +251,7 @@ rearmReactions <-
     }
   }
 
-# ConvertData
+# ConvertData from modelOrg for the write functions
 convertData <- function(model) {
   data <- NULL
   data$ID <- model@react_id
