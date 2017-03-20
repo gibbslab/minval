@@ -2,7 +2,7 @@ Package: minval
 Type: Package
 Title: MINimal VALidation for Stoichiometric Reactions
 Version: 1.0
-Author: c(person("Daniel","Osorio",email="dcosorioh@unal.edu.co",role=c("aut","cre")), person("Janneth","Gonzalez",role=c("aut","ths")), person("Andres","Pinzon-Velasco",role=c("aut","ths")))
+Author: c(person("Daniel","Osorio",email="dcosorioh@unal.edu.co",role=c("aut","cre")), person("Janneth","Gonzalez",role=c("aut","ths")), person("Andr\'es","Pinz\'on",role=c("aut","ths")))
 Maintainer: Daniel Osorio <dcosorioh@unal.edu.co>
 Suggests:
     testthat
