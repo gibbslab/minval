@@ -3,9 +3,9 @@
 #' @author Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 # Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 # Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
-#' @description  A set of stoichiometric reactions are often represented in a more compact form called the stoichiometry matrix.
-#' If a metabolic network has n reactions and m participating metabolites then the stoichiometry matrix will have correspondingly m rows and n columns.
-#' Values in stoichiometric matrix represent the metabolite coefficients in each reaction.
+#' @description  A set of stoichiometric reactions is often represented in a more compact form called the stoichiometry matrix. 
+#' If a metabolic network has n reactions and m participating metabolites, then the stoichiometry matrix will have correspondingly m rows and n columns. 
+#' Values in the stoichiometric matrix represent the metabolites coefficients in each reaction.
 #' @param reactionList A set of stoichiometric reaction with the following characteristics: \itemize{
 #' \item Arrows symbols must be given in the form \code{'=>'} or \code{'<=>'}
 #' \item Inverse arrow symbols \code{'<='} or other types as: \code{'-->'}, \code{'<==>'}, \code{'->'} will not be parsed and will lead to errors.
