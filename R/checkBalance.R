@@ -56,6 +56,9 @@ checkBalance <-
     metabolites <- metabolites(reactionList, woCompartment = TRUE)
     
     # Validate options
+    if (!any(colnames(referenceData) %in% ids)) {
+      stop("Given ids column not found in referenceData")
+    }
     if (is.null(c(mFormula, mWeight, mCharge))) {
       stop("Any of 'mFormula', 'mWeight' or 'mCharge' must be given")
     }
@@ -63,6 +66,9 @@ checkBalance <-
       stop(
         "Just one value (mFormula, mWeight or mCharge) must be given to evaluate the reaction balance"
       )
+    }
+    if (!any(colnames(referenceData) %in% c(mFormula, mWeight, mCharge))) {
+      stop("Given options were not found in referenceData")
     }
     
     # Filter reference data
