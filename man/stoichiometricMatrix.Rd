@@ -26,15 +26,15 @@ Some examples of valid stoichiometric reactions are: \itemize{
 The stoichiometric matrix for a given set of stoichiometric reactions
 }
 \description{
-A set of stoichiometric reactions are often represented in a more compact form called the stoichiometry matrix. 
-If a metabolic network has n reactions and m participating metabolites then the stoichiometry matrix will have correspondingly m rows and n columns. 
+A set of stoichiometric reactions are often represented in a more compact form called the stoichiometry matrix.
+If a metabolic network has n reactions and m participating metabolites then the stoichiometry matrix will have correspondingly m rows and n columns.
 Values in stoichiometric matrix represent the metabolite coefficients in each reaction.
 }
 \examples{
 # Loading a set of stoichiometric reactions
 glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep='\\t')
 
-#Building the stoichiometric matrix
+# Building the stoichiometric matrix
 stoichiometricMatrix(reactionList = glycolysis$REACTION)
 }
 \author{
