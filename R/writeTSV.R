@@ -111,7 +111,7 @@ writeTSV <-
     outputData$name <-
       metabolites(modelData[["REACTION"]], woCompartment = TRUE)
     outputData$compartment <-
-      compartments(metabolites(modelData[["REACTION"]]), uniques = FALSE)
+      compartments(metabolites(modelData[["REACTION"]]))
     outputData <- data.frame(outputData)
     write.table(
       outputData,
