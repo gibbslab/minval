@@ -29,9 +29,9 @@
 #' \item \code{'OBJECTIVE':} A list of numeric values containing objective values for each reaction (optional: column can be empty).
 #' }
 #' @param modelID A single character string giving the modelID
-#' @param outputFile A writable path for the three 'TSV' output files.
+#' @param outputFile A writable path for the three \code{'.TSV'} output files.
 #' @param boundary A single character string specifying the compartment to be used as boundary
-#' @return A set of three 'TSV' files in a valid format to the 'sybil' R package.
+#' @return A set of three \code{'.TSV'} files in a valid format to the 'sybil' R package.
 #' @examples 
 #' #' # Loading a metabolic model
 #' glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep='\t')

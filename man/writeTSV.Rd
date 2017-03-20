@@ -33,12 +33,12 @@ If not set, 1000 is used by default. (optional: column can be empty),
 
 \item{modelID}{A single character string giving the modelID}
 
-\item{outputFile}{A writable path for the three 'TSV' output files.}
+\item{outputFile}{A writable path for the three \code{'.TSV'} output files.}
 
 \item{boundary}{A single character string specifying the compartment to be used as boundary}
 }
 \value{
-A set of three 'TSV' files in a valid format to the 'sybil' R package.
+A set of three \code{'.TSV'} files in a valid format to the 'sybil' R package.
 }
 \description{
 This function converts a data.frame or a modelOrg model to TSV format for the 'sybil' R package. TSV format require three \code{'.TSV'} output files (\code{'_react.tsv'}, \code{'_met.tsv'}, \code{'_desc.tsv'}).
