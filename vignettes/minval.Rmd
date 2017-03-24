@@ -4,7 +4,7 @@ author: "Daniel Osorio, Janneth Gonzalez and Andrés Pinzon"
 #date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Plotting Random Effects of Mixed Models}
+  %\VignetteIndexEntry{Introduction to MINVAL}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -15,7 +15,7 @@ knitr::opts_chunk$set(collapse = TRUE, dev = "png", fig.width = 7, fig.height = 
 The **MINVAL** package was designed as a tool to identify orphan metabolites and evaluate the mass and charge balance of stoichometric reactions. MINVAL also includes functions to write models in TSV and SBML formats, extract all reactants, products, metabolite names and compartments from a metabolic reconstruction.
 
 ## Syntax Evaluation
-```{r message=FALSE}
+```{r, message=FALSE}
 library("minval")
 library("sybilSBML")
 ```
