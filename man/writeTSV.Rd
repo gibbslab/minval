@@ -2,7 +2,7 @@
 % Please edit documentation in R/writeTSV.R
 \name{writeTSV}
 \alias{writeTSV}
-\title{Write a model in TSV format for the 'sybil' R package.}
+\title{Write a model in TSV format for the 'sybil' R package}
 \usage{
 writeTSV(modelData, modelID = "model", outputFile, boundary = "b")
 }

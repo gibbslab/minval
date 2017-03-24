@@ -3,7 +3,7 @@
 #' @author Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
-#' @title Write a model in TSV format for the 'sybil' R package.
+#' @title Write a model in TSV format for the 'sybil' R package
 #' @description This function converts a data.frame or a modelOrg model to TSV format for the 'sybil' R package. TSV format require three \code{'.TSV'} output files (\code{'_react.tsv'}, \code{'_met.tsv'}, \code{'_desc.tsv'}).
 #' @param modelData A modelOrg or a data.frame object. If a data.frame is given, it must contain following mandatory colnames: \itemize{
 #' \item \code{'ID':} A list of single character strings containing the reaction abbreviations, Entries in the field abbreviation are used as reaction ids, so they must be unique.
