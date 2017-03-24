@@ -2,7 +2,7 @@
 % Please edit documentation in R/writeSBML.R
 \name{writeSBML}
 \alias{writeSBML}
-\title{Write a model in SBML format.}
+\title{Write a model in SBML format}
 \usage{
 writeSBML(modelData, modelID = "model", outputFile, boundary = "b")
 }
