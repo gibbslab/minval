@@ -37,7 +37,6 @@
 #' ChEBI <- downloadChEBI(release = '142', woAssociations = TRUE)
 #'  }
 #' @seealso The ChEBI database webpage: https://www.ebi.ac.uk/chebi/
-#' @keywords Download ChEBI check mass charge balance
 downloadChEBI <- function(release = "latest",
                           woAssociations = FALSE) {
   # Download folder
