@@ -1,6 +1,6 @@
 ---
 title: "MINVAL - **MIN**imal **VAL**idation for Stoichiometric Reactions"
-author: "Daniel Osorio, Janneth Gonzalez and Andrés Pinzon"
+author: "Daniel Osorio, Janneth Gonzalez and Andrés Pinzón"
 #date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -11,14 +11,18 @@ vignette: >
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(collapse = TRUE, dev = "png", fig.width = 7, fig.height = 5, message = FALSE, warning = FALSE)
 ```
-## Introduction to MINVAL
-The **MINVAL** package was designed as a tool to identify orphan metabolites and evaluate the mass and charge balance of stoichometric reactions. MINVAL also includes functions to write models in TSV and SBML formats, extract all reactants, products, metabolite names and compartments from a metabolic reconstruction.
-
+### Introduction to MINVAL
+The **MINVAL** package was designed as a tool to identify orphan metabolites and evaluate the mass and charge balance of stoichiometric reactions. The package also includes functions to write models in TSV and SBML formats, extract all reactants, products, metabolite names and compartments from a metabolic reconstruction. It is available through CRAN repositories, to install it just type:
+```{r, eval=FALSE}
+install.packages("minval")
+```
+**MINVAL** includes eleven functions designed to check and depurate metabolic reconstructions before its interrogation through Flux Balance Analysis (FBA). FBA methods are available for the R language in the `"sybil"` (**Sy**stems **Bi**ology **L**ibrary) package. To load required packages just type:
 ```{r, message=FALSE}
 library("minval")
 library("sybilSBML")
 ```
-## Metabolic Models
+### Metabolic Reconstructions
+Metabolic reconstructions are sets of stoichiometric reactions that represents chemical reactions. A chemical reaction is a process where a set of chemical compounds called reactants are converted into products.
 ```{r}
 glycolysis <- read.csv(file = system.file("extdata", "glycolysisModel.csv",
                                           package = "minval"), 
@@ -26,11 +30,13 @@ glycolysis <- read.csv(file = system.file("extdata", "glycolysisModel.csv",
                         sep = '\t'
                         )
 ```
-
+```{r}
+head(x = glycolysis$REACTION, n = 10)
+```
 ```{r}
 colnames(glycolysis)
 ```
-## SBML files
+### SBML files
 ```{r}
 writeSBML(modelData = glycolysis,
           modelID = "Glycolysis",
@@ -48,7 +54,7 @@ optimizeProb(glycoModel)
 validateSyntax(reactionList = glycolysis$REACTION)
 ```
 
-## Mass-Charge Balance
+### Mass-Charge Balance
 ```{r, eval = FALSE}
 ChEBI <- downloadChEBI(release = "latest",
                        woAssociations = TRUE
@@ -85,12 +91,12 @@ checkBalance(reactionList = glycolysis$REACTION,
              mFormula = "CHARGE"
              )
 ```
-## Characterize model
-### Stoichiometric matrix
+### Characterize model
+#### Stoichiometric matrix
 ```{r}
 stoichiometricMatrix(reactionList = glycolysis$REACTION)
 ```
-### Metabolites
+#### Metabolites
 ```{r}
 metabolites(reactionList = glycolysis$REACTION)
 ```
@@ -98,11 +104,11 @@ metabolites(reactionList = glycolysis$REACTION)
 metabolites(reactionList = glycolysis$REACTION,
             woCompartment = TRUE)
 ```
-### Compartments
+#### Compartments
 ```{r}
 compartments(reactionList = glycolysis$REACTION)
 ```
-### OrphanMetabolites
+#### OrphanMetabolites
 ```{r}
 orphanMetabolites(reactionList = glycolysis$REACTION)
 ```
