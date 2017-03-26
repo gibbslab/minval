@@ -1,6 +1,6 @@
 ---
 title: "MINVAL - **MIN**imal **VAL**idation for Stoichiometric Reactions"
-author: "Daniel Osorio, Janneth Gonzalez and Andrés Pinzón"
+author: "Daniel Osorio, Janneth Gonzalez and Andres Pinzon"
 #date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
