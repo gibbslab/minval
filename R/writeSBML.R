@@ -22,10 +22,10 @@
 #' }
 #' \item \code{'GPR':} A set of genes joined by boolean operators as AND or OR, rules may be nested by parenthesis. (optional: column can be empty),
 #' \item \code{'LOWER.BOUND':} A list of numeric values containing the lower bounds of the reaction rates.
-#' If not set, zero is used for an irreversible reaction and 1000 for a reversible reaction. (optional: column can be empty),
+#' If not set, zero is used for an irreversible reaction and -1000 for a reversible reaction. (optional: column can be empty),
 #' \item \code{'UPPER.BOUND':} A list of numeric values containing the upper bounds of the reaction rates.
 #' If not set, 1000 is used by default. (optional: column can be empty),
-#' \item \code{'OBJECTIVE':} A list of numeric values containing objective values for each reaction (optional: column can be empty).
+#' \item \code{'OBJECTIVE':} A list of numeric values containing objective values (-1, 0 or 1) for each reaction (optional: column can be empty).
 #' }
 #' @param modelID A single character string giving the modelID
 #' @param outputFile A writable path for the output 'SBML' file to be generate
