@@ -22,7 +22,22 @@ library("minval")
 library("sybilSBML")
 ```
 ### Metabolic Reconstructions
-Metabolic reconstructions are sets of stoichiometric reactions that represents chemical reactions. A chemical reaction is a process where a set of chemical compounds called reactants are converted into products.
+Metabolic reconstructions are sets of stoichiometric reactions that represents chemical reactions. A chemical reaction is a process where a set of chemical compounds called reactants are converted into products. In a stoichiometric reaction, all the reactants are placed on the left and the products on the right separated by an arrow which indicates the direction of the reaction. An example of a stoichiometric reaction is:
+```{r, eval= FALSE}
+"ATP[c] + 3-Phospho-D-glycerate[c] <=> ADP[c] + 3-Phospho-D-glyceroyl phosphate[c]"
+```
+**MINVAL** can extract both, reactants and products for a set of stoichiometric reactions through the `reactants` and `products` functions as follows: 
+
+* If the chemical reaction is irreversible `(=>)` then reactants and products are separated and returned afterward.
+```{r}
+reactants(reactionList = "ATP[c] + alpha-D-Glucose[c] => ADP[c] + alpha-D-Glucose 6-phosphate[c]")
+products(reactionList = "ATP[c] + alpha-D-Glucose[c] => ADP[c] + alpha-D-Glucose 6-phosphate[c]")
+```
+* If the chemical reaction is reversible `(<=>)` then all reactants at some point can act as products and *vice versa*, for that reason the functions return all reaction metabolites.
+```{r}
+reactants(reactionList = "ATP[c] + 3-Phospho-D-glycerate[c] <=> ADP[c] + 3-Phospho-D-glyceroyl phosphate[c]")
+products(reactionList = "ATP[c] + 3-Phospho-D-glycerate[c] <=> ADP[c] + 3-Phospho-D-glyceroyl phosphate[c]")
+```
 ```{r}
 glycolysis <- read.csv(file = system.file("extdata", "glycolysisModel.csv",
                                           package = "minval"), 
@@ -81,14 +96,14 @@ checkBalance(reactionList = glycolysis$REACTION,
 checkBalance(reactionList = glycolysis$REACTION,
              referenceData = chemicalData,
              ids = "NAME",
-             mFormula = "MASS"
+             mWeight = "MASS"
              )
 ```
 ```{r}
 checkBalance(reactionList = glycolysis$REACTION,
              referenceData = chemicalData,
              ids = "NAME",
-             mFormula = "CHARGE"
+             mCharge = "CHARGE"
              )
 ```
 ### Characterize model
