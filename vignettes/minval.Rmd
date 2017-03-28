@@ -60,7 +60,7 @@ Metabolic models include also another additional information related with the st
     - Each metabolite must have only one stoichiometric coefficient, substituents must be joined to metabolite name by a hyphen (`-`) symbol.
     - Exchange reactions have only one metabolite before arrow symbol.
     - Compartments must be given between square brackets (`[compartment]`) joined at the end of metabolite name.
-* **GPR:** A set of genes joined by boolean operators as AND or OR, rules may be nested by parenthesis. (optional: column can be empty)
+* **GPR:** A set of genes joined by boolean operators as `AND` or `OR`, rules may be nested by parenthesis. (optional: column can be empty)
 * **LOWER.BOUND:** A list of numeric values containing the lower bounds of the reaction rates. If not set, zero is used for an irreversible reaction and -1000 for a reversible reaction. (optional: column can be empty)
 * **UPPER.BOUND:** list of numeric values containing the upper bounds of the reaction rates. If not set, 1000 is used by default. (optional: column can be empty)
 * **OBJECTIVE:** A list of numeric values containing objective values (0 or 1) for each reaction (optional: column can be empty)
@@ -68,17 +68,23 @@ Metabolic models include also another additional information related with the st
 colnames(glycolysis)
 ```
 ### SBML files
+The standard format to share and store biological processes such as metabolic models is the Systems Biology Markup Language (SBML) format. **MINVAL** includes the `"writeSBML"` function which is able to write models in SBML (`level = 2`, `version = 1`) format as follows:
 ```{r}
 writeSBML(modelData = glycolysis,
           modelID = "Glycolysis",
           outputFile = "glycolysis.xml"
           )
-
+```
+Metabolic models in SBML format can be readed through the `readSBMLmod` function of the `sybilSBML` R package.
+```{r}
 glycoModel <- sybilSBML::readSBMLmod("glycolysis.xml")
 glycoModel
+```
+After load the metabolic model, this can be interrogated through the `optimizeProb` function of the `sybil` R package. In this case, the reaction `R00200` was set as the objective function. The `R00200` reaction describes the production of pyruvate from phosphoenolpyruvate an alpha-D-Glucose derivate.
 
-
-optimizeProb(glycoModel)
+Glycolysis pathway can be summarized as: `1 alpha-D-Glucose[c] + 2 NAD+[c] + 2 ADP[c] + 2 Orthophosphate[c] => 2 Pyruvate[c] + 2 NADH[c] + 2 H+[c] + 2 ATP[c] + 2 H2O[c]` where the metabolism of one molecule of glucose yield two molecules of pyruvate.
+```{r}
+sybil::optimizeProb(glycoModel)
 ```
 
 ```{r}
