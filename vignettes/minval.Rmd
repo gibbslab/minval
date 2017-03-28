@@ -21,23 +21,24 @@ install.packages("minval")
 library("minval")
 library("sybilSBML")
 ```
-### Metabolic Reconstructions
-Metabolic reconstructions are sets of stoichiometric reactions that represents chemical reactions. A chemical reaction is a process where a set of chemical compounds called reactants are converted into products. In a stoichiometric reaction, all the reactants are placed on the left and the products on the right separated by an arrow which indicates the direction of the reaction. An example of a stoichiometric reaction is:
+### Metabolic Models
+Metabolic models are sets of stoichiometric reactions that represents a process where a set of chemical compounds called reactants are converted into others called products. In a stoichiometric reaction, all the reactants are placed on the left and the products on the right separated by an arrow symbol which indicates the direction of the reaction. An example of a reversible `"<=>"` stoichiometric reaction is:
 ```{r, eval= FALSE}
 "ATP[c] + 3-Phospho-D-glycerate[c] <=> ADP[c] + 3-Phospho-D-glyceroyl phosphate[c]"
 ```
 **MINVAL** can extract both, reactants and products for a set of stoichiometric reactions through the `reactants` and `products` functions as follows: 
 
-* If the chemical reaction is irreversible `(=>)` then reactants and products are separated and returned afterward.
+* If the reaction is irreversible `"=>"` then reactants and products are separated and returned afterward.
 ```{r}
 reactants(reactionList = "ATP[c] + alpha-D-Glucose[c] => ADP[c] + alpha-D-Glucose 6-phosphate[c]")
 products(reactionList = "ATP[c] + alpha-D-Glucose[c] => ADP[c] + alpha-D-Glucose 6-phosphate[c]")
 ```
-* If the chemical reaction is reversible `(<=>)` then all reactants at some point can act as products and *vice versa*, for that reason the functions return all reaction metabolites.
+* If the reaction is reversible `"<=>"` then all reactants at some point can act as products and *vice versa*, for that reason functions return all reaction metabolites.
 ```{r}
 reactants(reactionList = "ATP[c] + 3-Phospho-D-glycerate[c] <=> ADP[c] + 3-Phospho-D-glyceroyl phosphate[c]")
 products(reactionList = "ATP[c] + 3-Phospho-D-glycerate[c] <=> ADP[c] + 3-Phospho-D-glyceroyl phosphate[c]")
 ```
+To show the potential use of the **MINVAL** package a set of 19 stoichiometric reactions that represent an unbalanced model of the glycolysis process was included. To load it just type:
 ```{r}
 glycolysis <- read.csv(file = system.file("extdata", "glycolysisModel.csv",
                                           package = "minval"), 
@@ -45,11 +46,20 @@ glycolysis <- read.csv(file = system.file("extdata", "glycolysisModel.csv",
                         sep = '\t'
                         )
 ```
-```{r}
-head(x = glycolysis$REACTION, n = 10)
-```
+Metabolic models include also another additional information related with the stoichiometric reactions. The follows are just the minimal information required:
+
+* ID:
+* DESCRIPTION:
+* REACTION: 
+* GPR:
+* LOWER.BOUND:
+* UPPER.BOUND:
+* OBJECTIVE:
 ```{r}
 colnames(glycolysis)
+```
+```{r}
+head(x = glycolysis$REACTION, n = 10)
 ```
 ### SBML files
 ```{r}
