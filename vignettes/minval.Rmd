@@ -35,7 +35,7 @@ Metabolic models are sets of stoichiometric reactions that represents a process 
 reactants(reactionList = "ADP[c] + Phosphoenolpyruvate[c] => ATP[c] + Pyruvate[c]")
 products(reactionList = "ADP[c] + Phosphoenolpyruvate[c] => ATP[c] + Pyruvate[c]")
 ```
-* If the reaction is reversible `"<=>"` then all reactants at some point can act as products and *vice versa*, for that reason functions return all reaction metabolites.
+* If the reaction is reversible `"<=>"` then all reactants at some point can act as products and *vice versa*, for that reason both functions return all reaction metabolites.
 ```{r}
 reactants(reactionList = "H2O[c] + Urea-1-Carboxylate[c] <=> 2 CO2[c] + 2 NH3[c]")
 products(reactionList = "H2O[c] + Urea-1-Carboxylate[c] <=> 2 CO2[c] + 2 NH3[c]")
@@ -80,18 +80,30 @@ Metabolic models in SBML format can be readed through the `readSBMLmod` function
 glycoModel <- sybilSBML::readSBMLmod("glycolysis.xml")
 glycoModel
 ```
-After load the metabolic model, this can be interrogated through the `optimizeProb` function of the `sybil` R package. In this case, the reaction `R00200` was set as the objective function. The `R00200` reaction describes the production of pyruvate from phosphoenolpyruvate an alpha-D-Glucose derivate.
+After load the metabolic model, it can be interrogated through FBA using the `optimizeProb` function of the `sybil` R package. In this case, the reaction `R00200` was set as the objective function. The `R00200` reaction describes the production of pyruvate from phosphoenolpyruvate an alpha-D-Glucose derivate.
 
-Glycolysis pathway can be summarized as: `1 alpha-D-Glucose[c] + 2 NAD+[c] + 2 ADP[c] + 2 Orthophosphate[c] => 2 Pyruvate[c] + 2 NADH[c] + 2 H+[c] + 2 ATP[c] + 2 H2O[c]` where the metabolism of one molecule of glucose yield two molecules of pyruvate.
+Glycolysis pathway can be summarized as: `1 alpha-D-Glucose[c] + 2 NAD+[c] + 2 ADP[c] + 2 Orthophosphate[c] => 2 Pyruvate[c] + 2 NADH[c] + 2 H+[c] + 2 ATP[c] + 2 H2O[c]` where the metabolism of one molecule of alpha-D-Glucose yield two molecules of pyruvate. 
+
+As is shown below, interrogated glycolysis model estimates a production of six molecules of pyruvate by each alpha-D-Glucose molecule due a mass unbalance. FBA methods are sensitive to thermodynamic (mass - charge) unbalance, so in order to achieve a valid biological extrapolation is mandatory to avoid this type of unbalancing in all model reactions.
 ```{r}
 sybil::optimizeProb(glycoModel)
 ```
+### Syntax validation
+The first step for a stoichiometric reactions validation is to check their syntax. Stoichiometric reactions must have the following mandatory characteristics:
 
+- Arrows symbols must be given in the form `'=>'` or `'<=>'` (Inverse arrow symbols `'<='` or other types as: `'-->'`, `'<==>'`, `'->'` will not be parsed and will lead to errors.)
+- Arrow symbols and plus signs (`+`) must be surrounded by a space character.
+- Stoichiometric coefficients must be surrounded by a space character and not by parentheses.
+- Each metabolite must have only one stoichiometric coefficient, substituents must be joined to metabolite name by a hyphen (`-`) symbol.
+- Exchange reactions have only one metabolite before arrow symbol.
+- Compartments must be given between square brackets (`[compartment]`) joined at the end of metabolite name.
+
+Syntax validity can be checked through minval using the `validateSyntax` function which returns a boolean `TRUE` value if the stoichiometric reaction pass all validations. To validate syntax just type:
 ```{r}
 validateSyntax(reactionList = glycolysis$REACTION)
 ```
 
-### Mass-Charge Balance
+### Mass - Charge Balance Validation
 ```{r, eval = FALSE}
 ChEBI <- downloadChEBI(release = "latest",
                        woAssociations = TRUE
