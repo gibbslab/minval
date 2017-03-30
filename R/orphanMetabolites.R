@@ -75,7 +75,11 @@ orphanMetabolites <-
           orphan[grep(paste0("\\[", compartment, "\\]"), orphan)]
         }, simplify = FALSE)
     }
-    return(orphan)
+    if (length(orphan) == 0){
+      return (NA)
+    } else {
+      return(orphan)
+    }
   }
 
 #' @describeIn orphanMetabolites Identify the orphan reactants of a set of stoichometric reactions
