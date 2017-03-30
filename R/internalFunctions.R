@@ -110,7 +110,7 @@ reactionType <- function(reactionList) {
     } else if (length(left[[reaction]]) > 1 ||
                length(right[[reaction]]) > 1) {
       return("Transport reaction")
-    } else if (all.equal(target = right[[reaction]], current = right[[reaction]])) {
+    } else if (all.equal(target = left[[reaction]], current = right[[reaction]]) == TRUE) {
       return("Compartmentalized reaction")
     } else {
       return("Transport reaction")
