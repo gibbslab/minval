@@ -51,6 +51,10 @@ compartments <- function(reactionList, uniques = TRUE) {
     ))
   # Remove brackets
   compartments <- gsub("\\[|\\]", "", compartments)
+  # NA return
+  if (length(compartments) == 0) {
+    compartments <- NA
+  }
   # Return compartments
   if (uniques == TRUE) {
     compartments <- unique(compartments)
