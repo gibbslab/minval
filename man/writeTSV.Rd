@@ -15,7 +15,7 @@ writeTSV(modelData, modelID = "model", outputFile, boundary = "b")
 \item Arrow symbols and plus signs (\code{+}) must be surrounded by a space character
 \item Stoichiometric coefficients must be surrounded by a space character and not by parentheses.
 \item Each metabolite must have only one stoichiometric coefficient, substituents must be joined to metabolite name by a hyphen (\code{-}) symbol.
-\item Exchange reactions have only one metabolite before arrow symbol
+\item Exchange reactions must have only one metabolite before arrow symbol
 \item Compartments must be given between square brackets ([compartment]) joined at the end of metabolite name
 }
 Some examples of valid stoichiometric reactions are: \itemize{
