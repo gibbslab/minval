@@ -107,7 +107,11 @@ reactionType <- function(reactionList) {
       if (length(left[[reaction]]) > 1 | length(right[[reaction]]) > 1) {
         return("Transport reaction")
       } else if (all.equal(target = left[[reaction]], current = right[[reaction]]) == TRUE) {
-        return("Compartmentalized reaction")
+        if (is.na(left[[reaction]]) && is.na(right[[reaction]])) {
+          return("No compartment detected")
+        } else {
+          return("Compartmentalized reaction")
+        }
       } else {
         return("Transport reaction")
       }
@@ -231,13 +235,33 @@ rearmReactions <-
     } else if (type == "TSV") {
       unlist(lapply(seq_len(dim(S)[2]), function(reaction) {
         met = S[, reaction] < 0
-        reactants = paste0("(", abs(S[which(met == TRUE), reaction]), ") ", gsub("\\+","_ChargedP",gsub("[[:space:]]+","_",rownames(S)[which(met == TRUE)])), collapse = " + ")
+        reactants = paste0("(",
+                           abs(S[which(met == TRUE), reaction]),
+                           ") ",
+                           gsub(
+                             "\\+",
+                             "_ChargedP",
+                             gsub("[[:space:]]+", "_", rownames(S)[which(met == TRUE)])
+                           ),
+                           collapse = " + ")
         if (any(S[, reaction] > 0)) {
           met = S[, reaction] > 0
-          produts = paste0("(", abs(S[which(met == TRUE), reaction]), ") ", gsub("\\+","_ChargedP",gsub("[[:space:]]+","_",rownames(S)[which(met == TRUE)])), collapse = " + ")
+          produts = paste0("(",
+                           abs(S[which(met == TRUE), reaction]),
+                           ") ",
+                           gsub(
+                             "\\+",
+                             "_ChargedP",
+                             gsub("[[:space:]]+", "_", rownames(S)[which(met == TRUE)])
+                           ),
+                           collapse = " + ")
         } else {
           met = S[, reaction] > 0
-          produts = paste0(abs(S[which(met == TRUE), reaction]), " ", gsub("\\+","_ChargedP",gsub("[[:space:]]+","_",rownames(S)[which(met == TRUE)])), collapse = " + ")
+          produts = paste0(abs(S[which(met == TRUE), reaction]), " ", gsub(
+            "\\+",
+            "_ChargedP",
+            gsub("[[:space:]]+", "_", rownames(S)[which(met == TRUE)])
+          ), collapse = " + ")
         }
         
         paste(reactants,
