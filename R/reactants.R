@@ -20,22 +20,36 @@
 #' }
 #' @return A vector with the identified reactants in the reaction, or a list with the identified reactats in each reaction if a set of stoichiometric reactions was given.
 
-reactants <- function(reactionList){
+reactants <- function(reactionList) {
   # Convert to a vector
   reactionList <- as.vector(reactionList)
   # Remove reaction with invalid syntax
   reactionList <- reactionList[validateSyntax(reactionList)]
   # Extract reactants for irreversible reactions
-  reaction <- unlist(lapply(strsplit(reactionList,"[[:space:]]+=>[[:space:]]+"),function(reactionList){reactionList[[1]]}))
+  reaction <-
+    unlist(lapply(strsplit(reactionList, "[[:space:]]+=>[[:space:]]*"), function(reactionList) {
+      reactionList[[1]]
+    }))
   # Extract metabolites for reversible reactions
-  reaction <- strsplit(reaction, "[[:space:]]+<=>[[:space:]]+")
+  reaction <- strsplit(reaction, "[[:space:]]+<=>[[:space:]]*")
   # Split independient reactants
-  reaction <- lapply(reaction, function(reaction){strsplit(reaction,"[[:space:]]+\\+[[:space:]]+")})
+  reaction <-
+    lapply(reaction, function(reaction) {
+      strsplit(reaction, "[[:space:]]+\\+[[:space:]]+")
+    })
   # Remove spaces and report uniques
-  reaction <- lapply(reaction, function(reaction){unique(removeSpaces(unlist(reaction)))})
+  reaction <-
+    lapply(reaction, function(reaction) {
+      unique(removeSpaces(unlist(reaction)))
+    })
   # Use a regex to extract stoichiometric coefficients and separate the metabolite name
-  reactants <- lapply(reaction, function(reaction){unique(removeCoefficients(reaction))})
-  if (length(reactionList)==1){
+  reactants <-
+    lapply(reaction, function(reaction) {
+      unique(removeCoefficients(reaction))
+    })
+  if (length(reactants) == 0) {
+    return(NA)
+  } else if (length(reactants) == 1) {
     return(unlist(reactants))
   } else {
     return(reactants)
