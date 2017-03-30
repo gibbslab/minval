@@ -104,28 +104,38 @@ validateSyntax(reactionList = glycolysis$REACTION)
 ```
 
 ### Mass - Charge Balance Validation
+Another step for a stoichiometric reactions validation is to check their mass - charge balance. This process requires the use of a reference with chemical formulas, molecular weights or net charges for each metabolite included in the metabolic model.
+
+#### ChEBI database download
+**MINVAL** includes the `downloadChEBI` function that allows the download of different releases of the Chemical Entities of Biological Interest (ChEBI) database, a freely available dictionary of molecular entities focused on 'small' chemical compounds involved in biochemical reactions. To download the latest version (this process takes aprox. 2 min with a 5 Mb internet connection) of the ChEBI database just type:
+
 ```{r, eval = FALSE}
 ChEBI <- downloadChEBI(release = "latest",
                        woAssociations = TRUE
                        )
 ```
-
-```{r,}
+Reference also can be user provided. An example of a reference for the glycolysis model is shown below.
+```{r}
 chemicalData <- read.csv2(file = system.file("extdata", "chemData.csv", 
                                              package = "minval")
                           )
-```
-
-```{r}
 head(chemicalData)
 ```
 
+#### Mass Balance Validation
+In a balanced stoichiometric reaction according to the Lomonosov-Lavoisier law, the mass comprising the reactants should be the same mass present in the products. If chemical formula is given, the `checkBalance` function multiplies the atom numbers by their respective stoichiometric coefficient, and establishes if the atomic composition of reactants and products are the same. If molecular weight is given then sum of masses for reactants and products are compared. In both cases a boolean `TRUE` value is returned if mass is balanced.
+
+Mass balance can be tested using the chemical formula or the molecular weight associated to each metabolite as follows: 
 ```{r}
 checkBalance(reactionList = glycolysis$REACTION,
              referenceData = chemicalData,
              ids = "NAME",
              mFormula = "FORMULA"
              )
+```
+As is shown above, the third stoichiometric reaction is unbalanced. It can be corrected replacing manually the unbalanced reaction as follows:
+```{r}
+glycolysis$REACTION[3] <- "D-Glyceraldehyde 3-phosphate[c] + Orthophosphate[c] + NAD+[c] <=> 3-Phospho-D-glyceroyl phosphate[c] + NADH[c] + H+[c]"
 
 checkBalance(reactionList = glycolysis$REACTION,
              referenceData = chemicalData,
@@ -133,6 +143,19 @@ checkBalance(reactionList = glycolysis$REACTION,
              mWeight = "MASS"
              )
 ```
+When all stoichiometric reactions are balanced, then the model can be exported and loaded to be interrogated again:
+```{r}
+writeSBML(modelData = glycolysis,
+          modelID = "GlycolysisBalanced",
+          outputFile = "glycolysisBalanced.xml"
+          )
+
+sybil::optimizeProb(sybilSBML::readSBMLmod("glycolysisBalanced.xml"))
+
+```
+
+#### Charge Balance Validation
+Charge balance can be also tested through the `checkBalance` function using the net charge of metabolites as follows:
 ```{r}
 checkBalance(reactionList = glycolysis$REACTION,
              referenceData = chemicalData,
@@ -142,6 +165,7 @@ checkBalance(reactionList = glycolysis$REACTION,
 ```
 ### Characterize model
 #### Stoichiometric matrix
+A metabolic model is often represented in a more compact form called the stoichiometry matrix (*S*). If a metabolic model has *n* reactions and *m* participating metabolites, then the stoichiometry matrix will have correspondingly *m* rows and *n* columns. Values in the stoichiometric matrix represent the metabolites coefficients in each reaction. To generate the stoichiometric matrix just type:
 ```{r}
 stoichiometricMatrix(reactionList = glycolysis$REACTION)
 ```
