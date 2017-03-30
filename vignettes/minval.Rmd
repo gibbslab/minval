@@ -58,7 +58,7 @@ Metabolic models include also another additional information related with the st
     - Arrow symbols and plus signs (`+`) must be surrounded by a space character.
     - Stoichiometric coefficients must be surrounded by a space character and not by parentheses.
     - Each metabolite must have only one stoichiometric coefficient, substituents must be joined to metabolite name by a hyphen (`-`) symbol.
-    - Exchange reactions have only one metabolite before arrow symbol.
+    - Exchange reactions must have only one metabolite before arrow symbol.
     - Compartments must be given between square brackets (`[compartment]`) joined at the end of metabolite name.
 * **GPR:** A set of genes joined by boolean operators as `AND` or `OR`, rules may be nested by parenthesis. (optional: column can be empty)
 * **LOWER.BOUND:** A list of numeric values containing the lower bounds of the reaction rates. If not set, zero is used for an irreversible reaction and -1000 for a reversible reaction. (optional: column can be empty)
@@ -95,7 +95,7 @@ The first step for a stoichiometric reactions validation is to check their synta
 - Arrow symbols and plus signs (`+`) must be surrounded by a space character.
 - Stoichiometric coefficients must be surrounded by a space character and not by parentheses.
 - Each metabolite must have only one stoichiometric coefficient, substituents must be joined to metabolite name by a hyphen (`-`) symbol.
-- Exchange reactions have only one metabolite before arrow symbol.
+- Exchange reactions must have only one metabolite before arrow symbol.
 - Compartments must be given between square brackets (`[compartment]`) joined at the end of metabolite name.
 
 Syntax validity can be checked through minval using the `validateSyntax` function which returns a boolean `TRUE` value if the stoichiometric reaction pass all validations. To validate syntax just type:
