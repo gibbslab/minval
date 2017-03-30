@@ -103,20 +103,17 @@ reactionType <- function(reactionList) {
     })
   # Define type of reaction
   sapply(seq_along(reactionList), function(reaction) {
-    if (length(right[[reaction]]) > 0) {
-      if (length(left[[reaction]]) > 1 | length(right[[reaction]]) > 1) {
-        return("Transport reaction")
-      } else if (all.equal(target = left[[reaction]], current = right[[reaction]]) == TRUE) {
-        if (is.na(left[[reaction]]) && is.na(right[[reaction]])) {
-          return("No compartment detected")
-        } else {
-          return("Compartmentalized reaction")
-        }
-      } else {
-        return("Transport reaction")
-      }
+    if (all(is.na(left[[reaction]])) && all(is.na(right[[reaction]]))) {
+      return("No compartmentalized reaction")
+    } else if (all(is.na(right[[reaction]]))) {
+      return("Exchange reaction")
+    } else if (length(left[[reaction]]) > 1 ||
+               length(right[[reaction]]) > 1) {
+      return("Transport reaction")
+    } else if (all.equal(target = right[[reaction]], current = right[[reaction]])) {
+      return("Compartmentalized reaction")
     } else {
-      return ("Exchange reaction")
+      return("Transport reaction")
     }
   })
 }
@@ -152,7 +149,7 @@ validateData <- function(modelData) {
 removeComments <- function(modelData) {
   comments <- grepl("^#", modelData[, 1])
   if (any(comments)) {
-    modelData <- modelData[!comments, ]
+    modelData <- modelData[!comments,]
   }
   return (modelData)
 }
