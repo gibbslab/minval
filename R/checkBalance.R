@@ -47,13 +47,14 @@ checkBalance <-
            ids,
            mFormula = NULL,
            mWeight = NULL,
-           mCharge = NULL) {
+           mCharge = NULL,
+           woCompartment = TRUE) {
     # Validate syntax
     reactionList <-
       as.vector(x = reactionList[validateSyntax(reactionList = reactionList)])
     
     # Extract unique metabolites
-    metabolites <- metabolites(reactionList, woCompartment = TRUE)
+    metabolites <- metabolites(reactionList, woCompartment = woCompartment)
     
     # Validate options
     if (!any(colnames(referenceData) %in% ids)) {
@@ -97,41 +98,17 @@ checkBalance <-
     
     # Split reaction
     reactants <- getLeft(reactionList)
-    reactants <-
-      lapply(reactants, function(reactants) {
-        rep(
-          metabolites(reactionList = reactants, woCompartment = TRUE),
-          coefficients(reactants)
-        )
-      })
     products <- getRight(reactionList)
-    products <-
-      lapply(products, function(products) {
-        rep(
-          metabolites(reactionList = products, woCompartment = TRUE),
-          coefficients(products)
-        )
-      })
-    
-    # Extract chemical information by reaction
-    reactants <-
-      lapply(reactants, function(reactants) {
-        referenceData[reactants, 2]
-      })
-    products <-
-      lapply(products, function(products) {
-        referenceData[products, 2]
-      })
     
     # If molecular formula is given, split formulas and add atoms by type
     if (!is.null(mFormula)) {
       reactants <-
         lapply(reactants, function(reactants) {
-          splitFormula(reactants)
+          splitFormula(coefficients(reactants), referenceData[metabolites(reactionList = reactants, woCompartment = woCompartment),2])
         })
       products <-
         lapply(products, function(products) {
-          splitFormula(products)
+          splitFormula(coefficients(products), referenceData[metabolites(reactionList = products, woCompartment = woCompartment),2])
         })
       balanced <-
         sapply(seq_along(reactants), function(reaction) {
@@ -141,11 +118,11 @@ checkBalance <-
       # If other type is given, add the associated values
       reactants <-
         lapply(reactants, function(reactants) {
-          sum(as.numeric(reactants))
+          sum((referenceData[metabolites(reactionList = reactants, woCompartment = woCompartment),2]) * coefficients(reactants))
         })
       products <-
         lapply(products, function(products) {
-          sum(as.numeric(products))
+          sum((referenceData[metabolites(reactionList = products, woCompartment = woCompartment),2]) * coefficients(products))
         })
       # Check balance
       balanced <-
