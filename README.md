@@ -22,6 +22,7 @@ Available functions:
 -------------------
 |Function | Description |
 |:--------|:------------|
+|characterizeRXNs|Characterize stoichiometric reactions by compartments and reaction type|
 |checkBalance|Evaluate the mass or charge balance for a set of stoichiometric reactions|
 |compartments|Extract the compartments associated to metabolites of a set of stoichiometric reactions|
 |downloadChEBI|Download the ChEBI database|
