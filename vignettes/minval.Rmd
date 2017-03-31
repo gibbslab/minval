@@ -183,11 +183,11 @@ compartments(reactionList = glycolysis$REACTION)
 ```
 #### OrphanMetabolites
 ```{r}
-orphanMetabolites(reactionList = glycolysis$REACTION)
+orphanMetabolites(reactionList = glycolysis$REACTION[1:10])
 ```
 ```{r}
-orphanReactants(reactionList = glycolysis$REACTION)
-orphanProducts(reactionList = glycolysis$REACTION)
+orphanReactants(reactionList = glycolysis$REACTION[1:10])
+orphanProducts(reactionList = glycolysis$REACTION[1:10])
 
 ```
 ### TSV files
