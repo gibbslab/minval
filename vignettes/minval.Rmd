@@ -1,82 +1,175 @@
 ---
 title: "MINVAL - **MIN**imal **VAL**idation for Stoichiometric Reactions"
-author: "Daniel Osorio, Janneth Gonzalez and Andrés Pinzon"
+author: "Daniel Osorio, Janneth Gonzalez and Andres Pinzon"
 #date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Plotting Random Effects of Mixed Models}
+  %\VignetteIndexEntry{Introduction to MINVAL}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(collapse = TRUE, dev = "png", fig.width = 7, fig.height = 5, message = FALSE, warning = FALSE)
 ```
-## Introduction to MINVAL
-The **MINVAL** package was designed as a tool to identify orphan metabolites and evaluate the mass and charge balance of stoichometric reactions. MINVAL also includes functions to write models in TSV and SBML formats, extract all reactants, products, metabolite names and compartments from a metabolic reconstruction.
-
-## Syntax Evaluation
-```{r message=FALSE}
+### Introduction to MINVAL
+The **MINVAL** package was designed as a tool to identify orphan metabolites and evaluate the mass and charge balance of stoichiometric reactions. The package also includes functions to write models in TSV and SBML formats, extract all reactants, products, metabolite names and compartments from a metabolic reconstruction. It is available through CRAN repositories, to install it just type:
+```{r, eval=FALSE}
+install.packages("minval")
+```
+**MINVAL** includes eleven functions designed to check and depurate metabolic reconstructions before its interrogation through Flux Balance Analysis (FBA). FBA methods are available for the R language in the `"sybil"` (**Sy**stems **Bi**ology **L**ibrary) package. To load required packages just type:
+```{r, message=FALSE}
 library("minval")
 library("sybilSBML")
 ```
+### Metabolic Models
+Metabolic models are sets of stoichiometric reactions that represents a process where a set of chemical compounds called reactants are converted into others called products. In a stoichiometric reaction, all the reactants are placed on the left and the products on the right separated by an arrow symbol which indicates the direction of the reaction. Some examples of valid stoichiometric reactions are:
+```{r, eval= FALSE}
+"H2O[c] + Urea-1-Carboxylate[c] <=> 2 CO2[c] + 2 NH3[c]"
+"ADP[c] + Phosphoenolpyruvate[c] => ATP[c] + Pyruvate[c]"
+"CO2[c] <=>"
+```
+**MINVAL** can extract both, reactants and products for a set of stoichiometric reactions through the `reactants` and `products` functions as follows: 
 
+* If the reaction is irreversible `"=>"` then reactants and products are separated and returned afterward.
+```{r}
+reactants(reactionList = "ADP[c] + Phosphoenolpyruvate[c] => ATP[c] + Pyruvate[c]")
+products(reactionList = "ADP[c] + Phosphoenolpyruvate[c] => ATP[c] + Pyruvate[c]")
+```
+* If the reaction is reversible `"<=>"` then all reactants at some point can act as products and *vice versa*, for that reason both functions return all reaction metabolites.
+```{r}
+reactants(reactionList = "H2O[c] + Urea-1-Carboxylate[c] <=> 2 CO2[c] + 2 NH3[c]")
+products(reactionList = "H2O[c] + Urea-1-Carboxylate[c] <=> 2 CO2[c] + 2 NH3[c]")
+```
+To show the potential use of the **MINVAL** package a set of 19 stoichiometric reactions that represent an unbalanced model of the glycolysis process was included. To load it just type:
 ```{r}
 glycolysis <- read.csv(file = system.file("extdata", "glycolysisModel.csv",
                                           package = "minval"), 
                         stringsAsFactors = FALSE,
                         sep = '\t'
                         )
+glycolysis$REACTION
 ```
+Metabolic models include also another additional information related with the stoichiometric reactions. The follows are just the minimal information required:
+
+* **ID:** A list of single character strings containing the reaction abbreviations, Entries in the field abbreviation are used as reaction ids, so they must be unique.
+* **REACTION:** A set of stoichiometric reaction with the following characteristics:
+    - Arrows symbols must be given in the form `'=>'` or `'<=>'`
+    - Inverse arrow symbols `'<='` or other types as: `'-->'`, `'<==>'`, `'->'` will not be parsed and will lead to errors.
+    - Arrow symbols and plus signs (`+`) must be surrounded by a space character.
+    - Stoichiometric coefficients must be surrounded by a space character and not by parentheses.
+    - Each metabolite must have only one stoichiometric coefficient, substituents must be joined to metabolite name by a hyphen (`-`) symbol.
+    - Exchange reactions must have only one metabolite before arrow symbol.
+    - Compartments must be given between square brackets (`[compartment]`) joined at the end of metabolite name.
+* **GPR:** A set of genes joined by boolean operators as `AND` or `OR`, rules may be nested by parenthesis. (optional: column can be empty)
+* **LOWER.BOUND:** A list of numeric values containing the lower bounds of the reaction rates. If not set, zero is used for an irreversible reaction and -1000 for a reversible reaction. (optional: column can be empty)
+* **UPPER.BOUND:** list of numeric values containing the upper bounds of the reaction rates. If not set, 1000 is used by default. (optional: column can be empty)
+* **OBJECTIVE:** A list of numeric values containing objective values (0 or 1) for each reaction (optional: column can be empty)
 ```{r}
 colnames(glycolysis)
 ```
+### SBML files
+The standard format to share and store biological processes such as metabolic models is the Systems Biology Markup Language (SBML) format. **MINVAL** includes the `"writeSBML"` function which is able to write models in SBML (`level = 2`, `version = 1`) format as follows:
+```{r}
+writeSBML(modelData = glycolysis,
+          modelID = "Glycolysis",
+          outputFile = "glycolysis.xml"
+          )
+```
+Metabolic models in SBML format can be readed through the `readSBMLmod` function of the `sybilSBML` R package.
+```{r}
+glycoModel <- sybilSBML::readSBMLmod("glycolysis.xml")
+glycoModel
+```
+After load the metabolic model, it can be interrogated through FBA using the `optimizeProb` function of the `sybil` R package. In this case, the reaction `R00200` was set as the objective function. The `R00200` reaction describes the production of pyruvate from phosphoenolpyruvate an alpha-D-Glucose derivate.
+
+Glycolysis pathway can be summarized as: `1 alpha-D-Glucose[c] + 2 NAD+[c] + 2 ADP[c] + 2 Orthophosphate[c] => 2 Pyruvate[c] + 2 NADH[c] + 2 H+[c] + 2 ATP[c] + 2 H2O[c]` where the metabolism of one molecule of alpha-D-Glucose yield two molecules of pyruvate. 
+
+As is shown below, interrogated glycolysis model estimates a production of six molecules of pyruvate by each alpha-D-Glucose molecule due a mass unbalance. FBA methods are sensitive to thermodynamic (mass - charge) unbalance, so in order to achieve a valid biological extrapolation is mandatory to avoid this type of unbalancing in all model reactions.
+```{r}
+sybil::optimizeProb(glycoModel)
+```
+### Syntax validation
+The first step for a stoichiometric reactions validation is to check their syntax. Stoichiometric reactions must have the following mandatory characteristics:
+
+- Arrows symbols must be given in the form `'=>'` or `'<=>'` (Inverse arrow symbols `'<='` or other types as: `'-->'`, `'<==>'`, `'->'` will not be parsed and will lead to errors.)
+- Arrow symbols and plus signs (`+`) must be surrounded by a space character.
+- Stoichiometric coefficients must be surrounded by a space character and not by parentheses.
+- Each metabolite must have only one stoichiometric coefficient, substituents must be joined to metabolite name by a hyphen (`-`) symbol.
+- Exchange reactions must have only one metabolite before arrow symbol.
+- Compartments must be given between square brackets (`[compartment]`) joined at the end of metabolite name.
+
+Syntax validity can be checked through minval using the `validateSyntax` function which returns a boolean `TRUE` value if the stoichiometric reaction pass all validations. To validate syntax just type:
 ```{r}
 validateSyntax(reactionList = glycolysis$REACTION)
 ```
 
-## Mass-Charge Balance
+### Mass - Charge Balance Validation
+Another step for a stoichiometric reactions validation is to check their mass - charge balance. This process requires the use of a reference with chemical formulas, molecular weights or net charges for each metabolite included in the metabolic model.
+
+#### ChEBI database download
+**MINVAL** includes the `downloadChEBI` function that allows the download of different releases of the Chemical Entities of Biological Interest (ChEBI) database, a freely available dictionary of molecular entities focused on 'small' chemical compounds involved in biochemical reactions. To download the latest version (this process takes aprox. 2 min with a 5 Mb internet connection) of the ChEBI database just type:
+
 ```{r, eval = FALSE}
 ChEBI <- downloadChEBI(release = "latest",
                        woAssociations = TRUE
                        )
 ```
-
-```{r,}
+Reference also can be user provided. An example of a reference for the glycolysis model is shown below.
+```{r}
 chemicalData <- read.csv2(file = system.file("extdata", "chemData.csv", 
                                              package = "minval")
                           )
-```
-
-```{r}
 head(chemicalData)
 ```
 
+#### Mass Balance Validation
+In a balanced stoichiometric reaction according to the Lomonosov-Lavoisier law, the mass comprising the reactants should be the same mass present in the products. If chemical formula is given, the `checkBalance` function multiplies the atom numbers by their respective stoichiometric coefficient, and establishes if the atomic composition of reactants and products are the same. If molecular weight is given then sum of masses for reactants and products are compared. In both cases a boolean `TRUE` value is returned if mass is balanced.
+
+Mass balance can be tested using the chemical formula or the molecular weight associated to each metabolite as follows: 
 ```{r}
 checkBalance(reactionList = glycolysis$REACTION,
              referenceData = chemicalData,
              ids = "NAME",
              mFormula = "FORMULA"
              )
+```
+As is shown above, the third stoichiometric reaction is unbalanced. It can be corrected replacing manually the unbalanced reaction as follows:
+```{r}
+glycolysis$REACTION[3] <- "D-Glyceraldehyde 3-phosphate[c] + Orthophosphate[c] + NAD+[c] <=> 3-Phospho-D-glyceroyl phosphate[c] + NADH[c] + H+[c]"
 
 checkBalance(reactionList = glycolysis$REACTION,
              referenceData = chemicalData,
              ids = "NAME",
-             mFormula = "MASS"
+             mWeight = "MASS"
              )
 ```
+When all stoichiometric reactions are balanced, then the model can be exported and loaded to be interrogated again:
+```{r}
+writeSBML(modelData = glycolysis,
+          modelID = "GlycolysisBalanced",
+          outputFile = "glycolysisBalanced.xml"
+          )
+
+sybil::optimizeProb(sybilSBML::readSBMLmod("glycolysisBalanced.xml"))
+
+```
+
+#### Charge Balance Validation
+Charge balance can be also tested through the `checkBalance` function using the net charge of metabolites as follows:
 ```{r}
 checkBalance(reactionList = glycolysis$REACTION,
              referenceData = chemicalData,
              ids = "NAME",
-             mFormula = "CHARGE"
+             mCharge = "CHARGE"
              )
 ```
-## Characterize model
-### Stoichiometric matrix
+### Characterize model
+#### Stoichiometric matrix
+A metabolic model is often represented in a more compact form called the stoichiometry matrix (*S*). If a metabolic model has *n* reactions and *m* participating metabolites, then the stoichiometry matrix will have correspondingly *m* rows and *n* columns. Values in the stoichiometric matrix represent the metabolites coefficients in each reaction. To generate the stoichiometric matrix just type:
 ```{r}
 stoichiometricMatrix(reactionList = glycolysis$REACTION)
 ```
-### Metabolites
+#### Metabolites
 ```{r}
 metabolites(reactionList = glycolysis$REACTION)
 ```
@@ -84,29 +177,20 @@ metabolites(reactionList = glycolysis$REACTION)
 metabolites(reactionList = glycolysis$REACTION,
             woCompartment = TRUE)
 ```
-### Compartments
+#### Compartments
 ```{r}
 compartments(reactionList = glycolysis$REACTION)
 ```
-### OrphanMetabolites
+#### OrphanMetabolites
 ```{r}
-orphanMetabolites(reactionList = glycolysis$REACTION)
+orphanMetabolites(reactionList = glycolysis$REACTION[1:10])
 ```
 ```{r}
-orphanReactants(reactionList = glycolysis$REACTION)
-orphanProducts(reactionList = glycolysis$REACTION)
+orphanReactants(reactionList = glycolysis$REACTION[1:10])
+orphanProducts(reactionList = glycolysis$REACTION[1:10])
 
 ```
-## Output files
-```{r}
-writeSBML(modelData = glycolysis,
-          modelID = "Glycolysis",
-          outputFile = "glycolysis.xml"
-          )
-
-sybilSBML::readSBMLmod("glycolysis.xml")
-```
-
+### TSV files
 ```{r}
 writeTSV(modelData = glycolysis,
           modelID = "Glycolysis",

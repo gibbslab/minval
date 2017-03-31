@@ -22,6 +22,7 @@ Available functions:
 -------------------
 |Function | Description |
 |:--------|:------------|
+|characterizeRXNs|Characterize stoichiometric reactions by compartments and reaction type|
 |checkBalance|Evaluate the mass or charge balance for a set of stoichiometric reactions|
 |compartments|Extract the compartments associated to metabolites of a set of stoichiometric reactions|
 |downloadChEBI|Download the ChEBI database|
@@ -36,4 +37,4 @@ Available functions:
 
 Citation
 --------
-Daniel Osorio, Janneth Gonzalez and Andrés Pinzón (2016). **minval: MINimal VALidation for Stoichiometric Reactions**. R package version 1.0. https://CRAN.R-project.org/package=minval
+Daniel Osorio, Janneth Gonzalez and Andres Pinzon (2016). **minval: MINimal VALidation for Stoichiometric Reactions**. R package version 1.0. https://CRAN.R-project.org/package=minval

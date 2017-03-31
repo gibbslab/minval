@@ -2,7 +2,7 @@
 % Please edit documentation in R/writeTSV.R
 \name{writeTSV}
 \alias{writeTSV}
-\title{Write a model in TSV format for the 'sybil' R package.}
+\title{Write a model in TSV format for the 'sybil' R package}
 \usage{
 writeTSV(modelData, modelID = "model", outputFile, boundary = "b")
 }
@@ -15,7 +15,7 @@ writeTSV(modelData, modelID = "model", outputFile, boundary = "b")
 \item Arrow symbols and plus signs (\code{+}) must be surrounded by a space character
 \item Stoichiometric coefficients must be surrounded by a space character and not by parentheses.
 \item Each metabolite must have only one stoichiometric coefficient, substituents must be joined to metabolite name by a hyphen (\code{-}) symbol.
-\item Exchange reactions have only one metabolite before arrow symbol
+\item Exchange reactions must have only one metabolite before arrow symbol
 \item Compartments must be given between square brackets ([compartment]) joined at the end of metabolite name
 }
 Some examples of valid stoichiometric reactions are: \itemize{
@@ -25,10 +25,10 @@ Some examples of valid stoichiometric reactions are: \itemize{
 }
 \item \code{'GPR':} A set of genes joined by boolean operators as AND or OR, rules may be nested by parenthesis. (optional: column can be empty),
 \item \code{'LOWER.BOUND':} A list of numeric values containing the lower bounds of the reaction rates.
-If not set, zero is used for an irreversible reaction and 1000 for a reversible reaction. (optional: column can be empty),
+If not set, zero is used for an irreversible reaction and -1000 for a reversible reaction. (optional: column can be empty),
 \item \code{'UPPER.BOUND':} A list of numeric values containing the upper bounds of the reaction rates.
 If not set, 1000 is used by default. (optional: column can be empty),
-\item \code{'OBJECTIVE':} A list of numeric values containing objective values for each reaction (optional: column can be empty).
+\item \code{'OBJECTIVE':} A list of numeric values containing objective values (-1, 0 or 1) for each reaction (optional: column can be empty).
 }}
 
 \item{modelID}{A single character string giving the modelID}

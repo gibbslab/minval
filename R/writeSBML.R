@@ -2,7 +2,7 @@
 #' @author  Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
-#' @title Write a model in SBML format.
+#' @title Write a model in SBML format
 #' @description This function converts a data.frame or a modelOrg object to a valid SBML file. The Systems Biology Markup Language (SBML) is a representation format, based on XML, for communicating and storing computational models of biological processes.
 #' @param modelData A modelOrg or a data.frame object. If a data.frame is given, it must contain following mandatory colnames: \itemize{
 #' \item \code{'ID':} A list of single character strings containing the reaction abbreviations, Entries in the field abbreviation are used as reaction ids, so they must be unique.
@@ -12,7 +12,7 @@
 #' \item Arrow symbols and plus signs (\code{+}) must be surrounded by a space character
 #' \item Stoichiometric coefficients must be surrounded by a space character and not by parentheses.
 #' \item Each metabolite must have only one stoichiometric coefficient, substituents must be joined to metabolite name by a hyphen (\code{-}) symbol.
-#' \item Exchange reactions have only one metabolite before arrow symbol
+#' \item Exchange reactions must have only one metabolite before arrow symbol
 #' \item Compartments must be given between square brackets ([compartment]) joined at the end of metabolite name
 #' }
 #' Some examples of valid stoichiometric reactions are: \itemize{
@@ -22,10 +22,10 @@
 #' }
 #' \item \code{'GPR':} A set of genes joined by boolean operators as AND or OR, rules may be nested by parenthesis. (optional: column can be empty),
 #' \item \code{'LOWER.BOUND':} A list of numeric values containing the lower bounds of the reaction rates.
-#' If not set, zero is used for an irreversible reaction and 1000 for a reversible reaction. (optional: column can be empty),
+#' If not set, zero is used for an irreversible reaction and -1000 for a reversible reaction. (optional: column can be empty),
 #' \item \code{'UPPER.BOUND':} A list of numeric values containing the upper bounds of the reaction rates.
 #' If not set, 1000 is used by default. (optional: column can be empty),
-#' \item \code{'OBJECTIVE':} A list of numeric values containing objective values for each reaction (optional: column can be empty).
+#' \item \code{'OBJECTIVE':} A list of numeric values containing objective values (-1, 0 or 1) for each reaction (optional: column can be empty).
 #' }
 #' @param modelID A single character string giving the modelID
 #' @param outputFile A writable path for the output 'SBML' file to be generate
