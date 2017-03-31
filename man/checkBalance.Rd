@@ -5,7 +5,7 @@
 \title{Evaluate the mass or charge balance for a set of stoichiometric reactions}
 \usage{
 checkBalance(reactionList, referenceData, ids, mFormula = NULL,
-  mWeight = NULL, mCharge = NULL)
+  mWeight = NULL, mCharge = NULL, woCompartment = TRUE)
 }
 \arguments{
 \item{reactionList}{A set of stoichiometric reaction with the following characteristics: \itemize{
@@ -32,6 +32,8 @@ Some examples of valid stoichiometric reactions are: \itemize{
 \item{mWeight}{An optional ID of molecular weight column in the referenceData}
 
 \item{mCharge}{An optional ID of net charge column in the referenceData}
+
+\item{woCompartment}{A boolean value \code{'TRUE'} or \code{'FALSE'} to indicate if compartment label should be removed of stoichiometric reactions}
 }
 \value{
 This function returns a boolean value \code{'TRUE'} if reaction is balanced.
