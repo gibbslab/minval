@@ -24,6 +24,7 @@
 #' @param mFormula An optional ID of molecular formula column in the referenceData
 #' @param mWeight An optional ID of molecular weight column in the referenceData
 #' @param mCharge An optional ID of net charge column in the referenceData
+#' @param woCompartment A boolean value \code{'TRUE'} or \code{'FALSE'} to indicate if compartment label should be removed of stoichiometric reactions
 #' @return This function returns a boolean value \code{'TRUE'} if reaction is balanced.
 #' @examples
 #' # Loading a set of stoichiometric reactions
