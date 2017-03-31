@@ -70,17 +70,19 @@ getRight <- function(reactionList) {
 }
 
 # Split chemical formula
-splitFormula <- function(chemicalFormula) {
-  splitAtoms <-
-    unlist(regmatches(
-      chemicalFormula,
-      gregexpr("([A-Z]{1}[a-z]?)([0-9]*)", chemicalFormula)
-    ))
-  atoms <- sub("([A-Z]{1}[a-z]?)([0-9]*)", '\\1', splitAtoms)
+splitFormula <- function(coefficient, chemicalFormula) {
+  splitAtoms <-regmatches(chemicalFormula,gregexpr("([A-Z]{1}[a-z]?)([0-9]*)", chemicalFormula))
+  atoms <- lapply(splitAtoms,function(splitAtoms){
+    sub("([A-Z]{1}[a-z]?)([0-9]*)", '\\1', splitAtoms)
+  })
   atomsNumber <-
-    as.numeric(regmatches(x = splitAtoms, m = gregexpr('[0-9]+', splitAtoms)))
-  atomsNumber[is.na(atomsNumber)] <- 1
-  tapply(atomsNumber, atoms, sum)
+    lapply(splitAtoms,function(splitAtoms){
+      number <- as.numeric(regmatches(x = splitAtoms, m = gregexpr('[0-9]+', splitAtoms)))
+      number[is.na(number)] <- 1
+      return(number)
+    })
+  atomsNumber <- sapply(seq_along(atomsNumber),function(molecule){atomsNumber[[molecule]]*coefficient[[molecule]]})
+  tapply(unlist(atomsNumber), unlist(atoms), sum)
 }
 
 # Identify the reaction type
