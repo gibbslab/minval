@@ -23,7 +23,7 @@ dim(RECON)
 ```
 
 ```{r}
-RECONcharacteristics <- characterizeRXNs(reactionList = RECON$REACTION)
+RECONcharacteristics <- characterizeReactions(reactionList = RECON$REACTION)
 RECONcharacteristics
 ```
 
