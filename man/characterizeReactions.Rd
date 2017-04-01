@@ -22,7 +22,7 @@ Some examples of valid stoichiometric reactions are: \itemize{
 \item \code{CO2[c] <=> }
 }}
 
-\item{rawOutput}{A boolean value \code{'TRUE'} or \code{'FALSE'} if computed values should be returned instead of raw data}
+\item{rawOutput}{A boolean value \code{'TRUE'} or \code{'FALSE'} if raw data should be returned instead of computed values.}
 }
 \description{
 For a given set of stoichiometric reactions, this function: \itemize{

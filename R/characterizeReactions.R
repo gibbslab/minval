@@ -24,7 +24,7 @@
 #' \item \code{ADP[c] + Phosphoenolpyruvate[c] => ATP[c] + Pyruvate[c]}
 #' \item \code{CO2[c] <=> }
 #' }
-#' @param rawOutput A boolean value \code{'TRUE'} or \code{'FALSE'} if computed values should be returned instead of raw data
+#' @param rawOutput A boolean value \code{'TRUE'} or \code{'FALSE'} if raw data should be returned instead of computed values.
 #' @examples
 #' # Loading a set of stoichiometric reactions
 #' glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep='\t')
