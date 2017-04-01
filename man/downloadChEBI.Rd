@@ -7,7 +7,7 @@
 downloadChEBI(release = "latest", woAssociations = FALSE)
 }
 \arguments{
-\item{release}{A character string with the release number of the ChEBI database version to be downloaded, by default \code{'latest'} release is downloaded.}
+\item{release}{A character string with the release number of the ChEBI database version to be downloaded, by default the \code{'latest'} release is downloaded.}
 
 \item{woAssociations}{A logical value \code{'TRUE'} or \code{'FALSE'} if a light version of the ChEBI database without associations should be returned.}
 }

@@ -7,7 +7,7 @@
 #' @title Download the ChEBI database
 #' @description This function downloads the compounds, formulas, masses and charges from the selected release of the ChEBI database.
 #' The ChEBI database (Chemical Entities of Biological Interest), is a database and ontology of molecular entities focused on 'small' chemical compounds.
-#' @param release A character string with the release number of the ChEBI database version to be downloaded, by default \code{'latest'} release is downloaded.
+#' @param release A character string with the release number of the ChEBI database version to be downloaded, by default the \code{'latest'} release is downloaded.
 #' @param woAssociations A logical value \code{'TRUE'} or \code{'FALSE'} if a light version of the ChEBI database without associations should be returned.
 #' @return A data.frame with the following data associated to the ChEBI compounds: \itemize{
 #' \item \code{'ID'}: The unique identifer
