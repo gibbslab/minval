@@ -39,7 +39,7 @@ Some examples of valid stoichiometric reactions are: \itemize{
 This function returns a boolean value \code{'TRUE'} if reaction is balanced.
 }
 \description{
-For a given set of stoichiometric reactions, this function evaluate the mass or charge balance based in a reference data. Return a boolean value \code{'TRUE'} if reaction is balanced. One of \code{'mFormula'}, \code{'mWeight'} or \code{'mCharge'} arguments must be given.
+For a given set of stoichiometric reactions, this function evaluates the mass or charge balance using a reference data. The \code{checkBalance} function returns a boolean value \code{'TRUE'} if the reaction is balanced. One of \code{'mFormula'}, \code{'mWeight'} or \code{'mCharge'} arguments must be given.
 }
 \examples{
 # Loading a set of stoichiometric reactions
