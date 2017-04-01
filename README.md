@@ -1,12 +1,12 @@
 minval : an R package for MINimal VALidation of stoichiometric reactions
 ======
-The **MINVAL** package was designed as a tool to identify orphan metabolites and evaluate the mass and charge balance of stoichometric reactions. **MINVAL** also includes functions to write models in TSV and SBML formats, extract all reactants, products, metabolite names and compartments from a metabolic reconstruction. 
+The **MINVAL** package was designed as a tool to identify orphan metabolites and evaluate the mass and charge balance of stoichiometric reactions. **MINVAL** package also includes functions to characterize and write models in TSV and SBML formats, extract all reactants, products, metabolite names and compartments from a metabolic reconstruction.
 
 Install:
 --------
 This package required R version 2.10 or higher. If you are using an older version of R you will be prompted to upgrade when you try to install the package.
 
-The official release of minval is available on CRAN. To install from CRAN, use the following command:
+The official release of **MINVAL** is available on CRAN. To install from CRAN, use the following command:
 ```{r}
 install.packages("minval", dependencies = TRUE)
 ```
@@ -22,7 +22,7 @@ Available functions:
 -------------------
 |Function | Description |
 |:--------|:------------|
-|characterizeRXNs|Characterize stoichiometric reactions by compartments and reaction type|
+|characterizeReactions|Characterize stoichiometric reactions by compartments and reaction type|
 |checkBalance|Evaluate the mass or charge balance for a set of stoichiometric reactions|
 |compartments|Extract the compartments associated to metabolites of a set of stoichiometric reactions|
 |downloadChEBI|Download the ChEBI database|
