@@ -1,6 +1,6 @@
 NEWS
 ====
-**minval v.1.0**
+**minval v.0.6**
 *
 *
 *
