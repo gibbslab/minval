@@ -1,0 +1,60 @@
+---
+title: "MINVAL - **MIN**imal **VAL**idation for Stoichiometric Reactions"
+author: "Daniel Osorio, Janneth Gonzalez and Andres Pinzon"
+#date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Characterize Reactions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, dev = "png", fig.width = 7, fig.height = 5, message = FALSE, warning = FALSE)
+```
+### Characterize Reactions
+```{r}
+library(minval)
+```
+
+```{r}
+RECON <- read.csv(system.file("extdata", "rRECON2.csv", 
+                              package = "minval"))
+dim(RECON)
+```
+
+```{r}
+RECONcharacteristics <- characterizeRXNs(reactionList = RECON$REACTION)
+RECONcharacteristics
+```
+
+```{r}
+compartmentNames <- c(c = "Cytosol", 
+                      e = "Extracellular", 
+                      g = "Golgi apparatus", 
+                      l = "Lysosome", 
+                      m = "Mitochondrion", 
+                      n = "Nucleus", 
+                      r = "Endoplasmic reticulum",
+                      x = "Peroxisome"
+                      )
+```
+
+```{r}
+pie(x = RECONcharacteristics$rType, 
+    main = "Reactions by Type"
+    )
+```
+
+```{r}
+pie(x = RECONcharacteristics$cReaction, 
+    main = "Reactions by Compartment", 
+    labels = compartmentNames
+    )
+```
+
+```{r}
+pie(x = RECONcharacteristics$cMetabolites, 
+    main = "Metabolites by Compartment", 
+    labels = compartmentNames
+    )
+```
