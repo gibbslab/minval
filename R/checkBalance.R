@@ -4,7 +4,7 @@
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 #' @title Evaluate the mass or charge balance for a set of stoichiometric reactions
-#' @description For a given set of stoichiometric reactions, this function evaluate the mass or charge balance based in a reference data. Return a boolean value \code{'TRUE'} if reaction is balanced. One of \code{'mFormula'}, \code{'mWeight'} or \code{'mCharge'} arguments must be given.
+#' @description For a given set of stoichiometric reactions, this function evaluates the mass or charge balance using a reference data. The \code{checkBalance} function returns a boolean value \code{'TRUE'} if the reaction is balanced. One of \code{'mFormula'}, \code{'mWeight'} or \code{'mCharge'} arguments must be given.
 #' @param reactionList A set of stoichiometric reaction with the following characteristics: \itemize{
 #' \item Arrows symbols must be given in the form \code{'=>'} or \code{'<=>'}
 #' \item Inverse arrow symbols \code{'<='} or other types as: \code{'-->'}, \code{'<==>'}, \code{'->'} will not be parsed and will lead to errors.
