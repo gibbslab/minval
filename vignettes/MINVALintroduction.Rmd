@@ -20,6 +20,8 @@ install.packages("minval")
 ```{r, message=FALSE}
 library("minval")
 library("sybilSBML")
+library("sybil")
+library("glpkAPI")
 ```
 ### Metabolic Models
 Metabolic models are sets of stoichiometric reactions that represents a process where a set of chemical compounds called reactants are converted into others called products. In a stoichiometric reaction, all the reactants are placed on the left and the products on the right separated by an arrow symbol which indicates the direction of the reaction. Some examples of valid stoichiometric reactions are:
