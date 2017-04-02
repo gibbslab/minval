@@ -1,4 +1,4 @@
-#' @export writeSBML
+#' @export writeSBMLmod
 #' @author  Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
@@ -36,7 +36,7 @@
 #' glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep='\t')
 #'
 #' # Writing a model in SBML format
-#' writeSBML(modelData = glycolysis,modelID = "Glycolysis",outputFile = "glycolysis.xml")
+#' writeSBMLmod(modelData = glycolysis,modelID = "Glycolysis",outputFile = "glycolysis.xml")
 #' 
 #' \dontrun{
 #' # Writing a modelOrg object in a SBML format
@@ -47,10 +47,10 @@
 #' data("Ec_core")
 #' 
 #' ## Writing the modelOrg object in a SBML format
-#' writeSBML(modelData = Ec_core,modelID = "E.coli",outputFile = "eColi.xml")
+#' writeSBMLmod(modelData = Ec_core,modelID = "E.coli",outputFile = "eColi.xml")
 #' }
 
-writeSBML <-
+writeSBMLmod <-
   function(modelData,
            modelID = "model",
            outputFile,

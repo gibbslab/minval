@@ -32,8 +32,8 @@ Available functions:
 |reactants|Identify the reactants of a stoichometric reaction|
 |stoichiometricMatrix|Build the stoichiometric matrix for a set of stoichiometric reactions|
 |validateSyntax|Evaluate if a stoichiometric reaction has a valid syntax|
-|writeSBML|Write a model in SBML format|
-|writeTSV|Write a model in TSV format for the 'sybil' R package|
+|writeSBMLmod|Write a model in SBML format|
+|writeTSVmod|Write a model in TSV format for the 'sybil' R package|
 
 Citation
 --------

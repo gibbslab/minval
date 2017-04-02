@@ -1,4 +1,4 @@
-#' @export writeTSV
+#' @export writeTSVmod
 #' @importFrom utils write.table
 #' @author Daniel Camilo Osorio <dcosorioh@unal.edu.co>
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
@@ -37,7 +37,7 @@
 #' glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep='\t')
 #'
 #' # Writing a model in TSV format
-#' writeTSV(modelData = glycolysis,modelID = "Glycolysis",outputFile = "glycolysis")
+#' writeTSVmod(modelData = glycolysis,modelID = "Glycolysis",outputFile = "glycolysis")
 #' 
 #' \dontrun{
 #' # Writing a modelOrg object in a SBML format
@@ -48,9 +48,9 @@
 #' data("Ec_core")
 #' 
 #' ## Writing the modelOrg object in a SBML format
-#' writeTSV(modelData = Ec_core,modelID = "E.coli",outputFile = "eColi")
+#' writeTSVmod(modelData = Ec_core,modelID = "E.coli",outputFile = "eColi")
 #' }
-writeTSV <-
+writeTSVmod <-
   function (modelData,
             modelID = "model",
             outputFile,

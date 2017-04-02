@@ -68,9 +68,9 @@ Metabolic models include also another additional information related to the stoi
 colnames(glycolysis)
 ```
 ### SBML files
-The standard format to share and store biological processes such as metabolic models is the Systems Biology Markup Language (SBML) format. **MINVAL** package includes the `"writeSBML"` function which is able to write models in SBML (`level = 2`, `version = 1`) format as follows:
+The standard format to share and store biological processes such as metabolic models is the Systems Biology Markup Language (SBML) format. **MINVAL** package includes the `"writeSBMLmod"` function which is able to write models in SBML (`level = 2`, `version = 1`) format as follows:
 ```{r}
-writeSBML(modelData = glycolysis,
+writeSBMLmod(modelData = glycolysis,
           modelID = "Glycolysis",
           outputFile = "glycolysis.xml"
           )
@@ -145,7 +145,7 @@ checkBalance(reactionList = glycolysis$REACTION,
 ```
 When all stoichiometric reactions are mass-balanced, then the model can be exported and loaded to be interrogated again:
 ```{r}
-writeSBML(modelData = glycolysis,
+writeSBMLmod(modelData = glycolysis,
           modelID = "GlycolysisBalanced",
           outputFile = "glycolysisBalanced.xml"
           )
@@ -193,9 +193,9 @@ orphanProducts(reactionList = glycolysis$REACTION[1:10])
 
 ```
 ### TSV files
-The function `writeTSV` writes a metabolic model in three text files, following a character-separated value format. Each line contains one entry; the default value separator is a tab. TSV models are the default input format for the `sybil` R package.
+The function `writeTSVmod` writes a metabolic model in three text files, following a character-separated value format. Each line contains one entry; the default value separator is a tab. TSV models are the default input format for the `sybil` R package.
 ```{r}
-writeTSV(modelData = glycolysis,
+writeTSVmod(modelData = glycolysis,
           modelID = "Glycolysis",
           outputFile = "glycolysis"
           )
