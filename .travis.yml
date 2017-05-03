@@ -7,8 +7,8 @@ r:
   - release
   - devel
 
-before_install:
-  - apt-get install glpk
+apt_packages:
+  - glpk
   
 cache: packages
 sudo: false
