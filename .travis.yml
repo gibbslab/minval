@@ -11,4 +11,4 @@ apt_packages:
   - glpk
   
 cache: packages
-sudo: false
+sudo: required
