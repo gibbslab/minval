@@ -10,5 +10,10 @@ r:
 apt_packages:
   - glpk
   
+apt_packages:
+- libxml2-dev
+- glpk
+- libsbml
+  
 cache: packages
 sudo: required
