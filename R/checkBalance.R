@@ -139,8 +139,7 @@ checkBalance <-
       message(
         "Not all metabolites were mapped correctly, involved reactions will be returned as FALSE"
       )
-      balanced[grep(metabolites[!metabolites %in% referenceData[, 1]], reactionList, fixed = TRUE)] <-
-        FALSE
+      balanced[unique(unlist(lapply(metabolites[!metabolites %in% referenceData[, 1]],function(metabolites){grep(metabolites,reactionList)})))] <- FALSE
     }
     rType <- (reactionType(reactionList) == "Exchange reaction")
     if (any(rType)) {
