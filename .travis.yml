@@ -8,11 +8,14 @@ r:
   - devel
 
 apt_packages:
+  - libxml2-dev
   - glpk
+  - libsbml5
   
-apt_packages:
-- libxml2-dev
-- glpk
+r_packages:
+  - libSBML
+  - glpkAPI
+  - sybil
   
 cache: packages
 sudo: required
