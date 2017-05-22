@@ -1,6 +1,6 @@
 minval : an R package for MINimal VALidation of stoichiometric reactions
 ======
-The **MINVAL** package was designed as a tool to identify orphan metabolites and evaluate the mass and charge balance of stoichiometric reactions. **MINVAL** package also includes functions to characterize and write models in TSV and SBML formats, extract all reactants, products, metabolite names and compartments from a metabolic reconstruction.
+The genome-scale metabolic reconstructions, a compilation of all stoichiometric reactions that can describe the entire cellular metabolism of an organism, have become an indispensable tool for our understanding of biological phenomena, covering fields that range from systems biology to bioengineering. Evaluation of metabolic reconstructions are generally carried through Flux Balance Analysis, an optimization method where the biological sense of optimal solution is sensitive to thermodynamic unbalance, caused by the presence of stoichiometric reactions whose compounds are not produced or consumed in any other reaction (orphan metabolites) and by mass unbalanced stoichiometric reactions. The **MINVAL** package was designed as a tool to identify orphan metabolites and evaluate the mass and charge balance of stoichiometric reactions. **MINVAL** package also includes functions to characterize and write models in TSV and SBML formats, extract all reactants, products, metabolite names and compartments from a metabolic reconstruction.
 
 Install:
 --------

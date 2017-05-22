@@ -1,7 +1,8 @@
 Package: minval
 Type: Package
 Title: MINimal VALidation for Stoichiometric Reactions
-Version: 0.6-1
+Version: 0.7
+URL: https://github.com/gibbslab/minval
 Authors@R:c(
           person("Daniel","Osorio", email="dcosorioh@unal.edu.co", role=c("aut","cre")), 
           person("Janneth","Gonzalez", role=c("aut","ths")), 

@@ -1,5 +1,9 @@
 NEWS
 ====
+#### **minval v.0.7**
+
+* A bug related to unmapped metabolites in checkBalance function was solved
+
 #### **minval v.0.6**
 
 * downloadChEBI function was added. This function can download any user-defined release of the ChEBI database.
