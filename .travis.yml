@@ -13,7 +13,6 @@ apt_packages:
 apt_packages:
 - libxml2-dev
 - glpk
-- libsbml
   
 cache: packages
 sudo: required
