@@ -18,6 +18,9 @@ r_packages:
   - testthat
   - knitr
   - rmarkdown
+  
+r_build_args: --no-build-vignettes --no-resave-data
+r_check_args: --no-build-vignettes
 
 cache: packages
 sudo: required
