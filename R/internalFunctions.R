@@ -144,7 +144,9 @@ validateData <- function(modelData) {
   if (length(grep("^OBJECTIVE$", names, ignore.case = TRUE)) == 0) {
     stop("OBJECTIVE not found")
   }
-  return(as.data.frame.array(modelData))
+  modelData <- as.data.frame.array(modelData)
+  modelData[is.na(modelData)] <- ""
+  return(modelData)
 }
 
 # Remove comments
@@ -190,17 +192,17 @@ extractData <- function(inputData, boundary = "b") {
         reactants = unlist(getLeft(inputData[["REACTION"]][reaction])),
         products = unlist(getRight(inputData[["REACTION"]][reaction])),
         lowbnd = ifelse(
-          test = inputData[["LOWER.BOUND"]][reaction] != "",
+          test = is.numeric(inputData[["LOWER.BOUND"]][reaction]),
           yes = inputData[["LOWER.BOUND"]][reaction],
           no = -1000
         ),
         upbnd = ifelse(
-          test = inputData[["UPPER.BOUND"]][reaction] != "",
+          test = is.numeric(inputData[["UPPER.BOUND"]][reaction]),
           yes = inputData[["UPPER.BOUND"]][reaction],
           no = 1000
         ),
         objective = ifelse(
-          test = inputData[["OBJECTIVE"]][reaction] != "",
+          test = is.numeric(inputData[["OBJECTIVE"]][reaction]),
           yes = inputData[["OBJECTIVE"]][reaction],
           no = 0
         )

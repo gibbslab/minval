@@ -83,10 +83,11 @@ validateSyntax <- function(reactionList) {
     c(valid.syntax,
       grepl(pattern = "[[:space:]]+\\-[[:alnum:]]", x = reactionList))
   # Metabolite composition
-  nMetabolites <-
-    lengths(lapply(reactionList, function(reaction) {
+  metabolitesList <-
+    lapply(reactionList, function(reaction) {
       metabolites(reaction)
-    }))
+    })
+  nMetabolites <- unlist(lapply(metabolitesList,function(reaction){length(reaction)}))
   valid.syntax <- c(valid.syntax, (nMetabolites < 1))
   valid.syntax <-
     c(valid.syntax, unlist(lapply(reactionList, function(reaction) {
@@ -100,8 +101,13 @@ validateSyntax <- function(reactionList) {
         return(FALSE)
       }
     })))
+  valid.syntax <- c(
+    valid.syntax, 
+    unlist(lapply(metabolitesList,function(reaction){any(grepl("\\->",reaction) | grepl("<\\-",reaction))}))
+    )
+  
   # Warnings!
-  valid.syntax <- matrix(valid.syntax, ncol = 10)
+  valid.syntax <- matrix(valid.syntax, ncol = 11)
   sapply(which(valid.syntax[, 1] == TRUE), function(x) {
     warning(paste0("Reaction ", x, ": Not a valid arrow symbol was detected."),
             call. = FALSE)
@@ -178,15 +184,24 @@ validateSyntax <- function(reactionList) {
       call. = FALSE
     )
   })
+  sapply(which(valid.syntax[, 11] == TRUE), function(x) {
+    warning(
+      paste0(
+        "Reaction ",
+        x,
+        ": Metabolites must not contain arrows"
+      ),
+      call. = FALSE
+    )
+  })
   # Return
   if (any(valid.syntax == TRUE)) {
-    stop(
+    message(
       "Please check that:\n* Arrows symbols are given in the form '=>' or '<=>'\n* Inverse arrow symbols '<=' or other types such as: '-->', '<==>' or '->' are not present\n* Arrows and plus signs are surrounded by a space character\n* Stoichiometric coefficients are surrounded by spaces and not by parentheses\n* Exchange reactions have only one metabolite before arrow symbol\n* Compartments are given between square brackets (metabolite[compartment]) joined at the end of metabolite name",
       call. = FALSE
     )
-  } else {
-    return(sapply(seq_along(reactionList), function(reaction) {
-      all(valid.syntax[reaction, ] == FALSE)
-    }))
   }
+  return(sapply(seq_along(reactionList), function(reaction) {
+    all(valid.syntax[reaction, ] == FALSE)
+  }))
 }

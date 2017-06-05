@@ -130,7 +130,7 @@ writeSBMLmod <-
           paste0('\t\t\t\t<notes>'),
           paste0(
             '\t\t\t\t\t<html xmlns="http://www.w3.org/1999/xhtml">',
-            if (modelData[["REACTIONS"]][[reaction]][["gpr"]] != "") {
+            if (isTRUE(modelData[["REACTIONS"]][[reaction]][["gpr"]] != "")) {
               paste0('<p>GENE_ASSOCIATION: ',
                      modelData[["REACTIONS"]][[reaction]][["gpr"]],
                      '</p>')
