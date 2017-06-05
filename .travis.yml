@@ -1,0 +1,23 @@
+os: 
+- linux
+
+language: r
+r:
+  - oldrel
+  - release
+  - devel
+  
+apt_packages:
+  - libxml2-dev 
+  - libglpk-dev
+
+r_packages:
+  - sybil
+  - glpkAPI
+  - sybilSBML
+  - testthat
+  - knitr
+  - rmarkdown
+
+cache: packages
+sudo: required
