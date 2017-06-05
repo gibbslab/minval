@@ -37,4 +37,4 @@ Available functions:
 
 Citation
 --------
-Daniel Osorio, Janneth Gonzalez and Andres Pinzon (2016). **minval: MINimal VALidation for Stoichiometric Reactions**. R package version 0.6. https://CRAN.R-project.org/package=minval
+Daniel Osorio, Janneth Gonzalez and Andres Pinzon (2016). **minval: MINimal VALidation for Stoichiometric Reactions**. R package version 0.8. https://CRAN.R-project.org/package=minval
