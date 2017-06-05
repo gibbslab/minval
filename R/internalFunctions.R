@@ -197,12 +197,12 @@ extractData <- function(inputData, boundary = "b") {
           no = -1000
         ),
         upbnd = ifelse(
-          test = is.numeric(inputData[["UPPER.BOUND"]][reaction]),
+          test = inputData[["UPPER.BOUND"]][reaction] != "",
           yes = inputData[["UPPER.BOUND"]][reaction],
           no = 1000
         ),
         objective = ifelse(
-          test = is.numeric(inputData[["OBJECTIVE"]][reaction]),
+          test = inputData[["OBJECTIVE"]][reaction] != "",
           yes = inputData[["OBJECTIVE"]][reaction],
           no = 0
         )
