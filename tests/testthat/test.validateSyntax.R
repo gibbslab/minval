@@ -9,5 +9,5 @@ test_that("validateSyntax function: Output class is wrong", {
 test_that("validateSyntax function: Output value is wrong", {
   expect_true(validateSyntax(reactionList = "A[c] + B[m] => C[e]"))
   expect_true(validateSyntax(reactionList = "4A[c] + 3 B[m] => 2.165557 C[e]"))
-  expect_error(suppressWarnings(validateSyntax(reactionList = "4A[c] + 3 3 B[m] => 2.165557 C[e]")))
+  expect_false(suppressWarnings(validateSyntax(reactionList = "4A[c] + 3 3 B[m] => 2.165557 C[e]")))
 })
