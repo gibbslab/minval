@@ -1,0 +1,22 @@
+os: 
+- linux
+
+language: r
+r:
+  - oldrel
+  - release
+  - devel
+  
+apt_packages:
+  - libxml2-dev 
+  - libglpk-dev
+
+r_packages:
+  - testthat
+  
+r_build_args: --no-build-vignettes --no-resave-data
+r_check_args: --no-build-vignettes --as-cran
+env: _R_CHECK_FORCE_SUGGESTS_=false
+
+cache: packages
+sudo: required

@@ -1,5 +1,11 @@
 NEWS
 ====
+
+#### **minval v.0.8**
+
+* validateSyntax function now returns FALSE values instead error return
+* Minor changes in writeSBMLmod function were made
+
 #### **minval v.0.7**
 
 * A bug related to unmapped metabolites in checkBalance function was solved
