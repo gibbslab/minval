@@ -75,7 +75,7 @@ writeSBMLmod <-
       '<sbml xmlns=\"http://www.sbml.org/sbml/level2\" level=\"2\" version=\"1\">',
       paste0(
         '\t<model id="',
-        paste(modelID, date(), sep = " - "),
+        modelID,
         '" name="',
         modelID,
         '">'
