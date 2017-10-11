@@ -45,7 +45,7 @@ downloadChEBI <- function(release = "latest",
   download.file(
     "ftp://ftp.ebi.ac.uk/pub/databases/chebi/archive/",
     paste0(chebi_download, "releases.txt"),
-    quiet = TRUE
+    quiet = TRUE, method = "libcurl"
   )
   releases <-
     gsub("rel", "", read.table(
@@ -71,7 +71,7 @@ downloadChEBI <- function(release = "latest",
   message("Downloading compounds ... ", appendLF = FALSE)
   download.file(paste0(ftp, "compounds.tsv.gz"),
                 paste0(chebi_download, "compounds.tsv"),
-                quiet = TRUE, method = "libcurl")
+                quiet = TRUE)
   compounds <-
     as.data.frame.array(read.delim2(paste0(chebi_download, "compounds.tsv")))
   message("DONE", appendLF = TRUE)
