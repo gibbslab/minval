@@ -58,5 +58,5 @@ mFormula = "FORMULA"
 )
 }
 \author{
-Daniel Camilo Osorio <dcosorioh@unal.edu.co>
+Daniel Camilo Osorio <dcosorioh@tamu.edu>
 }

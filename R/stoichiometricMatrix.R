@@ -1,6 +1,6 @@
 #' @export stoichiometricMatrix
 #' @title Build the stoichiometric matrix for a set of stoichiometric reactions
-#' @author Daniel Camilo Osorio <dcosorioh@unal.edu.co>
+#' @author Daniel Camilo Osorio <dcosorioh@tamu.edu>
 # Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 # Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 #' @description  A set of stoichiometric reactions is often represented in a more compact form called the stoichiometry matrix. 

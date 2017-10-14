@@ -1,7 +1,7 @@
 #' @export downloadChEBI
 #' @importFrom stats complete.cases setNames
 #' @importFrom utils download.file read.delim2 read.table
-#' @author Daniel Camilo Osorio <dcosorioh@unal.edu.co>
+#' @author Daniel Camilo Osorio <dcosorioh@tamu.edu>
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 #' @title Download the ChEBI database

@@ -1,6 +1,6 @@
 #' @export reactants
 #' @title Identify the reactants of a stoichometric reaction
-#' @author Daniel Camilo Osorio <dcosorioh@unal.edu.co>
+#' @author Daniel Camilo Osorio <dcosorioh@tamu.edu>
 # Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 # Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 #' @description This function identifies the reactants for a set of stoichometric reactions.

@@ -63,5 +63,5 @@ writeSBMLmod(modelData = Ec_core,modelID = "E.coli",outputFile = "eColi.xml")
 }
 }
 \author{
-Daniel Camilo Osorio <dcosorioh@unal.edu.co>
+Daniel Camilo Osorio <dcosorioh@tamu.edu>
 }

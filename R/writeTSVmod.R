@@ -1,6 +1,6 @@
 #' @export writeTSVmod
 #' @importFrom utils write.table
-#' @author Daniel Camilo Osorio <dcosorioh@unal.edu.co>
+#' @author Daniel Camilo Osorio <dcosorioh@tamu.edu>
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 #' @title Write a model in TSV format for the 'sybil' R package

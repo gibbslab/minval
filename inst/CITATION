@@ -1,0 +1,12 @@
+citHeader("To cite MINVAL in publications, please use:")
+citEntry(entry = "article",
+  author = personList(c(person(given = "Daniel", family = "Osorio"),person(given = "Janneth", family = "Gonzalez"),person(given = "Andres", family = "Pinzon"))),
+  title = "minval: An R package for MINimal VALidation of Stoichiometric Reactions",
+  journal = "The R Journal",
+  year = "2017",
+  issn = "2073-4859",
+  volume = "9",
+  number = "1",
+  pages = "114-123",
+  textVersion = "Osorio, D., Gonzalez, J., & Pinzon, A. (2017). minval: An R package for MINimal VALidation of Stoichiometric Reactions. R Journal, 9(1)."
+)

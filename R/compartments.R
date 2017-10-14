@@ -1,5 +1,5 @@
 #' @export compartments
-#' @author Daniel Camilo Osorio <dcosorioh@unal.edu.co>
+#' @author Daniel Camilo Osorio <dcosorioh@tamu.edu>
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 #' @title  Extract the compartments associated to metabolites of a set of stoichiometric reactions.

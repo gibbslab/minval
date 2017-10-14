@@ -29,5 +29,5 @@ A vector with the identified products in the reaction, or a list with the identi
 This function identifies the products for a set of stoichometric reactions.
 }
 \author{
-Daniel Camilo Osorio <dcosorioh@unal.edu.co>
+Daniel Camilo Osorio <dcosorioh@tamu.edu>
 }

@@ -45,5 +45,5 @@ compartments(reactionList = glycolysis$REACTION, unique = FALSE)
 compartments(reactionList = "H2O[e]")
 }
 \author{
-Daniel Camilo Osorio <dcosorioh@unal.edu.co>
+Daniel Camilo Osorio <dcosorioh@tamu.edu>
 }

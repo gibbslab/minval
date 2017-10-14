@@ -29,5 +29,5 @@ A vector with the identified reactants in the reaction, or a list with the ident
 This function identifies the reactants for a set of stoichometric reactions.
 }
 \author{
-Daniel Camilo Osorio <dcosorioh@unal.edu.co>
+Daniel Camilo Osorio <dcosorioh@tamu.edu>
 }

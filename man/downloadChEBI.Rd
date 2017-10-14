@@ -49,5 +49,5 @@ ChEBI <- downloadChEBI(release = '142', woAssociations = TRUE)
 The ChEBI database webpage: https://www.ebi.ac.uk/chebi/
 }
 \author{
-Daniel Camilo Osorio <dcosorioh@unal.edu.co>
+Daniel Camilo Osorio <dcosorioh@tamu.edu>
 }

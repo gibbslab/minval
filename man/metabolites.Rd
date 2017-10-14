@@ -49,5 +49,5 @@ metabolites(reactionList = glycolysis$REACTION, woCompartment = TRUE)
 metabolites(reactionList = glycolysis$REACTION, uniques = FALSE)
 }
 \author{
-Daniel Camilo Osorio <dcosorioh@unal.edu.co>
+Daniel Camilo Osorio <dcosorioh@tamu.edu>
 }

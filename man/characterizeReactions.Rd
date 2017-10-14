@@ -41,5 +41,5 @@ glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minv
 characterizeReactions(reactionList = glycolysis$REACTION)
 }
 \author{
-Daniel Camilo Osorio <dcosorioh@unal.edu.co>
+Daniel Camilo Osorio <dcosorioh@tamu.edu>
 }

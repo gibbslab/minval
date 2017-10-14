@@ -1,6 +1,12 @@
 NEWS
 ====
 
+#### **minval v.0.8-1**
+
+* An error with the downloadChEBI function when it was used in Windows OS was solved.
+* The citation file was added.
+* Maintainer email was changed.
+
 #### **minval v.0.8**
 
 * validateSyntax function now returns FALSE values instead error return

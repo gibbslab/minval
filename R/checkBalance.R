@@ -1,6 +1,6 @@
 #' @export checkBalance
 #' @importFrom stats formula
-#' @author Daniel Camilo Osorio <dcosorioh@unal.edu.co>
+#' @author Daniel Camilo Osorio <dcosorioh@tamu.edu>
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
 #' @title Evaluate the mass or charge balance for a set of stoichiometric reactions
@@ -143,7 +143,7 @@ checkBalance <-
     }
     rType <- (reactionType(reactionList) == "Exchange reaction")
     if (any(rType)) {
-      message("Exchange reactions identified. It will be returned as TRUE")
+      message("Exchange reactions identified. They will be returned as TRUE")
       balanced[rType] <- TRUE
     }
     return(balanced)
