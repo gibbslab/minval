@@ -197,8 +197,7 @@ validateSyntax <- function(reactionList) {
   # Return
   if (any(valid.syntax == TRUE)) {
     message(
-      "Please check that:\n* Arrows symbols are given in the form '=>' or '<=>'\n* Inverse arrow symbols '<=' or other types such as: '-->', '<==>' or '->' are not present\n* Arrows and plus signs are surrounded by a space character\n* Stoichiometric coefficients are surrounded by spaces and not by parentheses\n* Exchange reactions have only one metabolite before arrow symbol\n* Compartments are given between square brackets (metabolite[compartment]) joined at the end of metabolite name",
-      call. = FALSE
+      "Please check that:\n* Arrows symbols are given in the form '=>' or '<=>'\n* Inverse arrow symbols '<=' or other types such as: '-->', '<==>' or '->' are not present\n* Arrows and plus signs are surrounded by a space character\n* Stoichiometric coefficients are surrounded by spaces and not by parentheses\n* Exchange reactions have only one metabolite before arrow symbol\n* Compartments are given between square brackets (metabolite[compartment]) joined at the end of metabolite name"
     )
   }
   return(sapply(seq_along(reactionList), function(reaction) {
