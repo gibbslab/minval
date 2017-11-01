@@ -63,6 +63,7 @@ writeSBMLmod <-
       # Validate stoichiometric syntax
       modelData <- modelData[validateSyntax(modelData[["REACTION"]]), ]
     } else if (class(modelData) == "modelorg") {
+      modelID <- modelData@mod_name
       modelData <- convertData(model = modelData)
     } else {
       stop("Input format not supported.")
@@ -72,27 +73,19 @@ writeSBMLmod <-
     # Write SBML model
     header <- c(
       '<?xml version=\"1.0\" encoding=\"UTF-8\"?>',
-      '<sbml xmlns=\"http://www.sbml.org/sbml/level2\" level=\"2\" version=\"1\">',
+      '<sbml xmlns=\"http://www.sbml.org/sbml/level2/version4\" xmlns:html="http://www.w3.org/1999/xhtml" level=\"2\" version=\"4\">',
       paste0(
         '\t<model id="',
         modelID,
-        '" name="',
-        modelID,
         '">'
-      ),
-      '\t\t<notes>',
-      '\t\t\t<body xmlns="http://www.w3.org/1999/xhtml">',
-      '\t\t\t<p> Generated with MINVAL: an R package for MINimal VALidation of stoichiometric reactions </p>',
-      '\t\t\t</body>',
-      '\t\t</notes>'
+      )
     )
     comp <- '\t\t<listOfCompartments>'
     comp <-
       c(comp, as.vector(sapply(modelData[["COMPARTMENTS"]], function(compartment) {
-        paste0('\t\t\t<compartment id="',
+        paste0('\t\t\t<compartment id="C_',
                compartment,
-               '" name="',
-               compartment,
+               '" constant="true',
                '"/>')
       })))
     comp <- c(comp, '\t\t</listOfCompartments>')

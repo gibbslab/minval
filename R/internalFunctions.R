@@ -162,19 +162,19 @@ removeComments <- function(modelData) {
 extractData <- function(inputData, boundary = "b") {
   exchange <-
     reactionType(inputData[["REACTION"]]) == "Exchange reaction"
-  if (any(exchange) == TRUE) {
-    inputData[["REACTION"]][exchange] <-
-      as.vector(sapply(metabolites(inputData[["REACTION"]][exchange]), function(metabolite) {
-        paste0(metabolite,
-               " <=> ",
-               paste0(
-                 metabolites(reactionList = metabolite, woCompartment = TRUE),
-                 "[",
-                 boundary,
-                 "]"
-               ))
-      }))
-  }
+  # if (any(exchange) == TRUE) {
+  #   inputData[["REACTION"]][exchange] <-
+  #     as.vector(sapply(metabolites(inputData[["REACTION"]][exchange]), function(metabolite) {
+  #       paste0(metabolite,
+  #              " <=> ",
+  #              paste0(
+  #                metabolites(reactionList = metabolite, woCompartment = TRUE),
+  #                "[",
+  #                boundary,
+  #                "]"
+  #              ))
+  #     }))
+  # }
   data <- list()
   data$COMPARTMENTS <- compartments(inputData[["REACTION"]])
   data$METABOLITES <-
