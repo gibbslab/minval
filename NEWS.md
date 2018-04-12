@@ -5,7 +5,7 @@ NEWS
 
 * An error with the downloadChEBI function when it was used in Windows OS was solved.
 * The citation file was added.
-* Maintainer email was changed.
+* The link with sybilSBML was removed due the package was removed from CRAN
 
 #### **minval v.0.8**
 

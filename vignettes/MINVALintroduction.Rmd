@@ -19,7 +19,7 @@ install.packages("minval")
 **MINVAL** package includes twelve functions designed to characterize, check and depurate metabolic reconstructions before its interrogation through Flux Balance Analysis (FBA). FBA methods are available for the R language in the `"sybil"` (**Sy**stems **Bi**ology **L**ibrary) package. To load required packages just type:
 ```{r, message=FALSE}
 library("minval")
-library("sybilSBML")
+#library("sybilSBML")
 library("sybil")
 library("glpkAPI")
 ```
@@ -79,8 +79,8 @@ writeSBMLmod(modelData = glycolysis,
 ```
 Metabolic models in SBML format can be readed through the `readSBMLmod` function of the `sybilSBML` R package.
 ```{r}
-glycoModel <- sybilSBML::readSBMLmod("glycolysis.xml")
-glycoModel
+# glycoModel <- sybilSBML::readSBMLmod("glycolysis.xml")
+# glycoModel
 ```
 After load the metabolic model, it can be interrogated through FBA using the `optimizeProb` function of the `sybil` R package. In this case, the reaction `R00200` was set as the objective function. The `R00200` reaction describes the production of pyruvate from phosphoenolpyruvate an alpha-D-Glucose derivate.
 
@@ -88,7 +88,7 @@ Glycolysis pathway can be summarized as: `1 alpha-D-Glucose[c] + 2 NAD+[c] + 2 A
 
 As is shown below, interrogated glycolysis model estimates a production of six molecules of pyruvate by each alpha-D-Glucose molecule due a mass unbalance. FBA methods are sensitive to thermodynamic (mass-charge) unbalance, so in order to achieve a valid biological extrapolation is mandatory to avoid this type of unbalancing in all model reactions.
 ```{r}
-sybil::optimizeProb(glycoModel)
+# sybil::optimizeProb(glycoModel)
 ```
 ### Syntax validation
 The first step for a stoichiometric reactions validation is to check their syntax. Valid stoichiometric reactions must have the following mandatory characteristics:
@@ -152,7 +152,7 @@ writeSBMLmod(modelData = glycolysis,
           outputFile = "glycolysisBalanced.xml"
           )
 
-sybil::optimizeProb(sybilSBML::readSBMLmod("glycolysisBalanced.xml"))
+# sybil::optimizeProb(sybilSBML::readSBMLmod("glycolysisBalanced.xml"))
 ```
 
 #### Charge Balance Validation

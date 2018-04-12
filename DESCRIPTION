@@ -4,17 +4,16 @@ Title: MINimal VALidation for Stoichiometric Reactions
 Version: 0.8-1
 URL: https://github.com/gibbslab/minval
 Authors@R:c(
-          person("Daniel","Osorio", email="dcosorioh@tamu.edu", role=c("aut","cre")), 
+          person("Daniel","Osorio", email="dcosorioh@unal.edu.co", role=c("aut","cre")), 
           person("Janneth","Gonzalez", role=c("aut","ths")), 
           person("Andres","Pinzon", role=c("aut","ths"))
           )
-Maintainer: Daniel Osorio <dcosorioh@tamu.edu>
+Maintainer: Daniel Osorio <dcosorioh@unal.edu.co>
 Suggests:
     testthat,
     knitr,
     rmarkdown,
     sybil,
-    sybilSBML,
     glpkAPI
 Description: For a given set of stoichiometric reactions, this package
     evaluates the mass and charge balance, extracts all reactants, products, orphan
