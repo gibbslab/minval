@@ -280,7 +280,7 @@ rearmReactions <-
 convertData <- function(model) {
   data <- NULL
   data$ID <- model@react_id
-  data$DESCRIPTION <- rep(x = "", model@react_num)
+  data$DESCRIPTION <- model@react_name
   S <- as.matrix(model@S)
   rownames(S) <- model@met_id
   data$REACTION <-
