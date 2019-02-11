@@ -1,5 +1,8 @@
 NEWS
 ====
+#### **minval v.0.8-2**
+
+* An error with the downloadChEBI function was solved. The error was caused by the new way used by the database to encode the NA compounds, previously was 'null' and now is NA.
 
 #### **minval v.0.8-1**
 
