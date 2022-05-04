@@ -93,9 +93,9 @@ validateSyntax <- function(reactionList) {
     c(valid.syntax, unlist(lapply(reactionList, function(reaction) {
       if (length(metabolites(reaction)) > 0) {
         left <- metabolites(unlist(getLeft(reaction)))
-        left <- length(left[!(is.null(left) || is.na(left))])
+        left <- length(na.omit(left))
         right <- metabolites(unlist(getRight(reaction)))
-        right <- length(right[!(is.null(right) || is.na(right))])
+        right <- length(na.omit(right))
         return(!(left >= 1 & right > 0 | left == 1 & right == 0))
       } else {
         return(FALSE)
