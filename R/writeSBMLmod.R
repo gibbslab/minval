@@ -1,4 +1,5 @@
 #' @export writeSBMLmod
+#' @importFrom  methods is
 #' @author  Daniel Camilo Osorio <dcosorioh@tamu.edu>
 #  Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 #  Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
@@ -55,14 +56,14 @@ writeSBMLmod <-
            modelID = "model",
            outputFile,
            boundary = "b") {
-    if (class(modelData) == "data.frame") {
+    if (is(modelData, "data.frame")) {
       # Check valid structure, column names and valid ID's
       modelData <- validateData(modelData = modelData)
       # Remove comments
       modelData <- removeComments(modelData = modelData)
       # Validate stoichiometric syntax
       modelData <- modelData[validateSyntax(modelData[["REACTION"]]), ]
-    } else if (class(modelData) == "modelorg") {
+    } else if (is(modelData, "modelorg")) {
       modelData <- convertData(model = modelData)
     } else {
       stop("Input format not supported.")
