@@ -49,7 +49,7 @@ This function identifies the orphan metabolites (metabolites not produced or not
 
 \examples{
 # Loading a set of stoichiometric reactions
-glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep="\\t")
+glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep="\t")
 
 # Identify orphan metabolites
 orphanMetabolites(reactionList = glycolysis$REACTION)
