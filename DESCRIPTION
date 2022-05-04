@@ -9,6 +9,7 @@ Authors@R: c(
           person("Andres","Pinzon", role=c("aut","ths"))
           )
 Maintainer: Daniel Osorio <dcosorioh@unal.edu.co>
+Imports: methods
 Suggests:
     testthat,
     knitr,
