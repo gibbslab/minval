@@ -1,4 +1,5 @@
 #' @export validateSyntax
+#' @importFrom stats na.omit
 #' @author Daniel Camilo Osorio <dcosorioh@tamu.edu>
 # Bioinformatics and Systems Biology Lab      | Universidad Nacional de Colombia
 # Experimental and Computational Biochemistry | Pontificia Universidad Javeriana
