@@ -35,7 +35,7 @@ For a given set of stoichiometric reactions, this function: \itemize{
 }
 \examples{
 # Loading a set of stoichiometric reactions
-glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep='\\t')
+glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep='\t')
 
 # Characterizing the reactions
 characterizeReactions(reactionList = glycolysis$REACTION)
