@@ -3,7 +3,7 @@ Type: Package
 Title: MINimal VALidation for Stoichiometric Reactions
 Version: 0.8-2
 URL: https://github.com/gibbslab/minval
-Authors@R:c(
+Authors@R: c(
           person("Daniel","Osorio", email="dcosorioh@unal.edu.co", role=c("aut","cre")), 
           person("Janneth","Gonzalez", role=c("aut","ths")), 
           person("Andres","Pinzon", role=c("aut","ths"))
@@ -24,5 +24,5 @@ LazyData: TRUE
 NeedsCompilation: no
 Depends:
     R (>= 2.10)
-RoxygenNote: 6.0.1
+RoxygenNote: 7.1.2
 VignetteBuilder: knitr
