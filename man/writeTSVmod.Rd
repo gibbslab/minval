@@ -45,7 +45,7 @@ This function converts a data.frame or a modelOrg model to TSV format for the 's
 }
 \examples{
 #' # Loading a metabolic model
-glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep='\\t')
+glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep='\t')
 
 # Writing a model in TSV format
 writeTSVmod(modelData = glycolysis,modelID = "Glycolysis",outputFile = "glycolysis")
