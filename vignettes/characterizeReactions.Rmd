@@ -1,10 +1,10 @@
 ---
-title: "MINVAL - **MIN**imal **VAL**idation for Stoichiometric Reactions"
+title: "Characterizing Reactions using MINVAL"
 author: "Daniel Osorio, Janneth Gonzalez and Andres Pinzon"
 #date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Characterize Reactions}
+  %\VignetteIndexEntry{Characterizing Reactions using MINVAL}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
