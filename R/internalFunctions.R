@@ -105,7 +105,7 @@ reactionType <- function(reactionList) {
     })
   # Define type of reaction
   sapply(seq_along(reactionList), function(reaction) {
-    if (all(is.na(left[[reaction]])) && all(is.na(right[[reaction]]))) {
+    if ((all(is.na(left[[reaction]])) && all(is.na(right[[reaction]])))) {
       return("No compartmentalized reaction")
     } else if (all(is.na(right[[reaction]]))) {
       return("Exchange reaction")
