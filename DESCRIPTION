@@ -21,7 +21,6 @@ Description: For a given set of stoichiometric reactions, this package
     metabolites, metabolite names and compartments. Also are included some options
     to characterize and write models in TSV and SBML formats.
 License: GPL (>= 2)
-LazyData: TRUE
 NeedsCompilation: no
 Depends:
     R (>= 2.10)

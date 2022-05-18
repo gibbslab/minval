@@ -47,10 +47,11 @@ This function converts a data.frame or a modelOrg model to TSV format for the 's
 #' # Loading a metabolic model
 glycolysis <- read.csv(system.file("extdata/glycolysisModel.csv",package = "minval"), sep='\t')
 
+\dontrun{
 # Writing a model in TSV format
 writeTSVmod(modelData = glycolysis,modelID = "Glycolysis",outputFile = "glycolysis")
 
-\dontrun{
+
 # Writing a modelOrg object in a SBML format
 ## Loading the sybil R package
 library(sybil)
